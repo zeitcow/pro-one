@@ -1,0 +1,189 @@
+# Architecture
+
+Pro-One is intended to be a workflow-first legal AI system rather than a general-purpose legal chatbot.
+
+The system should help self-represented users and small businesses understand legal processes, organize their facts, and complete common legal tasks using structured workflows, retrieval from approved legal sources, and AI-generated explanations that cite their supporting material.
+
+## Design goals
+
+Pro-One should be:
+
+- **Source-grounded:** Answers should be based on retrieved legal material.
+- **Jurisdiction-aware:** The system should identify the relevant jurisdiction before answering.
+- **Workflow-first:** Features should be tied to concrete legal tasks such as responding to a complaint, understanding court steps, or organizing a contract dispute.
+- **Transparent:** Users should see sources, limitations, and confidence signals.
+- **Cautious:** When the system cannot find adequate support, it should say so.
+- **Accessible:** Legal information should be written in clear language.
+- **Free and open:** Core access should remain free, and the software should be open for inspection, contribution, and reuse.
+
+## Planned pipeline
+
+```text
+user question or task
+  -> intake
+  -> jurisdiction detection
+  -> legal topic classification
+  -> source selection
+  -> retrieval
+  -> context building
+  -> answer or workflow generation
+  -> citation display
+  -> confidence and limitation signals
+```
+
+## First MVP direction
+
+The first MVP should focus on one narrow legal workflow rather than broad legal coverage.
+
+A strong first workflow is helping a self-represented civil litigant understand and prepare a basic answer to a civil complaint in one jurisdiction.
+
+This keeps the project focused on a real procedural need while allowing the system to demonstrate intake, jurisdiction awareness, retrieval, citations, plain-language explanations, and refusal behavior.
+
+## Long-term direction
+
+Over time, Pro-One may expand into additional legal workflows for self-represented users and small businesses, including:
+
+- understanding court papers
+- preparing basic responses
+- tracking litigation steps
+- organizing deadlines
+- understanding contract disputes
+- preparing demand letters
+- reviewing common contract terms
+- organizing facts, documents, and correspondence
+
+Each expansion should preserve the same standard: narrow scope, reliable sources, citations, clear limitations, and user control.
+
+## Components
+
+### 1. Intake
+
+The intake layer receives the user's question, document, or task description.
+
+Future intake should capture:
+
+- the user's jurisdiction, if known
+- the legal topic
+- the task the user is trying to complete
+- whether the user is asking for general information, document help, or procedural guidance
+
+### 2. Jurisdiction detection
+
+Legal answers depend heavily on jurisdiction.
+
+The system should avoid answering legal questions until it has enough information to identify the relevant jurisdiction or clearly state that the answer is general and may not apply to the user's location.
+
+### 3. Legal topic classification
+
+The system should classify the user's question into a specific legal topic, such as:
+
+- responding to a civil complaint
+- landlord-tenant
+- small claims
+- employment
+- contracts
+- consumer issues
+- administrative matters
+
+The first MVP should support only one narrow topic and jurisdiction.
+
+### 4. Source selection
+
+The system should use approved sources for the selected topic and jurisdiction.
+
+Possible source types include:
+
+- statutes
+- regulations
+- court rules
+- official forms
+- court self-help materials
+- primary legal authorities
+- carefully selected secondary explainers
+
+Primary and official sources should be preferred where available.
+
+### 5. Retrieval
+
+The retrieval layer should search the approved corpus for passages relevant to the user's question or workflow step.
+
+Future retrieval may combine:
+
+- keyword search
+- vector search
+- metadata filters
+- jurisdiction filters
+- topic filters
+- reranking
+
+The first version should be simple and measurable.
+
+### 6. Context builder
+
+The context builder prepares the retrieved material for answer or workflow generation.
+
+It should preserve:
+
+- source title
+- citation or authority reference
+- jurisdiction
+- document type
+- retrieved passage text
+- source URL, if available
+
+### 7. Answer and workflow generation
+
+The answer generator should respond using the retrieved context.
+
+For workflow tasks, the system should guide the user through steps rather than only answering a question.
+
+It should not invent legal authority. If the retrieved context does not support an answer, the system should say that it could not find enough reliable information.
+
+### 8. Citations
+
+Answers should show the sources used.
+
+Citations should help users understand:
+
+- what authority supports the answer
+- whether the source is primary law, an official source, or secondary material
+- where the user can read more
+
+### 9. Confidence and limitations
+
+The system should communicate when an answer is limited.
+
+Examples:
+
+- the jurisdiction is unclear
+- the retrieved sources are incomplete
+- the answer is based only on secondary material
+- the question is too fact-specific
+- the issue may involve a deadline or court filing
+
+## Non-goals for the first MVP
+
+The first MVP should not attempt to:
+
+- cover every area of law
+- answer questions for every jurisdiction
+- replace a lawyer
+- file court documents automatically
+- provide case-specific legal advice
+- rely on unsupported model output
+- optimize for a polished user interface before the retrieval and grounding pipeline works
+
+## Future evaluation
+
+Pro-One should eventually evaluate:
+
+- retrieval recall
+- citation accuracy
+- groundedness
+- unsupported claims
+- jurisdiction accuracy
+- refusal behavior
+- latency
+- cost
+
+Evaluation should be treated as part of the product, not an afterthought.
