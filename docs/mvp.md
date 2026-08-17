@@ -100,3 +100,8 @@ System behavior:
 - guide the user through admissions, denials, lack of knowledge, and possible defenses at a high level
 - show citations
 - explain limits if facts, jurisdiction, or source support are unclear
+```
+
+## Development principle
+
+The MVP should favor correctness, transparency, and narrow scope over broad coverage.
