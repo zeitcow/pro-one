@@ -1,0 +1,335 @@
+[
+  {
+    "id": "name_change_information",
+    "title": "Name Change Information",
+    "description": "Sample workflow for helping a self-represented individual understand a court name-change process using reviewed source metadata.",
+    "status": "proposed",
+    "user_types": [
+      "self_represented_individual"
+    ],
+    "legal_area": "civil_court_process",
+    "topics": [
+      "name_change",
+      "court_self_help",
+      "filing_process"
+    ],
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Placeholder jurisdiction used for sample structure only."
+    },
+    "scope": {
+      "purpose": "Help a user understand the general steps, source links, and information needed for a name-change process.",
+      "legal_information_only": true,
+      "includes": [
+        "Explain general process steps.",
+        "Identify source-backed filing information.",
+        "Provide a plain-language checklist.",
+        "Flag missing information.",
+        "Explain that current court instructions should be reviewed."
+      ],
+      "excludes": [
+        "Choosing legal strategy for the user.",
+        "Guaranteeing that a court will grant a petition.",
+        "Calculating court deadlines without reviewed deadline rules.",
+        "Filing anything for the user.",
+        "Replacing court staff, legal aid, or lawyer review."
+      ],
+      "assumptions": [
+        "The user is looking for general legal information.",
+        "The matter is not an emergency.",
+        "The user can review current court instructions before filing."
+      ]
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-state-court-name-change-guide"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "This sample uses placeholder source IDs from sample source metadata."
+    },
+    "intake": {
+      "required_inputs": [
+        "user_location",
+        "court_or_jurisdiction",
+        "general_goal"
+      ],
+      "optional_inputs": [
+        "whether_the_user_has_found_the_current_court_form",
+        "whether_the_user_has_a_pending_case",
+        "whether_the_user_needs_fee_waiver_information"
+      ],
+      "excluded_inputs": [
+        "social_security_number",
+        "full_financial_account_numbers",
+        "unnecessary_medical_information",
+        "unnecessary_information_about_minors"
+      ],
+      "collects_sensitive_data": true,
+      "data_minimization_notes": "Ask only what is needed to determine jurisdiction, workflow fit, and safe next steps."
+    },
+    "process": {
+      "process_step_ids": [
+        "example-name-change-review-instructions",
+        "example-name-change-complete-forms",
+        "example-name-change-file-with-court",
+        "example-name-change-attend-hearing"
+      ],
+      "summary_steps": [
+        "Find the current court instructions.",
+        "Review eligibility and filing requirements.",
+        "Complete the required forms.",
+        "File the forms with the correct court.",
+        "Follow court instructions about notice, hearing, and final order."
+      ],
+      "deadline_handling": "source_required",
+      "process_notes": "Deadlines, notice rules, and hearing requirements should not be guessed."
+    },
+    "outputs": {
+      "allowed_outputs": [
+        "information_summary",
+        "step_by_step_guide",
+        "checklist",
+        "form_guidance",
+        "referral_prompt"
+      ],
+      "prohibited_outputs": [
+        "legal_opinion",
+        "guaranteed_outcome",
+        "deadline_calculation",
+        "case_strategy",
+        "final_filing_decision",
+        "emergency_advice",
+        "unsupported_document"
+      ],
+      "document_types": [
+        "court_form",
+        "petition",
+        "fee_waiver_request"
+      ],
+      "output_notes": "The workflow may explain forms and provide a checklist, but should not claim that a draft is ready to file."
+    },
+    "safety": {
+      "risk_level": "medium",
+      "escalation_triggers": [
+        "The user reports an urgent hearing or deadline.",
+        "The user is changing a minor's name.",
+        "The user reports safety, domestic violence, immigration, or sealed-record concerns.",
+        "The user is unsure which court has jurisdiction."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to guarantee the outcome.",
+        "The user asks Pro-One to hide required information from the court.",
+        "The user asks for advice about evading legal requirements."
+      ],
+      "required_warnings": [
+        "This workflow provides legal information, not legal advice.",
+        "Court requirements can change, so the user should review current court instructions.",
+        "The user should seek legal help for urgent, complex, or safety-related issues."
+      ],
+      "safety_notes": "This workflow should remain narrow and process-focused."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_notes": "Sample workflow only. Not approved for production use."
+    },
+    "evaluation": {
+      "required_tests": [
+        "source_grounding",
+        "jurisdiction_clarity",
+        "legal_advice_boundary",
+        "deadline_handling",
+        "sensitive_data_minimization",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The workflow identifies jurisdiction limits.",
+        "The workflow uses only approved or proposed source IDs.",
+        "The workflow avoids legal advice and outcome guarantees.",
+        "The workflow does not calculate deadlines without source-backed deadline rules.",
+        "The workflow flags higher-risk scenarios for human help."
+      ],
+      "known_failure_modes": [
+        "Treating placeholder sources as approved sources.",
+        "Overstating what the workflow can do.",
+        "Guessing deadlines, filing requirements, or court-specific steps.",
+        "Collecting unnecessary sensitive information."
+      ],
+      "evaluation_notes": "Evaluation fixtures should be added before this workflow is supported."
+    },
+    "notes": "This is placeholder sample data for schema design."
+  },
+  {
+    "id": "small_business_license_information",
+    "title": "Small Business License Information",
+    "description": "Sample workflow for helping a small business owner understand general license-information steps using reviewed source metadata.",
+    "status": "proposed",
+    "user_types": [
+      "small_business_owner",
+      "small_business_operator"
+    ],
+    "legal_area": "small_business",
+    "topics": [
+      "business_license",
+      "local_agency_process",
+      "small_business_information"
+    ],
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": "Example City",
+      "court": null,
+      "agency": "Example City Business Office",
+      "jurisdiction_notes": "Placeholder locality and agency used for sample structure only."
+    },
+    "scope": {
+      "purpose": "Help a user understand general business-license information, source links, required questions, and agency process steps.",
+      "legal_information_only": true,
+      "includes": [
+        "Explain general licensing steps.",
+        "Identify source-backed agency information.",
+        "Provide a plain-language checklist.",
+        "Flag missing information.",
+        "Explain that current agency instructions should be reviewed."
+      ],
+      "excludes": [
+        "Providing a legal opinion about compliance.",
+        "Providing tax advice.",
+        "Determining all licenses a business legally needs.",
+        "Guaranteeing approval by an agency.",
+        "Replacing accountant, lawyer, or agency review."
+      ],
+      "assumptions": [
+        "The user is looking for general legal information.",
+        "The user has not asked for a legal compliance opinion.",
+        "The user can review current agency instructions before applying."
+      ]
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-city-small-business-license-guide"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "This sample uses placeholder source IDs from sample source metadata."
+    },
+    "intake": {
+      "required_inputs": [
+        "business_location",
+        "general_business_activity",
+        "agency_or_locality"
+      ],
+      "optional_inputs": [
+        "whether_the_business_is_already_operating",
+        "whether_the_user_has_found_the_current_agency_page",
+        "whether_the_user_needs_a_document_checklist"
+      ],
+      "excluded_inputs": [
+        "employer_identification_number",
+        "full_financial_account_numbers",
+        "personal_tax_identification_numbers",
+        "unnecessary_owner_personal_information"
+      ],
+      "collects_sensitive_data": true,
+      "data_minimization_notes": "Ask only what is needed to identify the general locality, agency, and workflow fit."
+    },
+    "process": {
+      "process_step_ids": [
+        "example-business-license-review-agency-page",
+        "example-business-license-identify-application",
+        "example-business-license-prepare-information",
+        "example-business-license-submit-application"
+      ],
+      "summary_steps": [
+        "Find the current agency instructions.",
+        "Identify the relevant license or application category.",
+        "Review required information and fees.",
+        "Prepare the application materials.",
+        "Submit through the agency's stated process."
+      ],
+      "deadline_handling": "source_required",
+      "process_notes": "Filing windows, fees, renewals, and agency requirements should be source-backed and reviewed."
+    },
+    "outputs": {
+      "allowed_outputs": [
+        "information_summary",
+        "step_by_step_guide",
+        "checklist",
+        "document_outline",
+        "referral_prompt"
+      ],
+      "prohibited_outputs": [
+        "legal_opinion",
+        "guaranteed_outcome",
+        "deadline_calculation",
+        "case_strategy",
+        "final_filing_decision",
+        "emergency_advice",
+        "unsupported_document"
+      ],
+      "document_types": [
+        "license_application_checklist",
+        "agency_information_summary",
+        "business_document_outline"
+      ],
+      "output_notes": "The workflow may help organize information, but should not decide legal compliance for the user."
+    },
+    "safety": {
+      "risk_level": "medium",
+      "escalation_triggers": [
+        "The user asks whether the business is fully legally compliant.",
+        "The user has received an enforcement notice.",
+        "The user asks for tax advice.",
+        "The user describes regulated activity requiring specialized review."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to guarantee agency approval.",
+        "The user asks Pro-One to hide information from an agency.",
+        "The user asks for advice about evading licensing or tax requirements."
+      ],
+      "required_warnings": [
+        "This workflow provides legal information, not legal advice.",
+        "Agency requirements can change, so the user should review current agency instructions.",
+        "The user should seek professional help for tax, regulated-industry, enforcement, or compliance questions."
+      ],
+      "safety_notes": "This workflow should remain informational and should not provide a compliance opinion."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_notes": "Sample workflow only. Not approved for production use."
+    },
+    "evaluation": {
+      "required_tests": [
+        "source_grounding",
+        "jurisdiction_clarity",
+        "legal_advice_boundary",
+        "tax_advice_boundary",
+        "sensitive_data_minimization",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The workflow identifies locality and agency limits.",
+        "The workflow uses only approved or proposed source IDs.",
+        "The workflow avoids legal and tax advice.",
+        "The workflow does not guarantee agency approval.",
+        "The workflow flags compliance and enforcement questions for human help."
+      ],
+      "known_failure_modes": [
+        "Treating placeholder sources as approved sources.",
+        "Overstating what the workflow can do.",
+        "Guessing agency requirements, fees, or renewal deadlines.",
+        "Collecting unnecessary sensitive business or owner information."
+      ],
+      "evaluation_notes": "Evaluation fixtures should be added before this workflow is supported."
+    },
+    "notes": "This is placeholder sample data for schema design."
+  }
+]
