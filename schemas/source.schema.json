@@ -1,0 +1,377 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/zeitcow/pro-one/schemas/source.schema.json",
+  "title": "Pro-One Source Metadata",
+  "description": "Metadata schema for legal and legal-information sources used by Pro-One.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "source_type",
+    "url",
+    "jurisdiction",
+    "authority",
+    "dates",
+    "access",
+    "rights",
+    "review",
+    "workflow_fit",
+    "citation"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable source identifier used by Pro-One.",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable source title."
+    },
+    "description": {
+      "type": "string",
+      "description": "Short explanation of what the source contains."
+    },
+    "source_type": {
+      "type": "string",
+      "description": "General category of source.",
+      "enum": [
+        "statute",
+        "court_rule",
+        "court_form",
+        "court_instruction",
+        "agency_rule",
+        "agency_guidance",
+        "official_self_help",
+        "legal_aid_resource",
+        "secondary_resource",
+        "court_opinion",
+        "other"
+      ]
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Canonical public URL for the source."
+    },
+    "jurisdiction": {
+      "type": "object",
+      "description": "Jurisdiction or institution the source applies to.",
+      "additionalProperties": false,
+      "required": [
+        "country"
+      ],
+      "properties": {
+        "country": {
+          "type": "string",
+          "description": "Country code or country name."
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "State, province, or equivalent jurisdiction."
+        },
+        "locality": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "County, city, district, or local jurisdiction if relevant."
+        },
+        "court": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Court name if the source is court-specific."
+        },
+        "agency": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Agency name if the source is agency-specific."
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "description": "Authority level and issuing body for the source.",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "issuing_body"
+      ],
+      "properties": {
+        "level": {
+          "type": "string",
+          "description": "How authoritative the source is for the relevant workflow.",
+          "enum": [
+            "official_primary",
+            "official_secondary",
+            "public_legal_aid",
+            "recognized_secondary",
+            "community_reference",
+            "unknown"
+          ]
+        },
+        "issuing_body": {
+          "type": "string",
+          "description": "Entity that published or maintains the source."
+        },
+        "is_source_of_truth": {
+          "type": "boolean",
+          "description": "Whether this source should be treated as the controlling source for its workflow."
+        },
+        "authority_notes": {
+          "type": "string",
+          "description": "Notes about authority, limitations, or relationship to other sources."
+        }
+      }
+    },
+    "dates": {
+      "type": "object",
+      "description": "Dates used to judge freshness and review status.",
+      "additionalProperties": false,
+      "required": [
+        "last_checked"
+      ],
+      "properties": {
+        "published": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "Date the source was published, if known."
+        },
+        "effective": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "Effective date, if relevant and known."
+        },
+        "last_updated": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "Date the source was last updated by the publisher, if known."
+        },
+        "last_checked": {
+          "type": "string",
+          "format": "date",
+          "description": "Date Pro-One last checked the source."
+        }
+      }
+    },
+    "access": {
+      "type": "object",
+      "description": "How the source can be accessed.",
+      "additionalProperties": false,
+      "required": [
+        "is_free",
+        "requires_login",
+        "format"
+      ],
+      "properties": {
+        "is_free": {
+          "type": "boolean",
+          "description": "Whether the source can be accessed without payment."
+        },
+        "requires_login": {
+          "type": "boolean",
+          "description": "Whether the source requires an account or login."
+        },
+        "format": {
+          "type": "string",
+          "description": "Primary source format.",
+          "enum": [
+            "html",
+            "pdf",
+            "docx",
+            "json",
+            "xml",
+            "text",
+            "other"
+          ]
+        },
+        "access_notes": {
+          "type": "string",
+          "description": "Notes about access, downloads, or availability."
+        }
+      }
+    },
+    "rights": {
+      "type": "object",
+      "description": "Reuse and licensing information.",
+      "additionalProperties": false,
+      "required": [
+        "reuse_status"
+      ],
+      "properties": {
+        "reuse_status": {
+          "type": "string",
+          "description": "Whether Pro-One can reuse, quote, summarize, or link to the source.",
+          "enum": [
+            "public_domain",
+            "open_license",
+            "link_only",
+            "permission_required",
+            "unknown"
+          ]
+        },
+        "license": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "License name if known."
+        },
+        "terms_url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri",
+          "description": "Terms, license, or use-policy URL if available."
+        },
+        "rights_notes": {
+          "type": "string",
+          "description": "Notes about reuse limits or uncertainty."
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "description": "Review status within Pro-One.",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reviewed_by",
+        "reviewed_on"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "needs_review",
+            "reviewed",
+            "approved",
+            "deprecated",
+            "rejected"
+          ]
+        },
+        "reviewed_by": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Reviewer name, handle, or role."
+        },
+        "reviewed_on": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "Date of review."
+        },
+        "review_notes": {
+          "type": "string",
+          "description": "Notes from source review."
+        }
+      }
+    },
+    "workflow_fit": {
+      "type": "object",
+      "description": "How this source may be used in Pro-One workflows.",
+      "additionalProperties": false,
+      "required": [
+        "topics",
+        "supported_workflows",
+        "risk_level"
+      ],
+      "properties": {
+        "topics": {
+          "type": "array",
+          "description": "Legal topics the source relates to.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "supported_workflows": {
+          "type": "array",
+          "description": "Workflow identifiers this source may support.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "risk_level": {
+          "type": "string",
+          "description": "Risk level if this source is used incorrectly.",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "description": "Known limits on use.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "not_for": {
+          "type": "array",
+          "description": "Workflows or uses this source should not support.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "citation": {
+      "type": "object",
+      "description": "Citation and retrieval metadata.",
+      "additionalProperties": false,
+      "required": [
+        "preferred_citation",
+        "retrieved_at"
+      ],
+      "properties": {
+        "preferred_citation": {
+          "type": "string",
+          "description": "Preferred citation or source label."
+        },
+        "retrieved_at": {
+          "type": "string",
+          "format": "date",
+          "description": "Date the source was retrieved or checked."
+        },
+        "archive_url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri",
+          "description": "Archived copy URL if available."
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes."
+    }
+  }
+}
