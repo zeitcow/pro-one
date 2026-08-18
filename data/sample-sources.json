@@ -1,0 +1,142 @@
+[
+  {
+    "id": "example-state-court-name-change-guide",
+    "title": "Example State Court Name Change Guide",
+    "description": "Sample metadata record for an official court self-help guide related to adult name change.",
+    "source_type": "official_self_help",
+    "url": "https://example.org/courts/self-help/name-change",
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null
+    },
+    "authority": {
+      "level": "official_secondary",
+      "issuing_body": "Example State Courts",
+      "is_source_of_truth": true,
+      "authority_notes": "Sample official self-help source. This is placeholder data and should not be treated as an approved real source."
+    },
+    "dates": {
+      "published": null,
+      "effective": null,
+      "last_updated": null,
+      "last_checked": "2026-08-18"
+    },
+    "access": {
+      "is_free": true,
+      "requires_login": false,
+      "format": "html",
+      "access_notes": "Sample source record using an example URL."
+    },
+    "rights": {
+      "reuse_status": "unknown",
+      "license": null,
+      "terms_url": null,
+      "rights_notes": "Reuse status unknown because this is placeholder sample data."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_notes": "Sample only. Not approved for production use."
+    },
+    "workflow_fit": {
+      "topics": [
+        "name_change",
+        "court_self_help"
+      ],
+      "supported_workflows": [
+        "name_change_information"
+      ],
+      "risk_level": "medium",
+      "limitations": [
+        "Does not provide legal advice.",
+        "Does not calculate filing deadlines.",
+        "Does not replace review of current court instructions."
+      ],
+      "not_for": [
+        "deadline_calculation",
+        "case_strategy",
+        "emergency_legal_help"
+      ]
+    },
+    "citation": {
+      "preferred_citation": "Example State Courts, Name Change Guide",
+      "retrieved_at": "2026-08-18",
+      "archive_url": null
+    },
+    "notes": "This sample demonstrates how Pro-One can describe an official self-help source before it is approved."
+  },
+  {
+    "id": "example-city-small-business-license-guide",
+    "title": "Example City Small Business License Guide",
+    "description": "Sample metadata record for an agency guidance page related to small business licensing.",
+    "source_type": "agency_guidance",
+    "url": "https://example.org/business/licenses",
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": "Example City",
+      "court": null,
+      "agency": "Example City Business Office"
+    },
+    "authority": {
+      "level": "official_secondary",
+      "issuing_body": "Example City Business Office",
+      "is_source_of_truth": true,
+      "authority_notes": "Sample agency guidance source. This is placeholder data and should not be treated as an approved real source."
+    },
+    "dates": {
+      "published": null,
+      "effective": null,
+      "last_updated": null,
+      "last_checked": "2026-08-18"
+    },
+    "access": {
+      "is_free": true,
+      "requires_login": false,
+      "format": "html",
+      "access_notes": "Sample source record using an example URL."
+    },
+    "rights": {
+      "reuse_status": "unknown",
+      "license": null,
+      "terms_url": null,
+      "rights_notes": "Reuse status unknown because this is placeholder sample data."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_notes": "Sample only. Not approved for production use."
+    },
+    "workflow_fit": {
+      "topics": [
+        "small_business",
+        "business_license"
+      ],
+      "supported_workflows": [
+        "small_business_license_information"
+      ],
+      "risk_level": "medium",
+      "limitations": [
+        "Does not provide tax advice.",
+        "Does not determine whether a business is legally compliant.",
+        "Does not replace review of current city or agency instructions."
+      ],
+      "not_for": [
+        "tax_advice",
+        "regulatory_compliance_opinion",
+        "case_strategy"
+      ]
+    },
+    "citation": {
+      "preferred_citation": "Example City Business Office, Small Business License Guide",
+      "retrieved_at": "2026-08-18",
+      "archive_url": null
+    },
+    "notes": "This sample demonstrates how Pro-One can describe a local small-business source before it is approved."
+  }
+]
