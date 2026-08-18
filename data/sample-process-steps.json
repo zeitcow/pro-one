@@ -1,0 +1,581 @@
+[
+  {
+    "id": "example-name-change-review-instructions",
+    "title": "Review Current Court Instructions",
+    "description": "Sample process step for reviewing current court instructions before starting a name-change workflow.",
+    "status": "proposed",
+    "workflow_ids": [
+      "name_change_information"
+    ],
+    "step_type": "review_instructions",
+    "sequence": {
+      "position": 1,
+      "is_required": true,
+      "depends_on": [],
+      "next_step_ids": [
+        "example-name-change-complete-forms"
+      ],
+      "sequence_notes": "This should usually happen before completing any court forms."
+    },
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Placeholder jurisdiction used for sample structure only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-state-court-name-change-guide"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "This sample uses a placeholder source ID from sample source metadata."
+    },
+    "actor": {
+      "primary_actor": "user",
+      "additional_actors": [
+        "court"
+      ],
+      "actor_notes": "The user reviews court instructions; the court publishes or maintains the instructions."
+    },
+    "inputs": {
+      "required_inputs": [
+        "user_location",
+        "court_or_jurisdiction",
+        "general_goal"
+      ],
+      "optional_inputs": [
+        "whether_the_user_has_found_the_current_court_page"
+      ],
+      "excluded_inputs": [
+        "social_security_number",
+        "full_financial_account_numbers",
+        "unnecessary_medical_information"
+      ],
+      "collects_sensitive_data": false,
+      "data_minimization_notes": "Ask only what is needed to identify the correct court or jurisdiction."
+    },
+    "actions": {
+      "allowed_actions": [
+        "Explain why current court instructions matter.",
+        "Direct the user to source-backed court information.",
+        "Summarize general instruction categories in plain language.",
+        "Flag that requirements can change."
+      ],
+      "prohibited_actions": [
+        "Tell the user that the instructions guarantee eligibility.",
+        "Replace current court instructions with unsupported summaries.",
+        "Choose legal strategy for the user."
+      ],
+      "action_notes": "This step should remain informational and source-grounded."
+    },
+    "documents": {
+      "related_document_types": [
+        "court_instruction",
+        "court_form",
+        "petition"
+      ],
+      "document_help_allowed": [
+        "explanation",
+        "checklist"
+      ],
+      "document_help_notes": "This step may explain documents generally but should not generate a filing-ready petition."
+    },
+    "deadline": {
+      "deadline_relevant": false,
+      "deadline_handling": "no_deadline",
+      "deadline_source_ids": [],
+      "deadline_notes": "This review step does not calculate or provide deadlines."
+    },
+    "safety": {
+      "risk_level": "medium",
+      "escalation_triggers": [
+        "The user reports an urgent hearing or deadline.",
+        "The user reports safety, domestic violence, immigration, or sealed-record concerns.",
+        "The user is unsure which court has jurisdiction."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to guarantee eligibility.",
+        "The user asks Pro-One to avoid required court instructions.",
+        "The user asks for advice about evading legal requirements."
+      ],
+      "required_warnings": [
+        "This step provides legal information, not legal advice.",
+        "Court instructions can change, so the user should review current court materials.",
+        "The user should seek legal help for urgent, complex, or safety-related issues."
+      ],
+      "safety_notes": "This step should direct users back to reviewed source material."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_notes": "Sample process step only. Not approved for production use."
+    },
+    "evaluation": {
+      "required_tests": [
+        "source_grounding",
+        "jurisdiction_clarity",
+        "legal_advice_boundary",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The step identifies jurisdiction limits.",
+        "The step points to required source IDs.",
+        "The step avoids legal advice and outcome guarantees.",
+        "The step flags higher-risk issues for human help."
+      ],
+      "known_failure_modes": [
+        "Treating placeholder sources as approved sources.",
+        "Overstating what the step can do.",
+        "Summarizing court instructions without source support."
+      ],
+      "evaluation_notes": "Evaluation fixtures should be added before this step is supported."
+    },
+    "notes": "This is placeholder sample data for schema design."
+  },
+  {
+    "id": "example-name-change-complete-forms",
+    "title": "Complete Required Name-Change Forms",
+    "description": "Sample process step for explaining the general role of required name-change forms.",
+    "status": "proposed",
+    "workflow_ids": [
+      "name_change_information"
+    ],
+    "step_type": "complete_form",
+    "sequence": {
+      "position": 2,
+      "is_required": true,
+      "depends_on": [
+        "example-name-change-review-instructions"
+      ],
+      "next_step_ids": [
+        "example-name-change-file-with-court"
+      ],
+      "sequence_notes": "This step should follow review of current court instructions."
+    },
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Placeholder jurisdiction used for sample structure only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-state-court-name-change-guide"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "This sample uses a placeholder source ID from sample source metadata."
+    },
+    "actor": {
+      "primary_actor": "user",
+      "additional_actors": [
+        "court"
+      ],
+      "actor_notes": "The user completes forms; the court provides instructions and may provide forms."
+    },
+    "inputs": {
+      "required_inputs": [
+        "court_or_jurisdiction",
+        "form_name_or_form_category",
+        "general_goal"
+      ],
+      "optional_inputs": [
+        "whether_the_user_needs_fee_waiver_information",
+        "whether_the_user_has_a_pending_case"
+      ],
+      "excluded_inputs": [
+        "social_security_number",
+        "full_financial_account_numbers",
+        "unnecessary_medical_information",
+        "unnecessary_information_about_minors"
+      ],
+      "collects_sensitive_data": true,
+      "data_minimization_notes": "Ask only what is needed to explain the form category and whether human help may be needed."
+    },
+    "actions": {
+      "allowed_actions": [
+        "Explain what a court form is used for.",
+        "Provide a checklist of information the user may need to review.",
+        "Flag missing information.",
+        "Remind the user to review current court instructions before filing."
+      ],
+      "prohibited_actions": [
+        "Guarantee that a completed form is legally sufficient.",
+        "Invent facts for the user.",
+        "Choose legal strategy for the user.",
+        "Tell the user to file without review when issues are complex or unclear."
+      ],
+      "action_notes": "Document help should be limited until legal-document schemas and evaluation fixtures are added."
+    },
+    "documents": {
+      "related_document_types": [
+        "court_form",
+        "petition",
+        "fee_waiver_request"
+      ],
+      "document_help_allowed": [
+        "explanation",
+        "checklist",
+        "review_prompt"
+      ],
+      "document_help_notes": "This step may explain form-related information but should not claim a draft is ready to file."
+    },
+    "deadline": {
+      "deadline_relevant": true,
+      "deadline_handling": "source_required",
+      "deadline_source_ids": [
+        "example-state-court-name-change-guide"
+      ],
+      "deadline_notes": "Any filing timing, notice timing, or hearing timing must be source-backed and reviewed."
+    },
+    "safety": {
+      "risk_level": "medium",
+      "escalation_triggers": [
+        "The user is completing forms for a minor.",
+        "The user reports safety, domestic violence, immigration, or sealed-record concerns.",
+        "The user is unsure whether the form applies to their court."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to invent facts.",
+        "The user asks Pro-One to hide required information from the court.",
+        "The user asks for advice about evading legal requirements."
+      ],
+      "required_warnings": [
+        "This step provides legal information, not legal advice.",
+        "The user should review current court instructions before filing.",
+        "The user should seek legal help for urgent, complex, or safety-related issues."
+      ],
+      "safety_notes": "This step should not present document help as a legal sufficiency review."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_notes": "Sample process step only. Not approved for production use."
+    },
+    "evaluation": {
+      "required_tests": [
+        "document_boundary",
+        "source_grounding",
+        "deadline_handling",
+        "sensitive_data_minimization",
+        "legal_advice_boundary"
+      ],
+      "success_criteria": [
+        "The step does not invent facts.",
+        "The step avoids legal sufficiency claims.",
+        "The step does not calculate deadlines without reviewed sources.",
+        "The step limits sensitive-data collection."
+      ],
+      "known_failure_modes": [
+        "Generating a filing-ready document too early.",
+        "Collecting unnecessary sensitive information.",
+        "Guessing court-specific form requirements."
+      ],
+      "evaluation_notes": "Legal-document schema and evaluation fixtures should be added before broader document generation."
+    },
+    "notes": "This is placeholder sample data for schema design."
+  },
+  {
+    "id": "example-name-change-file-with-court",
+    "title": "File Documents With the Court",
+    "description": "Sample process step for explaining a court filing step in a name-change workflow.",
+    "status": "proposed",
+    "workflow_ids": [
+      "name_change_information"
+    ],
+    "step_type": "file_document",
+    "sequence": {
+      "position": 3,
+      "is_required": true,
+      "depends_on": [
+        "example-name-change-complete-forms"
+      ],
+      "next_step_ids": [
+        "example-name-change-attend-hearing"
+      ],
+      "sequence_notes": "Filing requirements may vary by court and must be source-backed."
+    },
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Placeholder jurisdiction used for sample structure only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-state-court-name-change-guide"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "This sample uses a placeholder source ID from sample source metadata."
+    },
+    "actor": {
+      "primary_actor": "user",
+      "additional_actors": [
+        "court"
+      ],
+      "actor_notes": "The user files materials; the court receives, reviews, or processes them."
+    },
+    "inputs": {
+      "required_inputs": [
+        "court_or_jurisdiction",
+        "filing_method",
+        "document_category"
+      ],
+      "optional_inputs": [
+        "whether_the_user_needs_fee_waiver_information",
+        "whether_the_court_has_e_filing"
+      ],
+      "excluded_inputs": [
+        "full_financial_account_numbers",
+        "unnecessary_personal_identifiers",
+        "unnecessary_medical_information"
+      ],
+      "collects_sensitive_data": true,
+      "data_minimization_notes": "Ask only what is needed to explain filing options and source-backed next steps."
+    },
+    "actions": {
+      "allowed_actions": [
+        "Explain general filing concepts.",
+        "Explain that filing methods may vary by court.",
+        "Provide a source-backed checklist.",
+        "Flag fee waiver or clerk-office questions for review."
+      ],
+      "prohibited_actions": [
+        "File documents for the user.",
+        "Guarantee acceptance by the court.",
+        "Make the final filing decision for the user.",
+        "Calculate filing deadlines without reviewed deadline sources."
+      ],
+      "action_notes": "This step should not replace court filing instructions or clerk-office guidance."
+    },
+    "documents": {
+      "related_document_types": [
+        "petition",
+        "court_form",
+        "fee_waiver_request",
+        "supporting_document"
+      ],
+      "document_help_allowed": [
+        "explanation",
+        "checklist",
+        "review_prompt"
+      ],
+      "document_help_notes": "This step may help users understand filing packets but should not certify filing readiness."
+    },
+    "deadline": {
+      "deadline_relevant": true,
+      "deadline_handling": "source_required",
+      "deadline_source_ids": [
+        "example-state-court-name-change-guide"
+      ],
+      "deadline_notes": "Any filing timing must be source-backed and reviewed."
+    },
+    "safety": {
+      "risk_level": "medium",
+      "escalation_triggers": [
+        "The user reports an urgent deadline.",
+        "The user is unsure which court receives the filing.",
+        "The user has a complex or sealed-record issue.",
+        "The filing involves a minor."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to file documents for them.",
+        "The user asks Pro-One to guarantee court acceptance.",
+        "The user asks Pro-One to hide required information."
+      ],
+      "required_warnings": [
+        "This step provides legal information, not legal advice.",
+        "Court filing requirements can change.",
+        "The user should review current court instructions before filing."
+      ],
+      "safety_notes": "This step is filing-process information only."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_notes": "Sample process step only. Not approved for production use."
+    },
+    "evaluation": {
+      "required_tests": [
+        "source_grounding",
+        "filing_boundary",
+        "deadline_handling",
+        "legal_advice_boundary",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The step does not claim to file for the user.",
+        "The step avoids guaranteed acceptance claims.",
+        "The step does not calculate deadlines without reviewed sources.",
+        "The step directs uncertainty to court or human help."
+      ],
+      "known_failure_modes": [
+        "Treating general filing information as court-specific.",
+        "Guessing filing methods or fee requirements.",
+        "Making a final filing decision for the user."
+      ],
+      "evaluation_notes": "Evaluation fixtures should be added before this step is supported."
+    },
+    "notes": "This is placeholder sample data for schema design."
+  },
+  {
+    "id": "example-business-license-submit-application",
+    "title": "Submit Business License Application",
+    "description": "Sample process step for explaining an agency submission step in a small-business licensing workflow.",
+    "status": "proposed",
+    "workflow_ids": [
+      "small_business_license_information"
+    ],
+    "step_type": "agency_submission",
+    "sequence": {
+      "position": 4,
+      "is_required": true,
+      "depends_on": [
+        "example-business-license-prepare-information"
+      ],
+      "next_step_ids": [],
+      "sequence_notes": "Submission requirements may vary by agency, location, and business activity."
+    },
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": "Example City",
+      "court": null,
+      "agency": "Example City Business Office",
+      "jurisdiction_notes": "Placeholder locality and agency used for sample structure only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-city-small-business-license-guide"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "This sample uses a placeholder source ID from sample source metadata."
+    },
+    "actor": {
+      "primary_actor": "user",
+      "additional_actors": [
+        "agency"
+      ],
+      "actor_notes": "The business owner or operator submits materials; the agency receives or processes the application."
+    },
+    "inputs": {
+      "required_inputs": [
+        "business_location",
+        "general_business_activity",
+        "agency_or_locality",
+        "application_category"
+      ],
+      "optional_inputs": [
+        "whether_the_business_is_already_operating",
+        "whether_the_user_has_found_the_current_agency_page"
+      ],
+      "excluded_inputs": [
+        "employer_identification_number",
+        "full_financial_account_numbers",
+        "personal_tax_identification_numbers",
+        "unnecessary_owner_personal_information"
+      ],
+      "collects_sensitive_data": true,
+      "data_minimization_notes": "Ask only what is needed to identify the general agency process and safe next steps."
+    },
+    "actions": {
+      "allowed_actions": [
+        "Explain general agency submission concepts.",
+        "Provide a source-backed checklist.",
+        "Explain that agency requirements may change.",
+        "Flag tax, enforcement, or regulated-industry questions for human help."
+      ],
+      "prohibited_actions": [
+        "Submit an application for the user.",
+        "Guarantee agency approval.",
+        "Provide a legal compliance opinion.",
+        "Provide tax advice."
+      ],
+      "action_notes": "This step should remain informational and should not determine full business compliance."
+    },
+    "documents": {
+      "related_document_types": [
+        "license_application_checklist",
+        "agency_information_summary",
+        "business_document_outline"
+      ],
+      "document_help_allowed": [
+        "explanation",
+        "checklist",
+        "outline",
+        "review_prompt"
+      ],
+      "document_help_notes": "This step may help organize application materials but should not decide legal compliance."
+    },
+    "deadline": {
+      "deadline_relevant": true,
+      "deadline_handling": "source_required",
+      "deadline_source_ids": [
+        "example-city-small-business-license-guide"
+      ],
+      "deadline_notes": "Submission windows, renewals, fees, and agency deadlines must be source-backed and reviewed."
+    },
+    "safety": {
+      "risk_level": "medium",
+      "escalation_triggers": [
+        "The user asks whether the business is fully legally compliant.",
+        "The user has received an enforcement notice.",
+        "The user asks for tax advice.",
+        "The user describes regulated activity requiring specialized review."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to guarantee agency approval.",
+        "The user asks Pro-One to hide information from an agency.",
+        "The user asks for advice about evading licensing or tax requirements."
+      ],
+      "required_warnings": [
+        "This step provides legal information, not legal advice.",
+        "Agency requirements can change, so the user should review current agency instructions.",
+        "The user should seek professional help for tax, regulated-industry, enforcement, or compliance questions."
+      ],
+      "safety_notes": "This step should not provide a compliance opinion."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_notes": "Sample process step only. Not approved for production use."
+    },
+    "evaluation": {
+      "required_tests": [
+        "source_grounding",
+        "agency_process_boundary",
+        "tax_advice_boundary",
+        "deadline_handling",
+        "sensitive_data_minimization",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The step avoids legal and tax advice.",
+        "The step does not guarantee agency approval.",
+        "The step does not guess agency requirements.",
+        "The step flags enforcement or regulated activity for human help."
+      ],
+      "known_failure_modes": [
+        "Treating placeholder sources as approved sources.",
+        "Guessing agency fees, deadlines, or submission requirements.",
+        "Collecting unnecessary sensitive business or owner information.",
+        "Providing a compliance opinion."
+      ],
+      "evaluation_notes": "Evaluation fixtures should be added before this step is supported."
+    },
+    "notes": "This is placeholder sample data for schema design."
+  }
+]
