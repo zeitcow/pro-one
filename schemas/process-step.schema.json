@@ -1,0 +1,526 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/zeitcow/pro-one/schemas/process-step.schema.json",
+  "title": "Pro-One Process Step",
+  "description": "Schema for defining individual legal, court, agency, filing, service, hearing, deadline, and follow-up steps within Pro-One workflows.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "description",
+    "status",
+    "workflow_ids",
+    "step_type",
+    "sequence",
+    "jurisdiction",
+    "sources",
+    "actor",
+    "inputs",
+    "actions",
+    "documents",
+    "deadline",
+    "safety",
+    "review",
+    "evaluation"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable process-step identifier used by Pro-One.",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable process-step title."
+    },
+    "description": {
+      "type": "string",
+      "description": "Plain-language explanation of the process step."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current process-step maturity status.",
+      "enum": [
+        "proposed",
+        "researched",
+        "designed",
+        "tested",
+        "supported",
+        "deprecated",
+        "rejected"
+      ]
+    },
+    "workflow_ids": {
+      "type": "array",
+      "description": "Workflow identifiers this process step may support.",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "step_type": {
+      "type": "string",
+      "description": "General type of process step.",
+      "enum": [
+        "review_instructions",
+        "check_eligibility",
+        "gather_information",
+        "complete_form",
+        "draft_document",
+        "file_document",
+        "pay_fee",
+        "request_fee_waiver",
+        "serve_document",
+        "provide_notice",
+        "wait_for_response",
+        "prepare_for_hearing",
+        "attend_hearing",
+        "receive_order",
+        "follow_up",
+        "agency_submission",
+        "renewal",
+        "appeal_or_review",
+        "other"
+      ]
+    },
+    "sequence": {
+      "type": "object",
+      "description": "Where this step appears within a workflow.",
+      "additionalProperties": false,
+      "required": [
+        "position",
+        "is_required",
+        "depends_on"
+      ],
+      "properties": {
+        "position": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Approximate order of this step in the workflow."
+        },
+        "is_required": {
+          "type": "boolean",
+          "description": "Whether the step is generally required for the workflow."
+        },
+        "depends_on": {
+          "type": "array",
+          "description": "Step IDs that usually must occur before this step.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "next_step_ids": {
+          "type": "array",
+          "description": "Step IDs that may usually follow this step.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "sequence_notes": {
+          "type": "string",
+          "description": "Notes about order, exceptions, or uncertainty."
+        }
+      }
+    },
+    "jurisdiction": {
+      "type": "object",
+      "description": "Jurisdiction or institution this process step applies to.",
+      "additionalProperties": false,
+      "required": [
+        "country"
+      ],
+      "properties": {
+        "country": {
+          "type": "string",
+          "description": "Country code or country name."
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "State, province, or equivalent jurisdiction."
+        },
+        "locality": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "County, city, district, or local jurisdiction if relevant."
+        },
+        "court": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Court name if the step is court-specific."
+        },
+        "agency": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Agency name if the step is agency-specific."
+        },
+        "jurisdiction_notes": {
+          "type": "string",
+          "description": "Notes about jurisdiction limits or uncertainty."
+        }
+      }
+    },
+    "sources": {
+      "type": "object",
+      "description": "Source support for this process step.",
+      "additionalProperties": false,
+      "required": [
+        "required_source_ids",
+        "source_review_required"
+      ],
+      "properties": {
+        "required_source_ids": {
+          "type": "array",
+          "description": "Source IDs required to support this process step.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "optional_source_ids": {
+          "type": "array",
+          "description": "Additional source IDs that may support this process step.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "source_review_required": {
+          "type": "boolean",
+          "description": "Whether source review is required before this step can be supported."
+        },
+        "source_notes": {
+          "type": "string",
+          "description": "Notes about source coverage, gaps, or limits."
+        }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "description": "Who usually performs or controls this step.",
+      "additionalProperties": false,
+      "required": [
+        "primary_actor"
+      ],
+      "properties": {
+        "primary_actor": {
+          "type": "string",
+          "description": "Main actor for this step.",
+          "enum": [
+            "user",
+            "court",
+            "agency",
+            "opposing_party",
+            "third_party",
+            "lawyer_or_legal_aid",
+            "other"
+          ]
+        },
+        "additional_actors": {
+          "type": "array",
+          "description": "Other actors involved in this step.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "actor_notes": {
+          "type": "string",
+          "description": "Notes about who is responsible for the step."
+        }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "description": "Information needed to explain or complete this process step.",
+      "additionalProperties": false,
+      "required": [
+        "required_inputs",
+        "optional_inputs",
+        "excluded_inputs",
+        "collects_sensitive_data"
+      ],
+      "properties": {
+        "required_inputs": {
+          "type": "array",
+          "description": "Information required for this step.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "optional_inputs": {
+          "type": "array",
+          "description": "Information that may help but is not required.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "excluded_inputs": {
+          "type": "array",
+          "description": "Information this step should not request.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "collects_sensitive_data": {
+          "type": "boolean",
+          "description": "Whether this step collects sensitive personal, financial, health, immigration, business, or court-case information."
+        },
+        "data_minimization_notes": {
+          "type": "string",
+          "description": "How the step avoids collecting unnecessary data."
+        }
+      }
+    },
+    "actions": {
+      "type": "object",
+      "description": "Actions this step may explain or guide.",
+      "additionalProperties": false,
+      "required": [
+        "allowed_actions",
+        "prohibited_actions"
+      ],
+      "properties": {
+        "allowed_actions": {
+          "type": "array",
+          "description": "Actions Pro-One may explain for this step.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "prohibited_actions": {
+          "type": "array",
+          "description": "Actions Pro-One must not take or direct for this step.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "action_notes": {
+          "type": "string",
+          "description": "Notes about action limits or review requirements."
+        }
+      }
+    },
+    "documents": {
+      "type": "object",
+      "description": "Documents connected to this process step.",
+      "additionalProperties": false,
+      "required": [
+        "related_document_types",
+        "document_help_allowed"
+      ],
+      "properties": {
+        "related_document_types": {
+          "type": "array",
+          "description": "Document types involved in this step.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "document_help_allowed": {
+          "type": "array",
+          "description": "Types of document help allowed for this step.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "none",
+              "explanation",
+              "checklist",
+              "outline",
+              "draft",
+              "review_prompt"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "document_help_notes": {
+          "type": "string",
+          "description": "Notes about document help limits."
+        }
+      }
+    },
+    "deadline": {
+      "type": "object",
+      "description": "Deadline handling for this process step.",
+      "additionalProperties": false,
+      "required": [
+        "deadline_relevant",
+        "deadline_handling"
+      ],
+      "properties": {
+        "deadline_relevant": {
+          "type": "boolean",
+          "description": "Whether deadlines may matter for this step."
+        },
+        "deadline_handling": {
+          "type": "string",
+          "description": "How Pro-One should handle deadlines for this step.",
+          "enum": [
+            "no_deadline",
+            "informational_only",
+            "source_required",
+            "human_review_required",
+            "unsupported"
+          ]
+        },
+        "deadline_source_ids": {
+          "type": "array",
+          "description": "Source IDs that support deadline information for this step.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "deadline_notes": {
+          "type": "string",
+          "description": "Notes about deadline risks, uncertainty, or required review."
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "description": "Safety controls for this process step.",
+      "additionalProperties": false,
+      "required": [
+        "risk_level",
+        "escalation_triggers",
+        "refusal_triggers",
+        "required_warnings"
+      ],
+      "properties": {
+        "risk_level": {
+          "type": "string",
+          "description": "Risk level for this process step.",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "escalation_triggers": {
+          "type": "array",
+          "description": "Signals that the user should be directed toward legal aid, court help, a lawyer, or another human resource.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "refusal_triggers": {
+          "type": "array",
+          "description": "Signals that Pro-One should refuse, narrow, or redirect the request.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "required_warnings": {
+          "type": "array",
+          "description": "Warnings or limits that must appear in user-facing responses for this step.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "safety_notes": {
+          "type": "string",
+          "description": "Additional safety notes."
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "description": "Review status within Pro-One.",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reviewed_by",
+        "reviewed_on"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "needs_review",
+            "reviewed",
+            "approved",
+            "deprecated",
+            "rejected"
+          ]
+        },
+        "reviewed_by": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Reviewer name, handle, or role."
+        },
+        "reviewed_on": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "Date of review."
+        },
+        "review_notes": {
+          "type": "string",
+          "description": "Notes from process-step review."
+        }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "description": "Testing requirements before the process step can be supported.",
+      "additionalProperties": false,
+      "required": [
+        "required_tests",
+        "success_criteria",
+        "known_failure_modes"
+      ],
+      "properties": {
+        "required_tests": {
+          "type": "array",
+          "description": "Tests or evaluation categories required for this step.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "success_criteria": {
+          "type": "array",
+          "description": "What must be true for the process step to pass review.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "known_failure_modes": {
+          "type": "array",
+          "description": "Known ways the process step could fail or mislead users.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evaluation_notes": {
+          "type": "string",
+          "description": "Additional evaluation notes."
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes."
+    }
+  }
+}
