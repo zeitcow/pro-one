@@ -1,0 +1,594 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/zeitcow/pro-one/schemas/intake.schema.json",
+  "title": "Pro-One Intake",
+  "description": "Schema for defining user intake flows, required and optional questions, data minimization, sensitive-data limits, risk-aware support routing, safe continuation modes, privacy controls, and evaluation requirements.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "description",
+    "status",
+    "intake_type",
+    "workflow_ids",
+    "process_step_ids",
+    "document_ids",
+    "jurisdiction",
+    "intake_goal",
+    "questions",
+    "data_limits",
+    "sensitive_data",
+    "support_routing",
+    "risk_signals",
+    "outputs",
+    "privacy",
+    "review",
+    "evaluation"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable intake identifier used by Pro-One.",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable intake title."
+    },
+    "description": {
+      "type": "string",
+      "description": "Plain-language explanation of the intake flow and its purpose."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current intake-definition maturity status.",
+      "enum": [
+        "proposed",
+        "researched",
+        "designed",
+        "tested",
+        "supported",
+        "deprecated",
+        "rejected"
+      ]
+    },
+    "intake_type": {
+      "type": "string",
+      "description": "General category of intake flow.",
+      "enum": [
+        "general_legal_information",
+        "workflow_selection",
+        "jurisdiction_identification",
+        "process_step_support",
+        "document_support",
+        "deadline_awareness",
+        "urgent_support",
+        "court_or_agency_navigation",
+        "business_legal_information",
+        "discovery_support",
+        "subpoena_support",
+        "other"
+      ]
+    },
+    "workflow_ids": {
+      "type": "array",
+      "description": "Workflow identifiers this intake may support.",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "process_step_ids": {
+      "type": "array",
+      "description": "Process-step identifiers this intake may support.",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "document_ids": {
+      "type": "array",
+      "description": "Legal-document identifiers this intake may support.",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "jurisdiction": {
+      "type": "object",
+      "description": "Jurisdiction, court, or agency information needed for intake.",
+      "additionalProperties": false,
+      "required": [
+        "jurisdiction_required",
+        "allowed_jurisdiction_questions",
+        "jurisdiction_unknown_handling"
+      ],
+      "properties": {
+        "jurisdiction_required": {
+          "type": "boolean",
+          "description": "Whether jurisdiction is required before Pro-One can provide specific source-backed support."
+        },
+        "allowed_jurisdiction_questions": {
+          "type": "array",
+          "description": "Jurisdiction questions Pro-One may ask.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "jurisdiction_unknown_handling": {
+          "type": "string",
+          "description": "How Pro-One should continue when jurisdiction is unknown.",
+          "enum": [
+            "continue_with_general_information",
+            "ask_minimum_clarifying_question",
+            "offer_jurisdiction_identification_steps",
+            "provide_court_or_agency_finder_prompt",
+            "narrow_scope_before_answering"
+          ]
+        },
+        "jurisdiction_notes": {
+          "type": "string",
+          "description": "Notes about jurisdiction, venue, court, agency, or locality limits."
+        }
+      }
+    },
+    "intake_goal": {
+      "type": "object",
+      "description": "What the intake is trying to identify or route.",
+      "additionalProperties": false,
+      "required": [
+        "primary_goal",
+        "allowed_goals",
+        "prohibited_goals"
+      ],
+      "properties": {
+        "primary_goal": {
+          "type": "string",
+          "description": "Primary purpose of the intake flow."
+        },
+        "allowed_goals": {
+          "type": "array",
+          "description": "Goals this intake may support.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prohibited_goals": {
+          "type": "array",
+          "description": "Goals this intake must not support.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "goal_notes": {
+          "type": "string",
+          "description": "Notes about intake purpose and scope."
+        }
+      }
+    },
+    "questions": {
+      "type": "object",
+      "description": "Questions Pro-One may ask during intake.",
+      "additionalProperties": false,
+      "required": [
+        "required_questions",
+        "optional_questions",
+        "conditional_questions",
+        "prohibited_questions",
+        "clarification_strategy"
+      ],
+      "properties": {
+        "required_questions": {
+          "type": "array",
+          "description": "Minimum questions needed for this intake flow.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "optional_questions": {
+          "type": "array",
+          "description": "Questions that may help but should not be asked unless useful.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "conditional_questions": {
+          "type": "array",
+          "description": "Questions to ask only when a user answer makes them necessary.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prohibited_questions": {
+          "type": "array",
+          "description": "Questions Pro-One should not ask during this intake flow.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "clarification_strategy": {
+          "type": "string",
+          "description": "How Pro-One should ask clarifying questions.",
+          "enum": [
+            "ask_one_question_at_a_time",
+            "ask_minimum_needed_questions",
+            "offer_multiple_choice_when_possible",
+            "continue_with_reasonable_general_information",
+            "narrow_scope_before_answering"
+          ]
+        },
+        "question_notes": {
+          "type": "string",
+          "description": "Notes about question order, plain language, or user burden."
+        }
+      }
+    },
+    "data_limits": {
+      "type": "object",
+      "description": "Data-minimization limits for intake.",
+      "additionalProperties": false,
+      "required": [
+        "minimum_necessary_only",
+        "allowed_data_categories",
+        "restricted_data_categories",
+        "prohibited_data_categories"
+      ],
+      "properties": {
+        "minimum_necessary_only": {
+          "type": "boolean",
+          "description": "Whether the intake must collect only the minimum information needed."
+        },
+        "allowed_data_categories": {
+          "type": "array",
+          "description": "Data categories this intake may request.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "restricted_data_categories": {
+          "type": "array",
+          "description": "Data categories that require caution, minimization, redaction, or a safer support mode.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prohibited_data_categories": {
+          "type": "array",
+          "description": "Data categories this intake should not request.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "data_limit_notes": {
+          "type": "string",
+          "description": "Notes about minimizing intake burden and avoiding unnecessary sensitive information."
+        }
+      }
+    },
+    "sensitive_data": {
+      "type": "object",
+      "description": "Sensitive-data handling during intake.",
+      "additionalProperties": false,
+      "required": [
+        "collects_sensitive_data",
+        "sensitive_data_handling",
+        "redaction_prompt_required"
+      ],
+      "properties": {
+        "collects_sensitive_data": {
+          "type": "boolean",
+          "description": "Whether this intake may collect sensitive personal, financial, health, immigration, business, or court-case information."
+        },
+        "sensitive_data_handling": {
+          "type": "string",
+          "description": "How Pro-One should handle sensitive data.",
+          "enum": [
+            "avoid_collection",
+            "ask_for_summary_only",
+            "ask_for_redacted_information",
+            "collect_minimum_needed",
+            "route_to_safer_support_mode"
+          ]
+        },
+        "redaction_prompt_required": {
+          "type": "boolean",
+          "description": "Whether Pro-One should remind users to avoid or redact unnecessary sensitive details."
+        },
+        "sensitive_data_examples": {
+          "type": "array",
+          "description": "Examples of sensitive information relevant to this intake.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sensitive_data_notes": {
+          "type": "string",
+          "description": "Additional sensitive-data notes."
+        }
+      }
+    },
+    "support_routing": {
+      "type": "object",
+      "description": "How Pro-One should continue helping after intake signals are identified.",
+      "additionalProperties": false,
+      "required": [
+        "default_support_modes",
+        "risk_aware_support_modes",
+        "avoid_abandonment",
+        "human_help_framing"
+      ],
+      "properties": {
+        "default_support_modes": {
+          "type": "array",
+          "description": "Support modes available by default.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "general_information",
+              "source_backed_steps",
+              "checklist",
+              "document_explanation",
+              "issue_spotting",
+              "court_or_agency_resource_prompt",
+              "free_or_low_cost_resource_prompt",
+              "workflow_selection",
+              "process_step_guidance",
+              "document_boundary_guidance"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "risk_aware_support_modes": {
+          "type": "array",
+          "description": "Safer support modes used when risk signals appear.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "continue_with_urgent_support",
+              "continue_with_deadline_awareness",
+              "continue_with_source_backed_steps",
+              "continue_with_checklist",
+              "continue_with_issue_spotting",
+              "continue_with_document_explanation",
+              "continue_with_court_or_agency_resource_prompt",
+              "continue_with_free_or_low_cost_resource_prompt",
+              "narrow_scope_before_answering",
+              "pause_for_missing_information",
+              "avoid_final_decision"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "avoid_abandonment": {
+          "type": "boolean",
+          "description": "Whether intake should keep Pro-One helping in a safe mode rather than ending assistance."
+        },
+        "human_help_framing": {
+          "type": "string",
+          "description": "How Pro-One should frame human help when appropriate.",
+          "enum": [
+            "not_required_by_default",
+            "optional_free_or_low_cost_resource",
+            "recommended_for_high_risk_issues",
+            "urgent_for_extreme_risk"
+          ]
+        },
+        "routing_notes": {
+          "type": "string",
+          "description": "Notes about safe continuation, support-mode selection, and avoiding unnecessary referral-only answers."
+        }
+      }
+    },
+    "risk_signals": {
+      "type": "object",
+      "description": "Risk signals that affect support routing.",
+      "additionalProperties": false,
+      "required": [
+        "deadline_signals",
+        "high_risk_signals",
+        "unsafe_request_signals",
+        "routing_response"
+      ],
+      "properties": {
+        "deadline_signals": {
+          "type": "array",
+          "description": "Deadline-related signals that should trigger urgent support rather than ending assistance.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "high_risk_signals": {
+          "type": "array",
+          "description": "Signals that require narrower, more careful, source-grounded support.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unsafe_request_signals": {
+          "type": "array",
+          "description": "Signals that require refusal, narrowing, or redirection while still offering safe legal-information support where possible.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "routing_response": {
+          "type": "string",
+          "description": "Default response strategy when risk signals appear.",
+          "enum": [
+            "continue_in_safer_mode",
+            "continue_with_urgent_support",
+            "continue_with_issue_spotting",
+            "narrow_then_continue",
+            "refuse_unsafe_part_and_continue_safe_part"
+          ]
+        },
+        "risk_signal_notes": {
+          "type": "string",
+          "description": "Notes about how risk signals should affect intake and user support."
+        }
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "description": "Allowed and prohibited intake outputs.",
+      "additionalProperties": false,
+      "required": [
+        "allowed_outputs",
+        "prohibited_outputs"
+      ],
+      "properties": {
+        "allowed_outputs": {
+          "type": "array",
+          "description": "Outputs Pro-One may produce after this intake.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "workflow_suggestion",
+              "jurisdiction_question",
+              "source_backed_next_steps",
+              "checklist",
+              "document_explanation",
+              "issue_spotting_summary",
+              "deadline_awareness_prompt",
+              "urgent_support_summary",
+              "court_or_agency_resource_prompt",
+              "free_or_low_cost_resource_prompt",
+              "scope_boundary"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "prohibited_outputs": {
+          "type": "array",
+          "description": "Outputs Pro-One must not produce after this intake.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "output_notes": {
+          "type": "string",
+          "description": "Notes about intake outputs and safe continuation."
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "description": "Privacy controls for intake.",
+      "additionalProperties": false,
+      "required": [
+        "privacy_notice_required",
+        "data_minimization_required",
+        "retention_warning_required"
+      ],
+      "properties": {
+        "privacy_notice_required": {
+          "type": "boolean",
+          "description": "Whether a privacy reminder should appear during or before intake."
+        },
+        "data_minimization_required": {
+          "type": "boolean",
+          "description": "Whether intake must minimize user data."
+        },
+        "retention_warning_required": {
+          "type": "boolean",
+          "description": "Whether intake should avoid implying private records will be stored, retained, or protected unless a real policy supports that claim."
+        },
+        "privacy_notes": {
+          "type": "string",
+          "description": "Additional privacy notes."
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "description": "Review status within Pro-One.",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reviewed_by",
+        "reviewed_on"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "needs_review",
+            "reviewed",
+            "approved",
+            "deprecated",
+            "rejected"
+          ]
+        },
+        "reviewed_by": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Reviewer name, handle, or role."
+        },
+        "reviewed_on": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "Date of review."
+        },
+        "review_notes": {
+          "type": "string",
+          "description": "Notes from intake-definition review."
+        }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "description": "Testing requirements before this intake definition can be supported.",
+      "additionalProperties": false,
+      "required": [
+        "required_tests",
+        "success_criteria",
+        "known_failure_modes"
+      ],
+      "properties": {
+        "required_tests": {
+          "type": "array",
+          "description": "Tests or evaluation categories required for this intake.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "success_criteria": {
+          "type": "array",
+          "description": "What must be true for the intake definition to pass review.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "known_failure_modes": {
+          "type": "array",
+          "description": "Known ways intake could fail, over-collect data, abandon users, or misroute users.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evaluation_notes": {
+          "type": "string",
+          "description": "Additional evaluation notes."
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes."
+    }
+  }
+}

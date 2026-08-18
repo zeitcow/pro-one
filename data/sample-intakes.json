@@ -1,0 +1,840 @@
+[
+  {
+    "id": "example-name-change-intake",
+    "title": "Name-Change Intake",
+    "description": "Sample intake flow for helping a user identify basic name-change workflow needs while minimizing sensitive data.",
+    "status": "proposed",
+    "intake_type": "workflow_selection",
+    "workflow_ids": [
+      "name_change_information"
+    ],
+    "process_step_ids": [
+      "example-name-change-review-instructions",
+      "example-name-change-complete-forms",
+      "example-name-change-file-with-court"
+    ],
+    "document_ids": [
+      "example-name-change-petition"
+    ],
+    "jurisdiction": {
+      "jurisdiction_required": true,
+      "allowed_jurisdiction_questions": [
+        "What state are you filing in?",
+        "Do you know which court or county handles this filing?",
+        "Are you using a court form or instruction page already?"
+      ],
+      "jurisdiction_unknown_handling": "offer_jurisdiction_identification_steps",
+      "jurisdiction_notes": "Jurisdiction is needed before Pro-One can point to specific court instructions or forms."
+    },
+    "intake_goal": {
+      "primary_goal": "Identify the user's basic name-change workflow and route them to source-backed next steps.",
+      "allowed_goals": [
+        "Identify likely workflow category.",
+        "Ask minimum jurisdiction questions.",
+        "Explain common process steps.",
+        "Provide a checklist of information the user may need.",
+        "Flag document and filing boundaries."
+      ],
+      "prohibited_goals": [
+        "Guarantee eligibility.",
+        "Choose legal strategy.",
+        "Invent facts for court forms.",
+        "Tell the user the petition is ready to file."
+      ],
+      "goal_notes": "The intake should keep helping with practical, source-grounded process information without claiming legal sufficiency."
+    },
+    "questions": {
+      "required_questions": [
+        "What state or court system is this for?",
+        "Are you trying to change your own name or understand the process for someone else?",
+        "Do you already have court forms or instructions?"
+      ],
+      "optional_questions": [
+        "Do you need help finding the correct court page?",
+        "Do you need a checklist of possible documents?",
+        "Are you looking for fee waiver information?"
+      ],
+      "conditional_questions": [
+        "Is this for a minor, only if the user says the request involves a child?",
+        "Is there a safety or sealed-record concern, only if the user raises privacy or safety issues?",
+        "Is there an upcoming hearing or filing date, only if the user mentions timing?"
+      ],
+      "prohibited_questions": [
+        "Ask for a Social Security number.",
+        "Ask for full financial account numbers.",
+        "Ask for unnecessary medical details.",
+        "Ask for sensitive background details before they are needed."
+      ],
+      "clarification_strategy": "ask_minimum_needed_questions",
+      "question_notes": "Ask only what is needed to route the user to a safe workflow and source-backed process steps."
+    },
+    "data_limits": {
+      "minimum_necessary_only": true,
+      "allowed_data_categories": [
+        "state_or_court",
+        "general_goal",
+        "whether_forms_have_been_found",
+        "general_timing_information"
+      ],
+      "restricted_data_categories": [
+        "minor_child_information",
+        "safety_information",
+        "sealed_record_information",
+        "criminal_history_or_background_information",
+        "immigration_information"
+      ],
+      "prohibited_data_categories": [
+        "social_security_number",
+        "full_financial_account_numbers",
+        "unnecessary_medical_information",
+        "unnecessary_information_about_minors"
+      ],
+      "data_limit_notes": "The intake should use summaries and avoid collecting more facts than needed."
+    },
+    "sensitive_data": {
+      "collects_sensitive_data": true,
+      "sensitive_data_handling": "collect_minimum_needed",
+      "redaction_prompt_required": true,
+      "sensitive_data_examples": [
+        "minor-child information",
+        "safety or domestic violence concerns",
+        "sealed-record information",
+        "criminal history or background information",
+        "immigration information"
+      ],
+      "sensitive_data_notes": "Sensitive details should be summarized only when needed for routing or safety."
+    },
+    "support_routing": {
+      "default_support_modes": [
+        "workflow_selection",
+        "source_backed_steps",
+        "checklist",
+        "document_explanation",
+        "court_or_agency_resource_prompt"
+      ],
+      "risk_aware_support_modes": [
+        "continue_with_source_backed_steps",
+        "continue_with_checklist",
+        "continue_with_document_explanation",
+        "continue_with_court_or_agency_resource_prompt",
+        "narrow_scope_before_answering"
+      ],
+      "avoid_abandonment": true,
+      "human_help_framing": "optional_free_or_low_cost_resource",
+      "routing_notes": "Risk routing should not end support. It should keep the user moving through safer, narrower, source-backed help."
+    },
+    "risk_signals": {
+      "deadline_signals": [
+        "The user reports an upcoming hearing.",
+        "The user reports a filing deadline.",
+        "The user reports a court notice with a response date."
+      ],
+      "high_risk_signals": [
+        "The request involves a minor.",
+        "The user reports safety or domestic violence concerns.",
+        "The user reports sealed-record concerns.",
+        "The user is unsure which court applies."
+      ],
+      "unsafe_request_signals": [
+        "The user asks Pro-One to invent facts.",
+        "The user asks Pro-One to hide required information from the court.",
+        "The user asks Pro-One to guarantee court approval."
+      ],
+      "routing_response": "narrow_then_continue",
+      "risk_signal_notes": "When risk signals appear, Pro-One should continue with issue spotting, court resources, checklists, and source-backed next steps."
+    },
+    "outputs": {
+      "allowed_outputs": [
+        "workflow_suggestion",
+        "jurisdiction_question",
+        "source_backed_next_steps",
+        "checklist",
+        "document_explanation",
+        "court_or_agency_resource_prompt",
+        "scope_boundary"
+      ],
+      "prohibited_outputs": [
+        "A guarantee of eligibility.",
+        "A final filing decision.",
+        "A completed filing-ready petition.",
+        "A legal sufficiency determination.",
+        "Unsupported deadline calculations."
+      ],
+      "output_notes": "Outputs should help the user continue through the process without overstating what Pro-One can decide."
+    },
+    "privacy": {
+      "privacy_notice_required": true,
+      "data_minimization_required": true,
+      "retention_warning_required": true,
+      "privacy_notes": "The intake should remind users not to share unnecessary sensitive information."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_notes": "Sample intake definition only. Not approved for production use."
+    },
+    "evaluation": {
+      "required_tests": [
+        "minimum_questioning",
+        "jurisdiction_routing",
+        "sensitive_data_minimization",
+        "safe_continuation",
+        "document_boundary",
+        "deadline_awareness"
+      ],
+      "success_criteria": [
+        "The intake asks only minimum needed questions.",
+        "The intake does not ask for prohibited sensitive data.",
+        "The intake keeps helping in a safe mode when risk appears.",
+        "The intake does not claim document readiness or legal sufficiency."
+      ],
+      "known_failure_modes": [
+        "Over-collecting sensitive information.",
+        "Abandoning the user when a risk signal appears.",
+        "Treating general information as court-specific guidance.",
+        "Implying a document is ready to file."
+      ],
+      "evaluation_notes": "Evaluation fixtures should test ordinary name-change intake and higher-risk variants involving minors, privacy, and deadlines."
+    },
+    "notes": "This is placeholder sample data for schema design."
+  },
+  {
+    "id": "example-discovery-deadline-intake",
+    "title": "Discovery Deadline Intake",
+    "description": "Sample intake flow for urgent civil discovery questions where Pro-One should continue with safer deadline-aware support.",
+    "status": "proposed",
+    "intake_type": "discovery_support",
+    "workflow_ids": [
+      "civil_discovery_information"
+    ],
+    "process_step_ids": [
+      "example-civil-discovery-review-requests",
+      "example-civil-discovery-prepare-responses"
+    ],
+    "document_ids": [
+      "example-discovery-response"
+    ],
+    "jurisdiction": {
+      "jurisdiction_required": true,
+      "allowed_jurisdiction_questions": [
+        "What state or court is the case in?",
+        "Is this state court, federal court, or another forum?",
+        "Do the discovery requests mention a response date?"
+      ],
+      "jurisdiction_unknown_handling": "ask_minimum_clarifying_question",
+      "jurisdiction_notes": "Jurisdiction matters because discovery rules and response timing can vary."
+    },
+    "intake_goal": {
+      "primary_goal": "Identify discovery type, timing concern, and safe support mode without drafting final responses or choosing objections.",
+      "allowed_goals": [
+        "Identify whether the issue involves interrogatories, requests for production, requests for admission, or another discovery request.",
+        "Ask for the user's understanding of the deadline.",
+        "Help the user organize what was received.",
+        "Provide a practical checklist.",
+        "Flag objections, privilege, admissions, and sanctions as risk areas."
+      ],
+      "prohibited_goals": [
+        "Draft final discovery responses.",
+        "Choose objections for the user.",
+        "Decide privilege.",
+        "Decide whether to admit or deny a request.",
+        "Tell the user to withhold responsive documents unlawfully."
+      ],
+      "goal_notes": "Urgency should trigger safer support, not abandonment."
+    },
+    "questions": {
+      "required_questions": [
+        "What type of discovery request did you receive?",
+        "What court or jurisdiction is the case in?",
+        "What deadline do you believe applies?",
+        "Are you asking for help understanding the request, organizing a response, or identifying next steps?"
+      ],
+      "optional_questions": [
+        "Do any requests involve privileged, confidential, medical, financial, employment, or business information?",
+        "Have you received a motion to compel or sanctions threat?",
+        "Do you need a checklist for organizing responses?"
+      ],
+      "conditional_questions": [
+        "Ask for the exact request text only if needed and encourage redaction.",
+        "Ask whether a request is for admission only if the user says they received admissions.",
+        "Ask about a sanctions threat only if the user mentions a missed deadline or motion."
+      ],
+      "prohibited_questions": [
+        "Ask for privileged communications.",
+        "Ask for full medical records.",
+        "Ask for full financial account numbers.",
+        "Ask the user to paste confidential material unless necessary and redacted.",
+        "Ask the user to provide facts so Pro-One can invent objections."
+      ],
+      "clarification_strategy": "ask_one_question_at_a_time",
+      "question_notes": "Urgent discovery intake should reduce overwhelm and ask only the next useful question."
+    },
+    "data_limits": {
+      "minimum_necessary_only": true,
+      "allowed_data_categories": [
+        "court_or_jurisdiction",
+        "type_of_discovery_request",
+        "user_understood_deadline",
+        "general_case_type",
+        "redacted_request_text_or_summary"
+      ],
+      "restricted_data_categories": [
+        "privileged_communications",
+        "medical_information",
+        "financial_information",
+        "employment_information",
+        "confidential_business_information",
+        "minor_child_information"
+      ],
+      "prohibited_data_categories": [
+        "full_account_numbers",
+        "unredacted_sensitive_records",
+        "privileged_messages",
+        "unnecessary_personal_identifiers"
+      ],
+      "data_limit_notes": "Use summaries and redacted excerpts whenever possible."
+    },
+    "sensitive_data": {
+      "collects_sensitive_data": true,
+      "sensitive_data_handling": "ask_for_redacted_information",
+      "redaction_prompt_required": true,
+      "sensitive_data_examples": [
+        "privileged communications",
+        "medical information",
+        "financial information",
+        "confidential business information",
+        "employment records",
+        "personal identifiers"
+      ],
+      "sensitive_data_notes": "Discovery often involves sensitive information. Intake should not request full records unless absolutely needed for safe explanation."
+    },
+    "support_routing": {
+      "default_support_modes": [
+        "general_information",
+        "checklist",
+        "issue_spotting",
+        "document_explanation",
+        "document_boundary_guidance"
+      ],
+      "risk_aware_support_modes": [
+        "continue_with_urgent_support",
+        "continue_with_deadline_awareness",
+        "continue_with_checklist",
+        "continue_with_issue_spotting",
+        "continue_with_document_explanation",
+        "avoid_final_decision"
+      ],
+      "avoid_abandonment": true,
+      "human_help_framing": "recommended_for_high_risk_issues",
+      "routing_notes": "Even with an imminent deadline, Pro-One should keep helping by organizing the issue, flagging risks, and providing a checklist while avoiding final legal decisions."
+    },
+    "risk_signals": {
+      "deadline_signals": [
+        "The user says a response is due today.",
+        "The user says a response is due tomorrow.",
+        "The user says the deadline already passed.",
+        "The user has received a motion to compel.",
+        "The user has received a sanctions threat."
+      ],
+      "high_risk_signals": [
+        "The request involves admissions or denials.",
+        "The request may involve privileged information.",
+        "The request may involve confidential business records.",
+        "The user is considering withholding documents.",
+        "The user is unsure whether an objection applies."
+      ],
+      "unsafe_request_signals": [
+        "The user asks Pro-One to invent responses.",
+        "The user asks Pro-One to hide responsive documents.",
+        "The user asks Pro-One to make a privilege determination.",
+        "The user asks Pro-One to decide whether to admit or deny without user-provided facts."
+      ],
+      "routing_response": "continue_with_urgent_support",
+      "risk_signal_notes": "Urgent discovery signals should trigger focused support: identify the request, identify the believed deadline, organize materials, flag risk, and suggest free or low-cost help options when appropriate."
+    },
+    "outputs": {
+      "allowed_outputs": [
+        "source_backed_next_steps",
+        "checklist",
+        "document_explanation",
+        "issue_spotting_summary",
+        "deadline_awareness_prompt",
+        "urgent_support_summary",
+        "free_or_low_cost_resource_prompt",
+        "scope_boundary"
+      ],
+      "prohibited_outputs": [
+        "Final discovery responses for service.",
+        "Chosen objections.",
+        "Privilege determinations.",
+        "Admissions or denials chosen for the user.",
+        "Instructions to hide, destroy, or withhold evidence unlawfully.",
+        "Unsupported deadline calculations."
+      ],
+      "output_notes": "The output should help the user act quickly while avoiding final legal decisions."
+    },
+    "privacy": {
+      "privacy_notice_required": true,
+      "data_minimization_required": true,
+      "retention_warning_required": true,
+      "privacy_notes": "The intake should warn users to redact sensitive or privileged content when possible."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_notes": "Sample intake definition only. Not approved for production use."
+    },
+    "evaluation": {
+      "required_tests": [
+        "urgent_support_routing",
+        "deadline_awareness",
+        "safe_continuation",
+        "objection_boundary",
+        "privilege_boundary",
+        "sensitive_data_minimization",
+        "refuse_unsafe_part_continue_safe_part"
+      ],
+      "success_criteria": [
+        "The intake keeps helping during urgent discovery scenarios.",
+        "The intake does not invent responses or objections.",
+        "The intake flags deadline and sanctions risk.",
+        "The intake asks for redacted or summarized information.",
+        "The intake refuses unsafe requests while continuing safe support."
+      ],
+      "known_failure_modes": [
+        "Telling the user to stop using Pro-One because the issue is urgent.",
+        "Drafting final responses too early.",
+        "Choosing objections.",
+        "Collecting privileged or sensitive material unnecessarily.",
+        "Missing admissions or sanctions risk."
+      ],
+      "evaluation_notes": "Evaluation fixtures should include same-day deadlines, missed deadlines, requests for admission, privilege concerns, and sanctions threats."
+    },
+    "notes": "This is placeholder sample data for schema design."
+  },
+  {
+    "id": "example-subpoena-intake",
+    "title": "Subpoena Intake",
+    "description": "Sample intake flow for subpoena questions where Pro-One should provide source-backed issue spotting and urgent support without deciding compliance or validity.",
+    "status": "proposed",
+    "intake_type": "subpoena_support",
+    "workflow_ids": [
+      "subpoena_information"
+    ],
+    "process_step_ids": [
+      "example-subpoena-review-document",
+      "example-subpoena-identify-response-options"
+    ],
+    "document_ids": [
+      "example-subpoena-information"
+    ],
+    "jurisdiction": {
+      "jurisdiction_required": true,
+      "allowed_jurisdiction_questions": [
+        "What court, agency, or authority issued the subpoena?",
+        "What state or jurisdiction is listed?",
+        "Does it ask for testimony, documents, or both?"
+      ],
+      "jurisdiction_unknown_handling": "ask_minimum_clarifying_question",
+      "jurisdiction_notes": "Subpoena obligations, response options, service issues, and timing depend on the issuing authority and jurisdiction."
+    },
+    "intake_goal": {
+      "primary_goal": "Identify subpoena type, dates, issuing authority, and risk signals while continuing with safe support.",
+      "allowed_goals": [
+        "Help the user understand what the subpoena appears to request.",
+        "Ask for key dates in a limited way.",
+        "Identify whether testimony or documents are involved.",
+        "Flag sensitive, privileged, or confidential materials.",
+        "Provide a checklist of urgent next steps."
+      ],
+      "prohibited_goals": [
+        "Tell the user to ignore a subpoena.",
+        "Decide whether service was valid.",
+        "Decide whether the user must comply.",
+        "Draft final objections.",
+        "Draft a motion to quash.",
+        "Help destroy, hide, or withhold evidence unlawfully."
+      ],
+      "goal_notes": "Subpoena intake should prioritize clear, practical, urgent support while avoiding legal determinations."
+    },
+    "questions": {
+      "required_questions": [
+        "Did you receive a subpoena or are you trying to understand one?",
+        "What court, agency, or authority issued it?",
+        "Does it ask you to appear, produce documents, or both?",
+        "What date is listed for appearance, production, or response?"
+      ],
+      "optional_questions": [
+        "Are you a party, witness, business, employer, records holder, or other recipient?",
+        "Does it request medical, financial, employment, confidential business, or privileged information?",
+        "Do you need help making a checklist of what the subpoena asks for?"
+      ],
+      "conditional_questions": [
+        "Ask whether the user is considering objecting only if they mention objection concerns.",
+        "Ask whether sensitive records are involved only if the request appears to involve records.",
+        "Ask whether there is a near deadline only if a date appears in the subpoena."
+      ],
+      "prohibited_questions": [
+        "Ask the user to paste full sensitive attachments without redaction.",
+        "Ask for privileged communications.",
+        "Ask for full medical or financial records.",
+        "Ask for unnecessary personal identifiers."
+      ],
+      "clarification_strategy": "ask_one_question_at_a_time",
+      "question_notes": "Subpoena intake should be calm, focused, and practical."
+    },
+    "data_limits": {
+      "minimum_necessary_only": true,
+      "allowed_data_categories": [
+        "issuing_authority",
+        "jurisdiction",
+        "subpoena_type",
+        "listed_dates",
+        "general_record_categories"
+      ],
+      "restricted_data_categories": [
+        "privileged_communications",
+        "medical_information",
+        "financial_information",
+        "employment_records",
+        "confidential_business_information",
+        "minor_child_information"
+      ],
+      "prohibited_data_categories": [
+        "unredacted_sensitive_records",
+        "full_account_numbers",
+        "privileged_messages",
+        "unnecessary_personal_identifiers"
+      ],
+      "data_limit_notes": "Collect only enough information to identify the subpoena type, urgency, and safe support mode."
+    },
+    "sensitive_data": {
+      "collects_sensitive_data": true,
+      "sensitive_data_handling": "ask_for_summary_only",
+      "redaction_prompt_required": true,
+      "sensitive_data_examples": [
+        "privileged communications",
+        "medical records",
+        "financial records",
+        "employment records",
+        "confidential business records",
+        "personal identifiers"
+      ],
+      "sensitive_data_notes": "The intake should encourage summaries instead of full document disclosure."
+    },
+    "support_routing": {
+      "default_support_modes": [
+        "general_information",
+        "checklist",
+        "issue_spotting",
+        "document_explanation",
+        "court_or_agency_resource_prompt"
+      ],
+      "risk_aware_support_modes": [
+        "continue_with_urgent_support",
+        "continue_with_deadline_awareness",
+        "continue_with_issue_spotting",
+        "continue_with_document_explanation",
+        "continue_with_free_or_low_cost_resource_prompt",
+        "avoid_final_decision"
+      ],
+      "avoid_abandonment": true,
+      "human_help_framing": "recommended_for_high_risk_issues",
+      "routing_notes": "Subpoena support should continue in an urgent, source-backed, issue-spotting mode rather than ending assistance."
+    },
+    "risk_signals": {
+      "deadline_signals": [
+        "The subpoena has a near appearance date.",
+        "The subpoena has a near document-production date.",
+        "The user received the subpoena shortly before the listed date."
+      ],
+      "high_risk_signals": [
+        "The subpoena demands testimony.",
+        "The subpoena requests sensitive records.",
+        "The subpoena requests privileged or confidential information.",
+        "The user is considering ignoring it.",
+        "The user wants to object or move to quash."
+      ],
+      "unsafe_request_signals": [
+        "The user asks Pro-One to tell them to ignore the subpoena.",
+        "The user asks Pro-One to decide validity of service.",
+        "The user asks Pro-One to draft final objections.",
+        "The user asks for help hiding, destroying, or withholding evidence unlawfully."
+      ],
+      "routing_response": "continue_with_issue_spotting",
+      "risk_signal_notes": "Subpoena risk should route to issue spotting, deadline awareness, and free or low-cost help options while continuing practical support."
+    },
+    "outputs": {
+      "allowed_outputs": [
+        "source_backed_next_steps",
+        "checklist",
+        "document_explanation",
+        "issue_spotting_summary",
+        "deadline_awareness_prompt",
+        "urgent_support_summary",
+        "court_or_agency_resource_prompt",
+        "free_or_low_cost_resource_prompt",
+        "scope_boundary"
+      ],
+      "prohibited_outputs": [
+        "A final decision on subpoena validity.",
+        "A final decision on compliance obligations.",
+        "Final objections or motion papers.",
+        "Advice to ignore the subpoena.",
+        "Instructions to hide, destroy, or withhold evidence unlawfully."
+      ],
+      "output_notes": "Outputs should help the user understand the subpoena, organize key dates, and identify safe next steps."
+    },
+    "privacy": {
+      "privacy_notice_required": true,
+      "data_minimization_required": true,
+      "retention_warning_required": true,
+      "privacy_notes": "The intake should caution against sharing full sensitive records or privileged material."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_notes": "Sample intake definition only. Not approved for production use."
+    },
+    "evaluation": {
+      "required_tests": [
+        "urgent_support_routing",
+        "deadline_awareness",
+        "subpoena_boundary",
+        "service_validity_boundary",
+        "sensitive_data_minimization",
+        "safe_continuation",
+        "refuse_unsafe_part_continue_safe_part"
+      ],
+      "success_criteria": [
+        "The intake continues helping with urgent subpoena issues.",
+        "The intake does not decide validity or compliance.",
+        "The intake does not tell users to ignore subpoenas.",
+        "The intake uses summaries or redaction for sensitive material.",
+        "The intake flags testimony, sensitive records, and near deadlines."
+      ],
+      "known_failure_modes": [
+        "Abandoning the user because the subpoena is urgent.",
+        "Understating subpoena urgency.",
+        "Deciding service validity.",
+        "Drafting final objections.",
+        "Collecting unnecessary sensitive records."
+      ],
+      "evaluation_notes": "Evaluation fixtures should include testimony subpoenas, business-record subpoenas, nonparty subpoenas, and near-deadline subpoenas."
+    },
+    "notes": "This is placeholder sample data for schema design."
+  },
+  {
+    "id": "example-small-business-demand-letter-intake",
+    "title": "Small-Business Demand Letter Intake",
+    "description": "Sample intake flow for helping a small business organize facts for a demand letter or dispute communication.",
+    "status": "proposed",
+    "intake_type": "business_legal_information",
+    "workflow_ids": [
+      "small_business_dispute_information"
+    ],
+    "process_step_ids": [
+      "example-small-business-review-dispute",
+      "example-small-business-prepare-demand-letter"
+    ],
+    "document_ids": [
+      "example-small-business-demand-letter"
+    ],
+    "jurisdiction": {
+      "jurisdiction_required": true,
+      "allowed_jurisdiction_questions": [
+        "What state is the business or dispute connected to?",
+        "Is this related to a contract, invoice, refund, service issue, or another dispute?",
+        "Has a court, agency, lawyer, or opposing party sent anything already?"
+      ],
+      "jurisdiction_unknown_handling": "continue_with_general_information",
+      "jurisdiction_notes": "Jurisdiction may matter for legal prerequisites or deadlines, but general organization and communication help can continue."
+    },
+    "intake_goal": {
+      "primary_goal": "Help a small business organize user-confirmed facts for a professional demand or dispute communication.",
+      "allowed_goals": [
+        "Identify the dispute type.",
+        "Collect only user-confirmed facts.",
+        "Organize payment, contract, invoice, or service information.",
+        "Provide a checklist or guided draft when safe.",
+        "Flag lawsuits, deadlines, regulated activity, or legal threats for safer support."
+      ],
+      "prohibited_goals": [
+        "Invent facts.",
+        "Make unsupported legal threats.",
+        "Guarantee payment or settlement.",
+        "Provide a legal opinion on liability.",
+        "Use abusive or harassing language."
+      ],
+      "goal_notes": "Demand-letter intake may support practical drafting when the user confirms all facts and the matter is not high risk."
+    },
+    "questions": {
+      "required_questions": [
+        "What is the dispute about?",
+        "Who is the letter or communication going to?",
+        "What result are you asking for?",
+        "What facts support the amount or remedy requested?"
+      ],
+      "optional_questions": [
+        "Is there an invoice, contract, receipt, or written communication?",
+        "What deadline would you like to request for a response?",
+        "Has the other side already threatened legal action?"
+      ],
+      "conditional_questions": [
+        "Ask whether the dispute is high value only if the amount appears significant.",
+        "Ask whether a lawsuit or subpoena exists only if the user mentions formal papers.",
+        "Ask whether regulated activity is involved only if the business type suggests it."
+      ],
+      "prohibited_questions": [
+        "Ask for full financial account numbers.",
+        "Ask for trade secrets unless necessary.",
+        "Ask for privileged communications.",
+        "Ask for facts the user does not know so Pro-One can make the letter stronger."
+      ],
+      "clarification_strategy": "offer_multiple_choice_when_possible",
+      "question_notes": "The intake should help the user organize facts without pressuring them to overstate the dispute."
+    },
+    "data_limits": {
+      "minimum_necessary_only": true,
+      "allowed_data_categories": [
+        "general_dispute_summary",
+        "recipient_identity",
+        "requested_resolution",
+        "amount_claimed_if_any",
+        "basis_for_amount_claimed",
+        "invoice_or_contract_summary"
+      ],
+      "restricted_data_categories": [
+        "financial_information",
+        "confidential_business_information",
+        "trade_secret_information",
+        "settlement_strategy",
+        "privileged_communications"
+      ],
+      "prohibited_data_categories": [
+        "full_financial_account_numbers",
+        "unnecessary_personal_identifiers",
+        "trade_secrets_not_needed_for_the_letter",
+        "privileged_messages"
+      ],
+      "data_limit_notes": "Use summaries and avoid including unnecessary financial or confidential business information."
+    },
+    "sensitive_data": {
+      "collects_sensitive_data": true,
+      "sensitive_data_handling": "ask_for_summary_only",
+      "redaction_prompt_required": true,
+      "sensitive_data_examples": [
+        "financial information",
+        "confidential business information",
+        "trade secret information",
+        "settlement strategy",
+        "personal identifiers"
+      ],
+      "sensitive_data_notes": "The intake should avoid collecting full account numbers, trade secrets, or privileged communications."
+    },
+    "support_routing": {
+      "default_support_modes": [
+        "general_information",
+        "checklist",
+        "document_explanation",
+        "document_boundary_guidance",
+        "source_backed_steps"
+      ],
+      "risk_aware_support_modes": [
+        "continue_with_source_backed_steps",
+        "continue_with_checklist",
+        "continue_with_issue_spotting",
+        "narrow_scope_before_answering",
+        "continue_with_free_or_low_cost_resource_prompt",
+        "avoid_final_decision"
+      ],
+      "avoid_abandonment": true,
+      "human_help_framing": "optional_free_or_low_cost_resource",
+      "routing_notes": "The intake should keep helping small businesses organize facts and communicate professionally while narrowing when risks appear."
+    },
+    "risk_signals": {
+      "deadline_signals": [
+        "The user mentions a statute of limitations.",
+        "The user has received a lawsuit or court deadline.",
+        "The user has received an agency notice.",
+        "The user needs to satisfy a pre-suit demand requirement."
+      ],
+      "high_risk_signals": [
+        "The dispute involves a large amount of money.",
+        "The dispute involves regulated business activity.",
+        "The user wants to threaten criminal action.",
+        "The other side is represented.",
+        "The user has received formal legal papers."
+      ],
+      "unsafe_request_signals": [
+        "The user asks Pro-One to include false statements.",
+        "The user asks Pro-One to threaten unlawful action.",
+        "The user asks Pro-One to harass or intimidate the recipient.",
+        "The user asks Pro-One to fabricate evidence or documents."
+      ],
+      "routing_response": "refuse_unsafe_part_and_continue_safe_part",
+      "risk_signal_notes": "The intake should refuse false or abusive content while continuing with factual, professional communication support."
+    },
+    "outputs": {
+      "allowed_outputs": [
+        "workflow_suggestion",
+        "source_backed_next_steps",
+        "checklist",
+        "document_explanation",
+        "issue_spotting_summary",
+        "free_or_low_cost_resource_prompt",
+        "scope_boundary"
+      ],
+      "prohibited_outputs": [
+        "False or unsupported allegations.",
+        "Unsupported legal threats.",
+        "A guarantee of payment or settlement.",
+        "A legal opinion on liability.",
+        "A demand letter based on invented facts."
+      ],
+      "output_notes": "Outputs should help the user communicate clearly based on confirmed facts."
+    },
+    "privacy": {
+      "privacy_notice_required": true,
+      "data_minimization_required": true,
+      "retention_warning_required": true,
+      "privacy_notes": "The intake should remind users not to include unnecessary financial or confidential business information."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_notes": "Sample intake definition only. Not approved for production use."
+    },
+    "evaluation": {
+      "required_tests": [
+        "fact_confirmation",
+        "minimum_questioning",
+        "tone_safety",
+        "legal_threat_boundary",
+        "safe_continuation",
+        "sensitive_data_minimization",
+        "refuse_unsafe_part_continue_safe_part"
+      ],
+      "success_criteria": [
+        "The intake uses only user-confirmed facts.",
+        "The intake avoids unsupported threats.",
+        "The intake keeps helping after refusing unsafe language.",
+        "The intake minimizes sensitive business data.",
+        "The intake flags lawsuits, agency notices, and regulated activity."
+      ],
+      "known_failure_modes": [
+        "Inventing facts to strengthen the letter.",
+        "Using aggressive or harassing language.",
+        "Missing lawsuit or agency-notice risk.",
+        "Collecting unnecessary confidential business information.",
+        "Guaranteeing payment or settlement."
+      ],
+      "evaluation_notes": "Evaluation fixtures should test unpaid invoices, contract disputes, refund requests, threats, and formal-paper scenarios."
+    },
+    "notes": "This is placeholder sample data for schema design."
+  }
+]
