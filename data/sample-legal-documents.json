@@ -1,0 +1,874 @@
+[
+  {
+    "id": "example-name-change-petition",
+    "title": "Name-Change Petition",
+    "description": "Sample legal-document definition for a name-change petition or court form packet.",
+    "status": "proposed",
+    "document_type": "petition",
+    "workflow_ids": [
+      "name_change_information"
+    ],
+    "process_step_ids": [
+      "example-name-change-complete-forms",
+      "example-name-change-file-with-court"
+    ],
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Placeholder jurisdiction used for sample structure only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-state-court-name-change-guide"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "This sample uses a placeholder source ID from sample source metadata."
+    },
+    "legal_rules": {
+      "required_rule_ids": [],
+      "optional_rule_ids": [],
+      "rule_review_required": true,
+      "rule_notes": "Legal-rule records have not been added yet. This sample should remain proposed."
+    },
+    "structure": {
+      "required_sections": [
+        "caption_or_court_heading",
+        "petitioner_information",
+        "requested_name_change",
+        "basis_or_reason_field_if_required_by_source",
+        "signature_block"
+      ],
+      "optional_sections": [
+        "verification_or_declaration",
+        "fee_waiver_reference",
+        "exhibit_list",
+        "proposed_order_reference"
+      ],
+      "prohibited_sections": [
+        "unsupported_legal_argument",
+        "invented_facts",
+        "guaranteed_outcome_language"
+      ],
+      "section_order_required": true,
+      "structure_notes": "Court form structure, caption requirements, signature requirements, and attachments must come from reviewed court sources."
+    },
+    "user_facts": {
+      "required_facts": [
+        "current_name",
+        "requested_name",
+        "court_or_jurisdiction",
+        "general_reason_for_request_if_required_by_source"
+      ],
+      "optional_facts": [
+        "fee_waiver_interest",
+        "whether_the_user_has_existing_court_instructions",
+        "whether_the_user_needs_help_identifying_forms"
+      ],
+      "facts_pro_one_must_not_invent": [
+        "current_name",
+        "requested_name",
+        "reason_for_request",
+        "criminal_history_or_background_information",
+        "case_number",
+        "signature",
+        "date_signed"
+      ],
+      "sensitive_facts": [
+        "criminal_history_or_background_information",
+        "minor_child_information",
+        "safety_or_domestic_violence_information",
+        "immigration_information",
+        "sealed_record_information"
+      ],
+      "user_confirmation_required": true,
+      "fact_notes": "The user must provide and confirm all document facts. Pro-One must not infer sensitive facts or fill required court fields without user input."
+    },
+    "drafting": {
+      "drafting_allowed": false,
+      "allowed_assistance": [
+        "explanation",
+        "checklist",
+        "draft_review_prompt"
+      ],
+      "prohibited_assistance": [
+        "Generate a filing-ready petition.",
+        "Claim the petition is legally sufficient.",
+        "Invent facts for blank fields.",
+        "Choose legal strategy for the user.",
+        "Guarantee court approval."
+      ],
+      "human_review_required": true,
+      "requires_user_final_review": true,
+      "drafting_notes": "Until legal rules, form sources, and evaluation fixtures are added, assistance should stay limited to explanation, checklist, and review prompts."
+    },
+    "filing_or_service": {
+      "filing_involved": true,
+      "service_involved": false,
+      "submission_involved": true,
+      "signature_or_notarization_involved": true,
+      "allowed_guidance": [
+        "general_explanation",
+        "source_link",
+        "checklist",
+        "review_prompt",
+        "human_help_prompt"
+      ],
+      "prohibited_guidance": [
+        "File the document for the user.",
+        "Guarantee court acceptance.",
+        "Tell the user notarization is or is not required without reviewed source support.",
+        "Make the final filing decision for the user."
+      ],
+      "filing_or_service_notes": "Filing, signature, notarization, and packet requirements must be source-backed and reviewed."
+    },
+    "deadlines": {
+      "deadline_relevant": true,
+      "deadline_handling": "source_required",
+      "deadline_source_ids": [
+        "example-state-court-name-change-guide"
+      ],
+      "deadline_notes": "Any filing timing, notice timing, hearing timing, or follow-up deadline must be supported by reviewed sources."
+    },
+    "privacy": {
+      "collects_sensitive_data": true,
+      "redaction_may_be_required": true,
+      "restricted_data_categories": [
+        "social_security_number",
+        "full_financial_account_numbers",
+        "minor_child_information",
+        "sealed_record_information",
+        "safety_or_domestic_violence_information"
+      ],
+      "data_minimization_notes": "Ask only for facts needed to identify the document category and explain source-backed next steps.",
+      "privacy_notes": "Users should be warned not to share unnecessary sensitive information."
+    },
+    "safety": {
+      "risk_level": "medium",
+      "escalation_triggers": [
+        "The document involves a minor.",
+        "The user reports safety, domestic violence, immigration, or sealed-record concerns.",
+        "The user has an urgent hearing or court deadline.",
+        "The user is unsure which court or form applies."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to invent facts.",
+        "The user asks Pro-One to hide information from the court.",
+        "The user asks Pro-One to guarantee court approval.",
+        "The user asks for advice about evading legal requirements."
+      ],
+      "required_warnings": [
+        "This document help provides legal information, not legal advice.",
+        "The user should review current court instructions before filing.",
+        "The user should seek legal help for urgent, complex, sealed-record, safety-related, or minor-child issues."
+      ],
+      "safety_notes": "This document definition should stay proposed until source, rule, workflow, and evaluation coverage is stronger."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_notes": "Sample legal-document definition only. Not approved for production use."
+    },
+    "evaluation": {
+      "required_tests": [
+        "source_grounding",
+        "legal_rule_boundary",
+        "document_drafting_boundary",
+        "fact_confirmation",
+        "sensitive_data_minimization",
+        "filing_boundary",
+        "deadline_handling",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The document help does not invent facts.",
+        "The document help does not claim legal sufficiency.",
+        "The document help does not guarantee approval.",
+        "The document help directs filing and deadline uncertainty to sources or human help.",
+        "The document help limits sensitive-data collection."
+      ],
+      "known_failure_modes": [
+        "Generating a filing-ready document too early.",
+        "Treating placeholder sources as approved sources.",
+        "Guessing court-specific form requirements.",
+        "Collecting unnecessary sensitive information.",
+        "Providing legal advice instead of legal information."
+      ],
+      "evaluation_notes": "Evaluation fixtures should be added before this document type is supported."
+    },
+    "notes": "This is placeholder sample data for schema design."
+  },
+  {
+    "id": "example-discovery-response",
+    "title": "Discovery Response",
+    "description": "Sample legal-document definition for a civil discovery response, including responses to interrogatories, requests for production, or requests for admission.",
+    "status": "proposed",
+    "document_type": "discovery_response",
+    "workflow_ids": [
+      "civil_discovery_information"
+    ],
+    "process_step_ids": [
+      "example-civil-discovery-review-requests",
+      "example-civil-discovery-prepare-responses"
+    ],
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Trial Court",
+      "agency": null,
+      "jurisdiction_notes": "Placeholder jurisdiction used for sample structure only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-state-civil-discovery-rules"
+      ],
+      "optional_source_ids": [
+        "example-state-trial-court-discovery-guide"
+      ],
+      "source_review_required": true,
+      "source_notes": "These are placeholder source IDs. Matching source metadata records would need to be added before support."
+    },
+    "legal_rules": {
+      "required_rule_ids": [
+        "example-state-interrogatory-response-rule",
+        "example-state-rfp-response-rule",
+        "example-state-rfa-response-rule"
+      ],
+      "optional_rule_ids": [
+        "example-state-discovery-objection-rule"
+      ],
+      "rule_review_required": true,
+      "rule_notes": "Legal-rule records have not been added yet. Discovery response support must remain proposed."
+    },
+    "structure": {
+      "required_sections": [
+        "caption_or_case_heading",
+        "case_number_if_available",
+        "responding_party_identification",
+        "request_by_request_responses",
+        "signature_block",
+        "certificate_of_service_if_required"
+      ],
+      "optional_sections": [
+        "general_objections_if_allowed_by_source",
+        "specific_objections",
+        "verification_if_required",
+        "privilege_log_reference",
+        "document_production_reference"
+      ],
+      "prohibited_sections": [
+        "unsupported_boilerplate_objections",
+        "fabricated_factual_responses",
+        "unsupported_privilege_claims",
+        "instructions_to_withhold_required_information_unlawfully"
+      ],
+      "section_order_required": true,
+      "structure_notes": "Discovery response structure is jurisdiction-specific and may vary by request type."
+    },
+    "user_facts": {
+      "required_facts": [
+        "case_or_matter_type",
+        "court_or_jurisdiction",
+        "type_of_discovery_request",
+        "response_deadline_if_known",
+        "exact_request_text_or_summary"
+      ],
+      "optional_facts": [
+        "case_number",
+        "party_names",
+        "whether_documents_are_available",
+        "whether_any_request_seems_privileged_or_sensitive",
+        "whether_the_user_has_a_lawyer_or_legal_aid_contact"
+      ],
+      "facts_pro_one_must_not_invent": [
+        "answers_to_interrogatories",
+        "documents_possessed_by_the_user",
+        "admissions_or_denials",
+        "objections",
+        "privilege_claims",
+        "case_number",
+        "party_names",
+        "date_signed",
+        "signature"
+      ],
+      "sensitive_facts": [
+        "medical_information",
+        "financial_information",
+        "employment_information",
+        "immigration_information",
+        "criminal_history_information",
+        "confidential_business_information",
+        "privileged_communications",
+        "minor_child_information"
+      ],
+      "user_confirmation_required": true,
+      "fact_notes": "The user must provide or confirm each factual response. Pro-One must not decide objections, privilege, or admissions for the user."
+    },
+    "drafting": {
+      "drafting_allowed": false,
+      "allowed_assistance": [
+        "explanation",
+        "checklist",
+        "outline",
+        "draft_review_prompt",
+        "issue_spotting_prompt"
+      ],
+      "prohibited_assistance": [
+        "Draft final discovery responses for service.",
+        "Invent factual responses.",
+        "Choose objections for the user.",
+        "Decide whether to admit or deny a request.",
+        "Tell the user to withhold documents without legal review.",
+        "Provide a privilege determination."
+      ],
+      "human_review_required": true,
+      "requires_user_final_review": true,
+      "drafting_notes": "Discovery responses are high-risk because they involve deadlines, admissions, objections, evidence, sanctions, and privilege."
+    },
+    "filing_or_service": {
+      "filing_involved": false,
+      "service_involved": true,
+      "submission_involved": true,
+      "signature_or_notarization_involved": true,
+      "allowed_guidance": [
+        "general_explanation",
+        "source_link",
+        "checklist",
+        "review_prompt",
+        "human_help_prompt"
+      ],
+      "prohibited_guidance": [
+        "Serve discovery responses for the user.",
+        "Guarantee that responses preserve objections.",
+        "Calculate the response deadline without reviewed source support.",
+        "Tell the user that verification is or is not required without reviewed source support."
+      ],
+      "filing_or_service_notes": "Discovery responses may not be filed in some courts unless connected to a motion or order. Service rules must be source-backed."
+    },
+    "deadlines": {
+      "deadline_relevant": true,
+      "deadline_handling": "human_review_required",
+      "deadline_source_ids": [
+        "example-state-civil-discovery-rules"
+      ],
+      "deadline_notes": "Discovery deadlines can create waiver, sanctions, admission, or case-dispositive risks. Human review should be encouraged."
+    },
+    "privacy": {
+      "collects_sensitive_data": true,
+      "redaction_may_be_required": true,
+      "restricted_data_categories": [
+        "medical_information",
+        "financial_information",
+        "privileged_communications",
+        "confidential_business_information",
+        "minor_child_information",
+        "full_account_numbers",
+        "personal_identifiers"
+      ],
+      "data_minimization_notes": "Avoid asking for full discovery responses unless necessary for source-backed explanation. Encourage summaries and redaction where appropriate.",
+      "privacy_notes": "Users should avoid pasting privileged, confidential, or highly sensitive material unless necessary."
+    },
+    "safety": {
+      "risk_level": "high",
+      "escalation_triggers": [
+        "The user has a discovery response deadline.",
+        "The request may require an admission or denial.",
+        "The request may involve privileged or confidential information.",
+        "The user is considering withholding documents.",
+        "The user has received a motion to compel or sanctions threat.",
+        "The user is unsure whether an objection applies."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to invent discovery responses.",
+        "The user asks Pro-One to hide responsive documents.",
+        "The user asks Pro-One to make a privilege determination.",
+        "The user asks Pro-One to decide whether to admit or deny a request without user-provided facts.",
+        "The user asks for strategy on avoiding disclosure unlawfully."
+      ],
+      "required_warnings": [
+        "This discovery help provides legal information, not legal advice.",
+        "Discovery responses can affect rights, obligations, evidence, sanctions, and admissions.",
+        "The user should seek legal help before serving discovery responses, especially if deadlines, objections, privilege, or sanctions are involved."
+      ],
+      "safety_notes": "Discovery response help should be tightly limited until legal-rule and risk schemas are added."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_notes": "Sample legal-document definition only. Not approved for production use."
+    },
+    "evaluation": {
+      "required_tests": [
+        "source_grounding",
+        "legal_rule_boundary",
+        "discovery_deadline_handling",
+        "objection_boundary",
+        "privilege_boundary",
+        "fact_confirmation",
+        "sensitive_data_minimization",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The document help does not invent responses.",
+        "The document help does not choose objections.",
+        "The document help does not decide privilege.",
+        "The document help flags deadlines, admissions, sanctions, and privilege risks.",
+        "The document help directs high-risk issues to human help."
+      ],
+      "known_failure_modes": [
+        "Creating final responses that look ready to serve.",
+        "Providing unsupported objections.",
+        "Misstating deadlines.",
+        "Overlooking admissions risk.",
+        "Encouraging disclosure of privileged or sensitive information."
+      ],
+      "evaluation_notes": "Evaluation fixtures should include interrogatories, requests for production, requests for admission, and objection-heavy scenarios."
+    },
+    "notes": "This is placeholder sample data for schema design."
+  },
+  {
+    "id": "example-subpoena-information",
+    "title": "Subpoena Information",
+    "description": "Sample legal-document definition for explaining subpoena-related documents and boundaries.",
+    "status": "proposed",
+    "document_type": "subpoena",
+    "workflow_ids": [
+      "subpoena_information"
+    ],
+    "process_step_ids": [
+      "example-subpoena-review-document",
+      "example-subpoena-identify-response-options"
+    ],
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Trial Court",
+      "agency": null,
+      "jurisdiction_notes": "Placeholder jurisdiction used for sample structure only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-state-subpoena-rules"
+      ],
+      "optional_source_ids": [
+        "example-state-court-subpoena-guide"
+      ],
+      "source_review_required": true,
+      "source_notes": "These are placeholder source IDs. Matching source metadata records would need to be added before support."
+    },
+    "legal_rules": {
+      "required_rule_ids": [
+        "example-state-subpoena-service-rule",
+        "example-state-subpoena-objection-rule"
+      ],
+      "optional_rule_ids": [
+        "example-state-subpoena-motion-to-quash-rule"
+      ],
+      "rule_review_required": true,
+      "rule_notes": "Legal-rule records have not been added yet. Subpoena support must remain proposed."
+    },
+    "structure": {
+      "required_sections": [
+        "issuing_court_or_authority",
+        "case_or_matter_information",
+        "recipient_information",
+        "command_to_appear_or_produce",
+        "date_time_or_production_information_if_present",
+        "signature_or_issuance_information"
+      ],
+      "optional_sections": [
+        "document_requests",
+        "witness_fee_information",
+        "proof_of_service",
+        "objection_or_motion_reference",
+        "protective_order_reference"
+      ],
+      "prohibited_sections": [
+        "instructions_to_ignore_a_subpoena",
+        "unsupported_objections",
+        "unsupported_motion_to_quash_arguments",
+        "advice_to_destroy_or_withhold_evidence"
+      ],
+      "section_order_required": true,
+      "structure_notes": "Subpoena rules vary by jurisdiction, issuing authority, recipient type, and whether testimony, documents, or both are requested."
+    },
+    "user_facts": {
+      "required_facts": [
+        "whether_the_user_received_or_wants_to_understand_a_subpoena",
+        "issuing_court_or_agency_if_known",
+        "date_received_if_known",
+        "requested_appearance_or_production_date_if_known",
+        "general_type_of_subpoena"
+      ],
+      "optional_facts": [
+        "whether_the_user_is_a_party_or_nonparty",
+        "whether_the_subpoena_requests_documents",
+        "whether_the_subpoena_requests_testimony",
+        "whether_sensitive_or_privileged_material_may_be_involved"
+      ],
+      "facts_pro_one_must_not_invent": [
+        "service_date",
+        "response_deadline",
+        "objection_deadline",
+        "validity_of_service",
+        "grounds_to_quash",
+        "privilege_claims",
+        "signature",
+        "case_number"
+      ],
+      "sensitive_facts": [
+        "privileged_communications",
+        "medical_information",
+        "financial_information",
+        "employment_records",
+        "confidential_business_information",
+        "minor_child_information",
+        "personal_identifiers"
+      ],
+      "user_confirmation_required": true,
+      "fact_notes": "Subpoena issues may be urgent. Pro-One should avoid deciding validity, objections, or compliance obligations."
+    },
+    "drafting": {
+      "drafting_allowed": false,
+      "allowed_assistance": [
+        "explanation",
+        "checklist",
+        "issue_spotting_prompt",
+        "human_help_prompt"
+      ],
+      "prohibited_assistance": [
+        "Draft a subpoena for issuance.",
+        "Draft final objections to a subpoena.",
+        "Draft a motion to quash.",
+        "Tell the user to ignore a subpoena.",
+        "Decide whether service was valid.",
+        "Decide whether the user must comply."
+      ],
+      "human_review_required": true,
+      "requires_user_final_review": true,
+      "drafting_notes": "Subpoena support should focus on issue spotting, source-backed explanation, and escalation."
+    },
+    "filing_or_service": {
+      "filing_involved": true,
+      "service_involved": true,
+      "submission_involved": true,
+      "signature_or_notarization_involved": true,
+      "allowed_guidance": [
+        "general_explanation",
+        "source_link",
+        "checklist",
+        "human_help_prompt"
+      ],
+      "prohibited_guidance": [
+        "Serve a subpoena for the user.",
+        "Guarantee subpoena validity.",
+        "Guarantee that an objection or motion will succeed.",
+        "Calculate subpoena response deadlines without reviewed source support."
+      ],
+      "filing_or_service_notes": "Subpoena issuance, service, compliance, objection, and motion practice must be source-backed and reviewed."
+    },
+    "deadlines": {
+      "deadline_relevant": true,
+      "deadline_handling": "human_review_required",
+      "deadline_source_ids": [
+        "example-state-subpoena-rules"
+      ],
+      "deadline_notes": "Subpoena deadlines may be short and high-risk. Human review should be encouraged."
+    },
+    "privacy": {
+      "collects_sensitive_data": true,
+      "redaction_may_be_required": true,
+      "restricted_data_categories": [
+        "privileged_communications",
+        "medical_information",
+        "financial_information",
+        "confidential_business_information",
+        "personal_identifiers",
+        "minor_child_information"
+      ],
+      "data_minimization_notes": "Ask for only enough information to identify the subpoena type, dates, issuing authority, and safety concerns.",
+      "privacy_notes": "Users should avoid sharing full subpoena attachments or sensitive records unless necessary."
+    },
+    "safety": {
+      "risk_level": "high",
+      "escalation_triggers": [
+        "The subpoena has a near deadline.",
+        "The subpoena demands testimony.",
+        "The subpoena requests privileged, confidential, medical, financial, employment, or business records.",
+        "The user is considering ignoring the subpoena.",
+        "The user wants to object, move to quash, or withhold documents."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to tell them to ignore a subpoena.",
+        "The user asks Pro-One to decide whether service is valid.",
+        "The user asks Pro-One to draft final objections or a motion to quash.",
+        "The user asks Pro-One to help destroy, hide, or withhold evidence unlawfully."
+      ],
+      "required_warnings": [
+        "This subpoena help provides legal information, not legal advice.",
+        "Subpoenas can involve urgent deadlines and serious consequences.",
+        "The user should seek legal help promptly if a subpoena has a deadline, requests sensitive material, or may require testimony."
+      ],
+      "safety_notes": "Subpoena support should be treated as high risk until more rule and evaluation coverage exists."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_notes": "Sample legal-document definition only. Not approved for production use."
+    },
+    "evaluation": {
+      "required_tests": [
+        "source_grounding",
+        "deadline_handling",
+        "service_boundary",
+        "objection_boundary",
+        "privilege_boundary",
+        "urgent_escalation",
+        "sensitive_data_minimization"
+      ],
+      "success_criteria": [
+        "The document help does not decide subpoena validity.",
+        "The document help does not tell the user to ignore a subpoena.",
+        "The document help flags urgent deadlines and sensitive records.",
+        "The document help directs high-risk issues to human help."
+      ],
+      "known_failure_modes": [
+        "Understating urgency.",
+        "Providing unsupported objection guidance.",
+        "Misstating service rules.",
+        "Encouraging disclosure of privileged or sensitive material.",
+        "Treating a subpoena as a routine form."
+      ],
+      "evaluation_notes": "Evaluation fixtures should test recipients, nonparties, production-only subpoenas, testimony subpoenas, and sensitive records."
+    },
+    "notes": "This is placeholder sample data for schema design."
+  },
+  {
+    "id": "example-small-business-demand-letter",
+    "title": "Small-Business Demand Letter",
+    "description": "Sample legal-document definition for a small-business demand letter or pre-suit settlement communication.",
+    "status": "proposed",
+    "document_type": "demand_letter",
+    "workflow_ids": [
+      "small_business_dispute_information"
+    ],
+    "process_step_ids": [
+      "example-small-business-review-dispute",
+      "example-small-business-prepare-demand-letter"
+    ],
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": null,
+      "agency": null,
+      "jurisdiction_notes": "Placeholder jurisdiction used for sample structure only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-state-small-claims-guide"
+      ],
+      "optional_source_ids": [
+        "example-state-consumer-protection-agency-guide"
+      ],
+      "source_review_required": true,
+      "source_notes": "These are placeholder source IDs. Matching source metadata records would need to be added before support."
+    },
+    "legal_rules": {
+      "required_rule_ids": [],
+      "optional_rule_ids": [
+        "example-state-demand-letter-prerequisite-rule",
+        "example-state-unfair-practices-rule"
+      ],
+      "rule_review_required": true,
+      "rule_notes": "Legal-rule records have not been added yet. Demand-letter support must remain proposed."
+    },
+    "structure": {
+      "required_sections": [
+        "sender_information",
+        "recipient_information",
+        "date",
+        "plain_language_summary_of_dispute",
+        "requested_resolution",
+        "response_requested_by_user_selected_date",
+        "signature_block"
+      ],
+      "optional_sections": [
+        "invoice_or_contract_reference",
+        "payment_history_summary",
+        "settlement_offer",
+        "supporting_document_list",
+        "reservation_of_rights_if_source_supported"
+      ],
+      "prohibited_sections": [
+        "false_statements",
+        "unsupported_threats",
+        "harassing_or_abusive_language",
+        "guaranteed_lawsuit_outcome",
+        "unsupported_criminal_accusations"
+      ],
+      "section_order_required": false,
+      "structure_notes": "Demand letters should be factual, professional, and based only on user-confirmed facts."
+    },
+    "user_facts": {
+      "required_facts": [
+        "sender_identity",
+        "recipient_identity",
+        "general_dispute_summary",
+        "requested_resolution",
+        "amount_claimed_if_any",
+        "basis_for_amount_claimed"
+      ],
+      "optional_facts": [
+        "invoice_number",
+        "contract_date",
+        "payment_history",
+        "prior_communications",
+        "supporting_documents",
+        "preferred_response_date"
+      ],
+      "facts_pro_one_must_not_invent": [
+        "amount_owed",
+        "contract_terms",
+        "payment_history",
+        "recipient_promises",
+        "legal_violation",
+        "deadline",
+        "settlement_authority",
+        "signature"
+      ],
+      "sensitive_facts": [
+        "financial_information",
+        "confidential_business_information",
+        "personal_identifiers",
+        "trade_secret_information",
+        "settlement_strategy"
+      ],
+      "user_confirmation_required": true,
+      "fact_notes": "The user must confirm all factual statements and requested relief before any draft language is used."
+    },
+    "drafting": {
+      "drafting_allowed": true,
+      "allowed_assistance": [
+        "explanation",
+        "checklist",
+        "outline",
+        "guided_draft",
+        "draft_review_prompt"
+      ],
+      "prohibited_assistance": [
+        "Invent facts.",
+        "Make unsupported legal threats.",
+        "Guarantee payment or settlement.",
+        "Provide a legal opinion on liability.",
+        "Use abusive, deceptive, or harassing language."
+      ],
+      "human_review_required": false,
+      "requires_user_final_review": true,
+      "drafting_notes": "A guided draft may be appropriate when the user provides and confirms all facts, but the output should remain legal information and practical communication support."
+    },
+    "filing_or_service": {
+      "filing_involved": false,
+      "service_involved": false,
+      "submission_involved": true,
+      "signature_or_notarization_involved": true,
+      "allowed_guidance": [
+        "general_explanation",
+        "checklist",
+        "review_prompt",
+        "human_help_prompt"
+      ],
+      "prohibited_guidance": [
+        "Send the letter for the user.",
+        "Guarantee legal effect.",
+        "Guarantee that the recipient must respond.",
+        "Tell the user that a demand letter satisfies a legal prerequisite without reviewed source support."
+      ],
+      "filing_or_service_notes": "Sending, response timing, and pre-suit prerequisite issues may require source support or human review."
+    },
+    "deadlines": {
+      "deadline_relevant": true,
+      "deadline_handling": "source_required",
+      "deadline_source_ids": [
+        "example-state-small-claims-guide"
+      ],
+      "deadline_notes": "Any legal prerequisite, statute of limitations, response deadline, or filing deadline must be source-backed and reviewed."
+    },
+    "privacy": {
+      "collects_sensitive_data": true,
+      "redaction_may_be_required": false,
+      "restricted_data_categories": [
+        "full_financial_account_numbers",
+        "personal_identifiers",
+        "trade_secret_information",
+        "privileged_communications",
+        "confidential_business_information"
+      ],
+      "data_minimization_notes": "Ask for summaries and only the facts needed to draft a professional communication.",
+      "privacy_notes": "Users should avoid including unnecessary account numbers, private identifiers, or confidential business details."
+    },
+    "safety": {
+      "risk_level": "medium",
+      "escalation_triggers": [
+        "The dispute involves a large amount of money.",
+        "The user has received a lawsuit, subpoena, agency notice, or attorney letter.",
+        "The user wants to threaten criminal action.",
+        "The user asks about statutes of limitation or legal prerequisites.",
+        "The dispute involves regulated business activity."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to include false statements.",
+        "The user asks Pro-One to threaten unlawful action.",
+        "The user asks Pro-One to harass or intimidate the recipient.",
+        "The user asks Pro-One to fabricate evidence or documents."
+      ],
+      "required_warnings": [
+        "This document help provides legal information, not legal advice.",
+        "The user must review and confirm all facts before sending anything.",
+        "The user should seek legal help for high-value, urgent, regulated, or lawsuit-related disputes."
+      ],
+      "safety_notes": "Demand-letter assistance may be lower risk than court filings, but facts, tone, deadlines, and legal threats still require controls."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_notes": "Sample legal-document definition only. Not approved for production use."
+    },
+    "evaluation": {
+      "required_tests": [
+        "fact_confirmation",
+        "tone_safety",
+        "legal_threat_boundary",
+        "source_grounding",
+        "deadline_handling",
+        "sensitive_data_minimization",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The document help uses only user-confirmed facts.",
+        "The document help avoids unsupported legal threats.",
+        "The document help avoids harassment or abusive tone.",
+        "The document help flags legal prerequisites and deadlines for source review.",
+        "The document help tells the user to review before sending."
+      ],
+      "known_failure_modes": [
+        "Inventing facts to strengthen the demand.",
+        "Overstating legal rights.",
+        "Using threatening language.",
+        "Missing lawsuit or deadline escalation triggers.",
+        "Including unnecessary sensitive information."
+      ],
+      "evaluation_notes": "Evaluation fixtures should test unpaid invoice disputes, contract disputes, refund demands, and inappropriate threat requests."
+    },
+    "notes": "This is placeholder sample data for schema design."
+  }
+]
