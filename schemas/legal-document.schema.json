@@ -1,0 +1,632 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/zeitcow/pro-one/schemas/legal-document.schema.json",
+  "title": "Pro-One Legal Document",
+  "description": "Schema for defining legal documents, document-help boundaries, required user facts, source support, legal-rule support, filing and service limits, deadline handling, safety controls, and evaluation requirements.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "description",
+    "status",
+    "document_type",
+    "workflow_ids",
+    "process_step_ids",
+    "jurisdiction",
+    "sources",
+    "legal_rules",
+    "structure",
+    "user_facts",
+    "drafting",
+    "filing_or_service",
+    "deadlines",
+    "privacy",
+    "safety",
+    "review",
+    "evaluation"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable legal-document identifier used by Pro-One.",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable document title."
+    },
+    "description": {
+      "type": "string",
+      "description": "Plain-language explanation of the document and its role."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current document-definition maturity status.",
+      "enum": [
+        "proposed",
+        "researched",
+        "designed",
+        "tested",
+        "supported",
+        "deprecated",
+        "rejected"
+      ]
+    },
+    "document_type": {
+      "type": "string",
+      "description": "General category of legal document.",
+      "enum": [
+        "court_form",
+        "pleading",
+        "complaint",
+        "petition",
+        "answer_or_response",
+        "motion",
+        "motion_response",
+        "reply",
+        "declaration_or_affidavit",
+        "exhibit",
+        "certificate_of_service",
+        "subpoena",
+        "notice",
+        "discovery_request",
+        "discovery_response",
+        "interrogatories",
+        "requests_for_production",
+        "requests_for_admission",
+        "objection",
+        "demand_letter",
+        "settlement_document",
+        "contract_or_agreement",
+        "agency_application",
+        "business_document",
+        "compliance_checklist",
+        "filing_packet",
+        "service_packet",
+        "hearing_packet",
+        "other"
+      ]
+    },
+    "workflow_ids": {
+      "type": "array",
+      "description": "Workflow identifiers this document supports.",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "process_step_ids": {
+      "type": "array",
+      "description": "Process-step identifiers this document supports.",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "jurisdiction": {
+      "type": "object",
+      "description": "Jurisdiction, court, or agency this document definition applies to.",
+      "additionalProperties": false,
+      "required": [
+        "country"
+      ],
+      "properties": {
+        "country": {
+          "type": "string",
+          "description": "Country code or country name."
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "State, province, or equivalent jurisdiction."
+        },
+        "locality": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "County, city, district, or local jurisdiction if relevant."
+        },
+        "court": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Court name if the document is court-specific."
+        },
+        "agency": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Agency name if the document is agency-specific."
+        },
+        "jurisdiction_notes": {
+          "type": "string",
+          "description": "Notes about jurisdiction limits, venue limits, agency limits, or uncertainty."
+        }
+      }
+    },
+    "sources": {
+      "type": "object",
+      "description": "Source support for this document definition.",
+      "additionalProperties": false,
+      "required": [
+        "required_source_ids",
+        "source_review_required"
+      ],
+      "properties": {
+        "required_source_ids": {
+          "type": "array",
+          "description": "Source IDs required to support this document definition.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "optional_source_ids": {
+          "type": "array",
+          "description": "Additional source IDs that may support this document definition.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "source_review_required": {
+          "type": "boolean",
+          "description": "Whether source review is required before this document can be supported."
+        },
+        "source_notes": {
+          "type": "string",
+          "description": "Notes about source coverage, gaps, versioning, form currency, or limits."
+        }
+      }
+    },
+    "legal_rules": {
+      "type": "object",
+      "description": "Legal-rule support required for this document definition.",
+      "additionalProperties": false,
+      "required": [
+        "required_rule_ids",
+        "rule_review_required"
+      ],
+      "properties": {
+        "required_rule_ids": {
+          "type": "array",
+          "description": "Legal-rule IDs required to support this document definition.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "optional_rule_ids": {
+          "type": "array",
+          "description": "Additional legal-rule IDs that may support this document definition.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "rule_review_required": {
+          "type": "boolean",
+          "description": "Whether legal-rule review is required before this document can be supported."
+        },
+        "rule_notes": {
+          "type": "string",
+          "description": "Notes about rule coverage, uncertainty, or missing rule support."
+        }
+      }
+    },
+    "structure": {
+      "type": "object",
+      "description": "Expected structure and sections for this document.",
+      "additionalProperties": false,
+      "required": [
+        "required_sections",
+        "optional_sections",
+        "prohibited_sections"
+      ],
+      "properties": {
+        "required_sections": {
+          "type": "array",
+          "description": "Sections or components generally required for this document type.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "optional_sections": {
+          "type": "array",
+          "description": "Sections or components that may be included when source-supported and user-provided facts support them.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prohibited_sections": {
+          "type": "array",
+          "description": "Sections or content Pro-One should not generate for this document type.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "section_order_required": {
+          "type": "boolean",
+          "description": "Whether section order is source-backed and important."
+        },
+        "structure_notes": {
+          "type": "string",
+          "description": "Notes about document structure, formatting, form fields, captions, signature blocks, notarization, exhibits, attachments, or filing packets."
+        }
+      }
+    },
+    "user_facts": {
+      "type": "object",
+      "description": "User-provided facts needed for this document and limits on fact use.",
+      "additionalProperties": false,
+      "required": [
+        "required_facts",
+        "optional_facts",
+        "facts_pro_one_must_not_invent",
+        "sensitive_facts"
+      ],
+      "properties": {
+        "required_facts": {
+          "type": "array",
+          "description": "Facts the user must provide before Pro-One can assist with this document.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "optional_facts": {
+          "type": "array",
+          "description": "Facts that may help but are not required.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "facts_pro_one_must_not_invent": {
+          "type": "array",
+          "description": "Facts Pro-One must never invent, assume, or fill in without user confirmation.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "sensitive_facts": {
+          "type": "array",
+          "description": "Sensitive facts that may require minimization, redaction, human review, or special handling.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "user_confirmation_required": {
+          "type": "boolean",
+          "description": "Whether the user must confirm facts before document help is provided."
+        },
+        "fact_notes": {
+          "type": "string",
+          "description": "Notes about fact collection, fact verification, redaction, or uncertainty."
+        }
+      }
+    },
+    "drafting": {
+      "type": "object",
+      "description": "Document-help and drafting boundaries.",
+      "additionalProperties": false,
+      "required": [
+        "drafting_allowed",
+        "allowed_assistance",
+        "prohibited_assistance",
+        "human_review_required"
+      ],
+      "properties": {
+        "drafting_allowed": {
+          "type": "boolean",
+          "description": "Whether Pro-One may assist with drafting this document type."
+        },
+        "allowed_assistance": {
+          "type": "array",
+          "description": "Types of document help allowed for this document.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "none",
+              "explanation",
+              "checklist",
+              "outline",
+              "template_completion",
+              "guided_draft",
+              "draft_review_prompt",
+              "issue_spotting_prompt"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "prohibited_assistance": {
+          "type": "array",
+          "description": "Types of assistance Pro-One must not provide for this document.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "human_review_required": {
+          "type": "boolean",
+          "description": "Whether human review should be required before the document is filed, served, sent, signed, or relied on."
+        },
+        "requires_user_final_review": {
+          "type": "boolean",
+          "description": "Whether the user must be told to review the document before use."
+        },
+        "drafting_notes": {
+          "type": "string",
+          "description": "Notes about drafting limits, templates, form completion, unsupported content, and review warnings."
+        }
+      }
+    },
+    "filing_or_service": {
+      "type": "object",
+      "description": "Filing, service, sending, signing, notarization, or submission issues connected to the document.",
+      "additionalProperties": false,
+      "required": [
+        "filing_involved",
+        "service_involved",
+        "submission_involved",
+        "allowed_guidance",
+        "prohibited_guidance"
+      ],
+      "properties": {
+        "filing_involved": {
+          "type": "boolean",
+          "description": "Whether the document may be filed with a court."
+        },
+        "service_involved": {
+          "type": "boolean",
+          "description": "Whether the document may need to be served on another party."
+        },
+        "submission_involved": {
+          "type": "boolean",
+          "description": "Whether the document may be submitted to an agency, business, opposing party, or other recipient."
+        },
+        "signature_or_notarization_involved": {
+          "type": "boolean",
+          "description": "Whether signature, verification, declaration, affidavit, notarization, or certification issues may matter."
+        },
+        "allowed_guidance": {
+          "type": "array",
+          "description": "Filing, service, or submission guidance Pro-One may provide.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "none",
+              "general_explanation",
+              "source_link",
+              "checklist",
+              "review_prompt",
+              "human_help_prompt"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "prohibited_guidance": {
+          "type": "array",
+          "description": "Filing, service, or submission guidance Pro-One must not provide.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "filing_or_service_notes": {
+          "type": "string",
+          "description": "Notes about filing, service, sending, signing, notarization, submission, or certification limits."
+        }
+      }
+    },
+    "deadlines": {
+      "type": "object",
+      "description": "Deadline handling for this document.",
+      "additionalProperties": false,
+      "required": [
+        "deadline_relevant",
+        "deadline_handling"
+      ],
+      "properties": {
+        "deadline_relevant": {
+          "type": "boolean",
+          "description": "Whether deadlines may matter for this document."
+        },
+        "deadline_handling": {
+          "type": "string",
+          "description": "How Pro-One should handle deadlines for this document.",
+          "enum": [
+            "no_deadline",
+            "informational_only",
+            "source_required",
+            "human_review_required",
+            "unsupported"
+          ]
+        },
+        "deadline_source_ids": {
+          "type": "array",
+          "description": "Source IDs that support deadline information for this document.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "deadline_notes": {
+          "type": "string",
+          "description": "Notes about response deadlines, filing deadlines, service deadlines, discovery deadlines, hearing deadlines, renewal dates, or unsupported deadline calculations."
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "description": "Privacy and data-minimization controls for this document.",
+      "additionalProperties": false,
+      "required": [
+        "collects_sensitive_data",
+        "redaction_may_be_required",
+        "data_minimization_notes"
+      ],
+      "properties": {
+        "collects_sensitive_data": {
+          "type": "boolean",
+          "description": "Whether this document may involve sensitive personal, financial, health, immigration, business, or court-case information."
+        },
+        "redaction_may_be_required": {
+          "type": "boolean",
+          "description": "Whether redaction may be required before filing, serving, submitting, or sharing the document."
+        },
+        "restricted_data_categories": {
+          "type": "array",
+          "description": "Data categories that should be restricted, minimized, or avoided.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "data_minimization_notes": {
+          "type": "string",
+          "description": "How Pro-One should avoid collecting or displaying unnecessary data."
+        },
+        "privacy_notes": {
+          "type": "string",
+          "description": "Additional privacy, redaction, retention, or confidentiality notes."
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "description": "Safety controls for this document definition.",
+      "additionalProperties": false,
+      "required": [
+        "risk_level",
+        "escalation_triggers",
+        "refusal_triggers",
+        "required_warnings"
+      ],
+      "properties": {
+        "risk_level": {
+          "type": "string",
+          "description": "Risk level for this document type.",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "escalation_triggers": {
+          "type": "array",
+          "description": "Signals that the user should be directed toward legal aid, court help, a lawyer, or another human resource.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "refusal_triggers": {
+          "type": "array",
+          "description": "Signals that Pro-One should refuse, narrow, or redirect the request.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "required_warnings": {
+          "type": "array",
+          "description": "Warnings or limits that must appear in user-facing responses for this document.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "safety_notes": {
+          "type": "string",
+          "description": "Additional safety notes."
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "description": "Review status within Pro-One.",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reviewed_by",
+        "reviewed_on"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "needs_review",
+            "reviewed",
+            "approved",
+            "deprecated",
+            "rejected"
+          ]
+        },
+        "reviewed_by": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Reviewer name, handle, or role."
+        },
+        "reviewed_on": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "Date of review."
+        },
+        "review_notes": {
+          "type": "string",
+          "description": "Notes from document-definition review."
+        }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "description": "Testing requirements before this document definition can be supported.",
+      "additionalProperties": false,
+      "required": [
+        "required_tests",
+        "success_criteria",
+        "known_failure_modes"
+      ],
+      "properties": {
+        "required_tests": {
+          "type": "array",
+          "description": "Tests or evaluation categories required for this document.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "success_criteria": {
+          "type": "array",
+          "description": "What must be true for the document definition to pass review.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "known_failure_modes": {
+          "type": "array",
+          "description": "Known ways this document help could fail or mislead users.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evaluation_notes": {
+          "type": "string",
+          "description": "Additional evaluation notes."
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes."
+    }
+  }
+}
