@@ -1,0 +1,635 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/zeitcow/pro-one/schemas/legal-rule.schema.json",
+  "title": "Pro-One Legal Rule",
+  "description": "Schema for defining source-backed legal rule statements, jurisdiction limits, authority, effective dates, workflow fit, document fit, risk notes, review status, and evaluation requirements.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "description",
+    "status",
+    "rule_type",
+    "jurisdiction",
+    "source_support",
+    "rule_statement",
+    "rule_scope",
+    "workflow_fit",
+    "process_step_fit",
+    "document_fit",
+    "dates",
+    "user_support",
+    "risk",
+    "review",
+    "evaluation"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable legal-rule identifier used by Pro-One.",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for the legal rule."
+    },
+    "description": {
+      "type": "string",
+      "description": "Plain-language explanation of what this legal-rule record covers."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current legal-rule maturity status.",
+      "enum": [
+        "proposed",
+        "researched",
+        "drafted",
+        "tested",
+        "supported",
+        "deprecated",
+        "rejected"
+      ]
+    },
+    "rule_type": {
+      "type": "string",
+      "description": "General category of legal rule.",
+      "enum": [
+        "eligibility_rule",
+        "filing_rule",
+        "service_rule",
+        "notice_rule",
+        "deadline_rule",
+        "form_rule",
+        "fee_rule",
+        "fee_waiver_rule",
+        "hearing_rule",
+        "evidence_rule",
+        "discovery_rule",
+        "subpoena_rule",
+        "response_rule",
+        "appeal_or_review_rule",
+        "agency_rule",
+        "business_rule",
+        "contract_rule",
+        "privacy_rule",
+        "safety_rule",
+        "other"
+      ]
+    },
+    "jurisdiction": {
+      "type": "object",
+      "description": "Jurisdiction, court, agency, or locality where the legal rule may apply.",
+      "additionalProperties": false,
+      "required": [
+        "country",
+        "state",
+        "locality",
+        "court",
+        "agency",
+        "jurisdiction_required",
+        "jurisdiction_notes"
+      ],
+      "properties": {
+        "country": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "locality": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "court": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "agency": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "jurisdiction_required": {
+          "type": "boolean",
+          "description": "Whether Pro-One must identify jurisdiction before using this rule in a user-facing response."
+        },
+        "jurisdiction_notes": {
+          "type": "string",
+          "description": "Notes about jurisdiction, venue, forum, agency, or locality limits."
+        }
+      }
+    },
+    "source_support": {
+      "type": "object",
+      "description": "Sources supporting the legal-rule statement.",
+      "additionalProperties": false,
+      "required": [
+        "required_source_ids",
+        "optional_source_ids",
+        "source_quotes_allowed",
+        "source_review_required",
+        "source_notes"
+      ],
+      "properties": {
+        "required_source_ids": {
+          "type": "array",
+          "description": "Source identifiers required before this rule may be used.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "optional_source_ids": {
+          "type": "array",
+          "description": "Additional source identifiers that may help explain or verify the rule.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "source_quotes_allowed": {
+          "type": "boolean",
+          "description": "Whether short source quotations may be used when allowed by rights and citation rules."
+        },
+        "source_review_required": {
+          "type": "boolean",
+          "description": "Whether source review is required before this rule is used."
+        },
+        "source_notes": {
+          "type": "string",
+          "description": "Notes about source authority, source limitations, or source freshness."
+        }
+      }
+    },
+    "rule_statement": {
+      "type": "object",
+      "description": "The legal-rule statement and related plain-language explanation.",
+      "additionalProperties": false,
+      "required": [
+        "canonical_statement",
+        "plain_language_statement",
+        "must_not_overstate",
+        "user_facing_allowed"
+      ],
+      "properties": {
+        "canonical_statement": {
+          "type": "string",
+          "description": "Controlled rule statement based on reviewed sources."
+        },
+        "plain_language_statement": {
+          "type": "string",
+          "description": "Plain-language version of the rule statement."
+        },
+        "must_not_overstate": {
+          "type": "array",
+          "description": "Claims Pro-One must not make when using this rule.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "user_facing_allowed": {
+          "type": "boolean",
+          "description": "Whether this rule may appear in user-facing responses after review."
+        },
+        "rule_statement_notes": {
+          "type": "string",
+          "description": "Notes about wording, limits, and safe phrasing."
+        }
+      }
+    },
+    "rule_scope": {
+      "type": "object",
+      "description": "Scope and limits of the legal rule.",
+      "additionalProperties": false,
+      "required": [
+        "applies_to",
+        "does_not_apply_to",
+        "requires_user_facts",
+        "requires_source_check"
+      ],
+      "properties": {
+        "applies_to": {
+          "type": "array",
+          "description": "Situations where this legal rule may apply.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "does_not_apply_to": {
+          "type": "array",
+          "description": "Situations where this legal rule should not be used.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "requires_user_facts": {
+          "type": "array",
+          "description": "User facts needed before the rule can be applied or explained.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requires_source_check": {
+          "type": "boolean",
+          "description": "Whether Pro-One must check source currency before using this rule."
+        },
+        "scope_notes": {
+          "type": "string",
+          "description": "Additional scope notes."
+        }
+      }
+    },
+    "workflow_fit": {
+      "type": "object",
+      "description": "Workflows where this rule may be used.",
+      "additionalProperties": false,
+      "required": [
+        "supported_workflow_ids",
+        "excluded_workflow_ids",
+        "workflow_notes"
+      ],
+      "properties": {
+        "supported_workflow_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "excluded_workflow_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "workflow_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "process_step_fit": {
+      "type": "object",
+      "description": "Process steps where this rule may be used.",
+      "additionalProperties": false,
+      "required": [
+        "supported_process_step_ids",
+        "excluded_process_step_ids",
+        "process_step_notes"
+      ],
+      "properties": {
+        "supported_process_step_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "excluded_process_step_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "process_step_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "document_fit": {
+      "type": "object",
+      "description": "Legal documents where this rule may be used.",
+      "additionalProperties": false,
+      "required": [
+        "supported_document_ids",
+        "supported_document_types",
+        "excluded_document_ids",
+        "document_notes"
+      ],
+      "properties": {
+        "supported_document_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "supported_document_types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "court_form",
+              "pleading",
+              "complaint",
+              "petition",
+              "answer_or_response",
+              "motion",
+              "motion_response",
+              "reply",
+              "declaration_or_affidavit",
+              "exhibit",
+              "certificate_of_service",
+              "subpoena",
+              "notice",
+              "discovery_request",
+              "discovery_response",
+              "interrogatories",
+              "requests_for_production",
+              "requests_for_admission",
+              "objection",
+              "demand_letter",
+              "settlement_document",
+              "contract_or_agreement",
+              "agency_application",
+              "business_document",
+              "compliance_checklist",
+              "filing_packet",
+              "service_packet",
+              "hearing_packet",
+              "other"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "excluded_document_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "document_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "dates": {
+      "type": "object",
+      "description": "Dates relevant to the legal rule and its review.",
+      "additionalProperties": false,
+      "required": [
+        "effective_on",
+        "last_updated",
+        "last_checked",
+        "expires_on",
+        "date_notes"
+      ],
+      "properties": {
+        "effective_on": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "last_updated": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "last_checked": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "expires_on": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "date_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "user_support": {
+      "type": "object",
+      "description": "How Pro-One may use this rule to support users.",
+      "additionalProperties": false,
+      "required": [
+        "allowed_support_modes",
+        "prohibited_support_modes",
+        "requires_plain_language",
+        "requires_citation"
+      ],
+      "properties": {
+        "allowed_support_modes": {
+          "type": "array",
+          "description": "Support modes where this rule may be used.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "general_information",
+              "source_backed_steps",
+              "checklist",
+              "document_explanation",
+              "issue_spotting",
+              "deadline_awareness",
+              "urgent_support",
+              "court_or_agency_resource_prompt",
+              "free_or_low_cost_resource_prompt",
+              "scope_boundary"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "prohibited_support_modes": {
+          "type": "array",
+          "description": "Support modes where this rule must not be used.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "requires_plain_language": {
+          "type": "boolean",
+          "description": "Whether user-facing use must include plain-language explanation."
+        },
+        "requires_citation": {
+          "type": "boolean",
+          "description": "Whether user-facing use must include a source citation or source reference."
+        },
+        "user_support_notes": {
+          "type": "string",
+          "description": "Notes about user-facing support boundaries."
+        }
+      }
+    },
+    "exceptions_and_variations": {
+      "type": "object",
+      "description": "Exceptions, variations, and unresolved issues related to the rule.",
+      "additionalProperties": false,
+      "properties": {
+        "known_exceptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "local_variations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unresolved_questions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "variation_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "description": "Risk handling for this legal rule.",
+      "additionalProperties": false,
+      "required": [
+        "risk_level",
+        "risk_triggers",
+        "unsafe_uses",
+        "safe_continuation_notes"
+      ],
+      "properties": {
+        "risk_level": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "risk_triggers": {
+          "type": "array",
+          "description": "Signals that require narrower support, urgent support, or additional caution.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unsafe_uses": {
+          "type": "array",
+          "description": "Uses of the rule that Pro-One should not support.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "safe_continuation_notes": {
+          "type": "string",
+          "description": "How Pro-One should keep helping safely when risks appear."
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "description": "Review status within Pro-One.",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reviewed_by",
+        "reviewed_on"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "needs_review",
+            "reviewed",
+            "approved",
+            "deprecated",
+            "rejected"
+          ]
+        },
+        "reviewed_by": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Reviewer name, handle, or role."
+        },
+        "reviewed_on": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "Date of review."
+        },
+        "review_notes": {
+          "type": "string",
+          "description": "Notes from legal-rule review."
+        }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "description": "Testing requirements before this legal rule can be supported.",
+      "additionalProperties": false,
+      "required": [
+        "required_tests",
+        "success_criteria",
+        "known_failure_modes"
+      ],
+      "properties": {
+        "required_tests": {
+          "type": "array",
+          "description": "Tests or evaluation categories required for this rule.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "success_criteria": {
+          "type": "array",
+          "description": "What must be true for this rule to pass review.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "known_failure_modes": {
+          "type": "array",
+          "description": "Known ways this rule could be misused, overstated, miscited, or applied outside scope.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evaluation_notes": {
+          "type": "string",
+          "description": "Additional evaluation notes."
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes."
+    }
+  }
+}
