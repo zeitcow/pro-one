@@ -1,0 +1,852 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/zeitcow/pro-one/schemas/response.schema.json",
+  "title": "Pro-One Response",
+  "description": "Schema for defining safe user-facing response patterns, including source use, scope limits, privacy prompts, risk handling, safe continuation, next steps, human-help framing, prohibited content, review status, and evaluation requirements.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "description",
+    "status",
+    "response_type",
+    "related_records",
+    "jurisdiction",
+    "source_use",
+    "scope",
+    "privacy",
+    "risk",
+    "response_structure",
+    "user_message",
+    "next_steps",
+    "human_help",
+    "prohibited_content",
+    "review",
+    "evaluation"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable response pattern identifier.",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for the response pattern."
+    },
+    "description": {
+      "type": "string",
+      "description": "Plain-language description of what this response pattern controls."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current response-pattern maturity status.",
+      "enum": [
+        "proposed",
+        "drafted",
+        "tested",
+        "supported",
+        "deprecated",
+        "rejected"
+      ]
+    },
+    "response_type": {
+      "type": "string",
+      "description": "Primary response pattern type.",
+      "enum": [
+        "general_information",
+        "source_backed_steps",
+        "checklist",
+        "document_explanation",
+        "issue_spotting",
+        "deadline_awareness",
+        "urgent_support",
+        "court_or_agency_resource_prompt",
+        "free_or_low_cost_resource_prompt",
+        "scope_boundary",
+        "privacy_prompt",
+        "redaction_prompt",
+        "refusal_of_unsafe_part",
+        "safe_continuation",
+        "other"
+      ]
+    },
+    "related_records": {
+      "type": "object",
+      "description": "Other Pro-One records connected to this response pattern.",
+      "additionalProperties": false,
+      "required": [
+        "source_ids",
+        "workflow_ids",
+        "process_step_ids",
+        "legal_document_ids",
+        "intake_ids",
+        "legal_rule_ids",
+        "risk_ids",
+        "evaluation_fixture_ids"
+      ],
+      "properties": {
+        "source_ids": {
+          "type": "array",
+          "description": "Source identifiers this response pattern may rely on.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "workflow_ids": {
+          "type": "array",
+          "description": "Workflow identifiers this response pattern supports.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "process_step_ids": {
+          "type": "array",
+          "description": "Process-step identifiers this response pattern supports.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "legal_document_ids": {
+          "type": "array",
+          "description": "Legal-document identifiers this response pattern supports.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "intake_ids": {
+          "type": "array",
+          "description": "Intake identifiers this response pattern supports.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "legal_rule_ids": {
+          "type": "array",
+          "description": "Legal-rule identifiers this response pattern may use.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "risk_ids": {
+          "type": "array",
+          "description": "Risk identifiers this response pattern may respond to.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "evaluation_fixture_ids": {
+          "type": "array",
+          "description": "Evaluation fixtures that should test this response pattern.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "jurisdiction": {
+      "type": "object",
+      "description": "Jurisdiction handling for this response pattern.",
+      "additionalProperties": false,
+      "required": [
+        "jurisdiction_required",
+        "jurisdiction_known_required_for_specific_guidance",
+        "unknown_jurisdiction_response",
+        "jurisdiction_notes"
+      ],
+      "properties": {
+        "jurisdiction_required": {
+          "type": "boolean",
+          "description": "Whether jurisdiction matters for this response pattern."
+        },
+        "jurisdiction_known_required_for_specific_guidance": {
+          "type": "boolean",
+          "description": "Whether specific court, agency, state, or locality guidance requires known jurisdiction."
+        },
+        "unknown_jurisdiction_response": {
+          "type": "string",
+          "description": "How Pro-One should respond when jurisdiction is unknown.",
+          "enum": [
+            "continue_with_general_information",
+            "ask_minimum_clarifying_question",
+            "offer_jurisdiction_identification_steps",
+            "provide_court_or_agency_finder_prompt",
+            "narrow_scope_before_answering"
+          ]
+        },
+        "jurisdiction_notes": {
+          "type": "string",
+          "description": "Notes about jurisdiction limits."
+        }
+      }
+    },
+    "source_use": {
+      "type": "object",
+      "description": "Source-use requirements for the response pattern.",
+      "additionalProperties": false,
+      "required": [
+        "source_required",
+        "citation_required",
+        "allowed_source_statuses",
+        "allowed_source_authority_levels",
+        "must_not_use_sources",
+        "source_limitation_language"
+      ],
+      "properties": {
+        "source_required": {
+          "type": "boolean",
+          "description": "Whether the response must be grounded in reviewed sources."
+        },
+        "citation_required": {
+          "type": "boolean",
+          "description": "Whether the user-facing response must include source references or citations."
+        },
+        "allowed_source_statuses": {
+          "type": "array",
+          "description": "Source review statuses allowed for this response pattern.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "proposed",
+              "needs_review",
+              "reviewed",
+              "approved",
+              "deprecated",
+              "rejected"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "allowed_source_authority_levels": {
+          "type": "array",
+          "description": "Source authority levels allowed for this response pattern.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "official_primary",
+              "official_secondary",
+              "public_legal_aid",
+              "recognized_secondary",
+              "community_reference",
+              "unknown"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "must_not_use_sources": {
+          "type": "array",
+          "description": "Source categories, statuses, or authority levels that must not support the response.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_limitation_language": {
+          "type": "array",
+          "description": "Language patterns to use when source support is incomplete, missing, or jurisdiction-limited.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_use_notes": {
+          "type": "string",
+          "description": "Additional source-use notes."
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "description": "Scope boundaries for this response pattern.",
+      "additionalProperties": false,
+      "required": [
+        "legal_information_only",
+        "allowed_support_modes",
+        "prohibited_support_modes",
+        "scope_boundary_required",
+        "scope_notes"
+      ],
+      "properties": {
+        "legal_information_only": {
+          "type": "boolean",
+          "description": "Whether this response pattern is limited to legal information."
+        },
+        "allowed_support_modes": {
+          "type": "array",
+          "description": "Support modes allowed for this response pattern.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "general_information",
+              "source_backed_steps",
+              "checklist",
+              "document_explanation",
+              "issue_spotting",
+              "deadline_awareness",
+              "urgent_support",
+              "court_or_agency_resource_prompt",
+              "free_or_low_cost_resource_prompt",
+              "scope_boundary",
+              "privacy_prompt",
+              "redaction_prompt",
+              "refusal_of_unsafe_part",
+              "safe_continuation"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "prohibited_support_modes": {
+          "type": "array",
+          "description": "Support modes that must not be used for this response pattern.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "legal_opinion",
+              "guaranteed_outcome",
+              "final_filing_decision",
+              "final_deadline_calculation",
+              "case_strategy",
+              "final_document_readiness",
+              "final_compliance_decision",
+              "privilege_determination",
+              "service_validity_decision",
+              "evidence_concealment",
+              "fabrication_assistance"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "scope_boundary_required": {
+          "type": "boolean",
+          "description": "Whether the response must include scope-boundary language."
+        },
+        "scope_notes": {
+          "type": "string",
+          "description": "Additional scope notes."
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "description": "Privacy controls for this response pattern.",
+      "additionalProperties": false,
+      "required": [
+        "sensitive_data_likely",
+        "redaction_prompt_required",
+        "data_minimization_required",
+        "allowed_data_requests",
+        "prohibited_data_requests",
+        "privacy_language"
+      ],
+      "properties": {
+        "sensitive_data_likely": {
+          "type": "boolean",
+          "description": "Whether this response pattern commonly involves sensitive data."
+        },
+        "redaction_prompt_required": {
+          "type": "boolean",
+          "description": "Whether the response should prompt redaction or summaries."
+        },
+        "data_minimization_required": {
+          "type": "boolean",
+          "description": "Whether the response must minimize collected data."
+        },
+        "allowed_data_requests": {
+          "type": "array",
+          "description": "Data the response may ask for.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prohibited_data_requests": {
+          "type": "array",
+          "description": "Data the response must not ask for.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "privacy_language": {
+          "type": "array",
+          "description": "Approved privacy or redaction language patterns.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "privacy_notes": {
+          "type": "string",
+          "description": "Additional privacy notes."
+        }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "description": "Risk handling for this response pattern.",
+      "additionalProperties": false,
+      "required": [
+        "risk_expected",
+        "risk_levels_supported",
+        "risk_routing",
+        "safe_continuation_required",
+        "unsafe_part_refusal_required",
+        "risk_language"
+      ],
+      "properties": {
+        "risk_expected": {
+          "type": "boolean",
+          "description": "Whether this response pattern is designed for risk-aware situations."
+        },
+        "risk_levels_supported": {
+          "type": "array",
+          "description": "Risk levels this response pattern may support.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "none",
+              "low",
+              "medium",
+              "high",
+              "extreme"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "risk_routing": {
+          "type": "string",
+          "description": "Default risk-routing strategy for this response pattern.",
+          "enum": [
+            "none",
+            "continue_in_safer_mode",
+            "continue_with_urgent_support",
+            "continue_with_deadline_awareness",
+            "continue_with_issue_spotting",
+            "narrow_then_continue",
+            "refuse_unsafe_part_and_continue_safe_part"
+          ]
+        },
+        "safe_continuation_required": {
+          "type": "boolean",
+          "description": "Whether the response must continue with safe support where possible."
+        },
+        "unsafe_part_refusal_required": {
+          "type": "boolean",
+          "description": "Whether the response must refuse unsafe parts."
+        },
+        "risk_language": {
+          "type": "array",
+          "description": "Approved risk-aware language patterns.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "risk_notes": {
+          "type": "string",
+          "description": "Additional risk notes."
+        }
+      }
+    },
+    "response_structure": {
+      "type": "object",
+      "description": "Required structure for the user-facing response.",
+      "additionalProperties": false,
+      "required": [
+        "required_sections",
+        "optional_sections",
+        "max_clarifying_questions",
+        "plain_language_required",
+        "tone"
+      ],
+      "properties": {
+        "required_sections": {
+          "type": "array",
+          "description": "Sections or content blocks required in the response.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "acknowledgment",
+              "scope_boundary",
+              "source_limit",
+              "risk_notice",
+              "privacy_prompt",
+              "redaction_prompt",
+              "document_explanation",
+              "issue_spotting",
+              "checklist",
+              "source_backed_steps",
+              "deadline_awareness",
+              "urgent_next_steps",
+              "safe_refusal",
+              "safe_continuation",
+              "resource_prompt",
+              "next_steps"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "optional_sections": {
+          "type": "array",
+          "description": "Sections that may be included.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "examples",
+              "definitions",
+              "what_to_check",
+              "questions_to_answer",
+              "documents_to_gather",
+              "court_or_agency_resources",
+              "free_or_low_cost_resources",
+              "source_notes",
+              "follow_up_prompt"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "max_clarifying_questions": {
+          "type": "integer",
+          "description": "Maximum number of clarifying questions the response should ask at once.",
+          "minimum": 0
+        },
+        "plain_language_required": {
+          "type": "boolean",
+          "description": "Whether the response must use plain language."
+        },
+        "tone": {
+          "type": "string",
+          "description": "Expected response tone.",
+          "enum": [
+            "calm",
+            "practical",
+            "urgent_but_calm",
+            "firm_boundary",
+            "neutral",
+            "supportive"
+          ]
+        },
+        "structure_notes": {
+          "type": "string",
+          "description": "Additional response-structure notes."
+        }
+      }
+    },
+    "user_message": {
+      "type": "object",
+      "description": "User-facing language controls.",
+      "additionalProperties": false,
+      "required": [
+        "opening_pattern",
+        "required_phrases",
+        "allowed_phrases",
+        "phrases_to_avoid",
+        "closing_pattern"
+      ],
+      "properties": {
+        "opening_pattern": {
+          "type": "string",
+          "description": "Recommended opening pattern for the response."
+        },
+        "required_phrases": {
+          "type": "array",
+          "description": "Phrases or concepts that must appear.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allowed_phrases": {
+          "type": "array",
+          "description": "Phrases or concepts that may appear.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "phrases_to_avoid": {
+          "type": "array",
+          "description": "Phrases or concepts the response should avoid.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "closing_pattern": {
+          "type": "string",
+          "description": "Recommended closing pattern for the response."
+        },
+        "user_message_notes": {
+          "type": "string",
+          "description": "Additional user-message notes."
+        }
+      }
+    },
+    "next_steps": {
+      "type": "object",
+      "description": "Next-step requirements for the response pattern.",
+      "additionalProperties": false,
+      "required": [
+        "next_steps_required",
+        "allowed_next_step_types",
+        "prohibited_next_step_types",
+        "next_step_notes"
+      ],
+      "properties": {
+        "next_steps_required": {
+          "type": "boolean",
+          "description": "Whether the response must include next steps."
+        },
+        "allowed_next_step_types": {
+          "type": "array",
+          "description": "Types of next steps the response may include.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "identify_document_type",
+              "identify_court_or_agency",
+              "identify_listed_date",
+              "gather_user_confirmed_facts",
+              "review_source",
+              "organize_documents",
+              "prepare_questions",
+              "use_redacted_excerpt",
+              "complete_checklist",
+              "contact_court_or_agency_information_resource",
+              "contact_free_or_low_cost_resource",
+              "continue_with_supported_workflow"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "prohibited_next_step_types": {
+          "type": "array",
+          "description": "Types of next steps the response must not include.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "ignore_legal_document",
+              "invent_facts",
+              "hide_evidence",
+              "destroy_records",
+              "submit_without_review",
+              "guarantee_outcome",
+              "calculate_unsupported_deadline",
+              "choose_legal_strategy",
+              "decide_privilege",
+              "decide_compliance"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "next_step_notes": {
+          "type": "string",
+          "description": "Additional next-step notes."
+        }
+      }
+    },
+    "human_help": {
+      "type": "object",
+      "description": "Human-help and resource framing for the response pattern.",
+      "additionalProperties": false,
+      "required": [
+        "human_help_framing",
+        "resource_prompt_allowed",
+        "must_not_make_paid_help_the_default",
+        "resource_types_allowed",
+        "human_help_notes"
+      ],
+      "properties": {
+        "human_help_framing": {
+          "type": "string",
+          "enum": [
+            "not_required_by_default",
+            "optional_free_or_low_cost_resource",
+            "recommended_for_high_risk_issues",
+            "urgent_for_extreme_risk"
+          ]
+        },
+        "resource_prompt_allowed": {
+          "type": "boolean",
+          "description": "Whether the response may include a resource prompt."
+        },
+        "must_not_make_paid_help_the_default": {
+          "type": "boolean",
+          "description": "Whether the response must avoid making paid counsel the default route."
+        },
+        "resource_types_allowed": {
+          "type": "array",
+          "description": "Resource types that may be suggested.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "court_self_help",
+              "court_clerk_information_resource",
+              "agency_resource",
+              "legal_aid",
+              "nonprofit_resource",
+              "free_clinic",
+              "low_cost_resource",
+              "bar_referral",
+              "other"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "human_help_notes": {
+          "type": "string",
+          "description": "Additional human-help notes."
+        }
+      }
+    },
+    "prohibited_content": {
+      "type": "object",
+      "description": "Content the response must not include.",
+      "additionalProperties": false,
+      "required": [
+        "prohibited_outputs",
+        "prohibited_actions",
+        "prohibited_language",
+        "failure_modes"
+      ],
+      "properties": {
+        "prohibited_outputs": {
+          "type": "array",
+          "description": "Outputs that must not be produced.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "prohibited_actions": {
+          "type": "array",
+          "description": "Actions the response must not take.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "prohibited_language": {
+          "type": "array",
+          "description": "Language patterns the response must not use.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "failure_modes": {
+          "type": "array",
+          "description": "Known response failures this pattern must avoid.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "prohibited_content_notes": {
+          "type": "string",
+          "description": "Additional prohibited-content notes."
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "description": "Review status for the response pattern.",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reviewed_by",
+        "reviewed_on"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "needs_review",
+            "reviewed",
+            "approved",
+            "deprecated",
+            "rejected"
+          ]
+        },
+        "reviewed_by": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reviewed_on": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "review_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "description": "Evaluation requirements for this response pattern.",
+      "additionalProperties": false,
+      "required": [
+        "required_evaluation_fixture_ids",
+        "required_tests",
+        "success_criteria",
+        "known_failure_modes"
+      ],
+      "properties": {
+        "required_evaluation_fixture_ids": {
+          "type": "array",
+          "description": "Evaluation fixture identifiers required to test this response pattern.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "required_tests": {
+          "type": "array",
+          "description": "Test categories required before this response pattern is supported.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "success_criteria": {
+          "type": "array",
+          "description": "Conditions required for the response pattern to pass evaluation.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "known_failure_modes": {
+          "type": "array",
+          "description": "Known ways the response pattern may fail.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "evaluation_notes": {
+          "type": "string",
+          "description": "Additional evaluation notes."
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes."
+    }
+  }
+}
