@@ -1,0 +1,708 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/zeitcow/pro-one/schemas/risk.schema.json",
+  "title": "Pro-One Risk",
+  "description": "Schema for defining recurring legal-risk situations, urgent support routing, unsafe requests, deadline awareness, privacy risks, safe continuation rules, human-help framing, review status, and evaluation requirements.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "description",
+    "status",
+    "risk_type",
+    "risk_level",
+    "jurisdiction",
+    "related_records",
+    "trigger_signals",
+    "user_context",
+    "unsafe_requests",
+    "support_routing",
+    "allowed_support",
+    "prohibited_support",
+    "deadline_handling",
+    "privacy",
+    "human_help",
+    "review",
+    "evaluation"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable risk identifier used by Pro-One.",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for the risk record."
+    },
+    "description": {
+      "type": "string",
+      "description": "Plain-language explanation of the risk situation."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current risk-definition maturity status.",
+      "enum": [
+        "proposed",
+        "researched",
+        "designed",
+        "tested",
+        "supported",
+        "deprecated",
+        "rejected"
+      ]
+    },
+    "risk_type": {
+      "type": "string",
+      "description": "General category of risk.",
+      "enum": [
+        "deadline_risk",
+        "urgent_court_or_agency_risk",
+        "subpoena_risk",
+        "discovery_risk",
+        "evidence_integrity_risk",
+        "privilege_or_confidentiality_risk",
+        "privacy_risk",
+        "safety_risk",
+        "criminal_exposure_risk",
+        "immigration_consequence_risk",
+        "minor_child_risk",
+        "contempt_or_order_violation_risk",
+        "financial_exposure_risk",
+        "regulated_business_risk",
+        "unsafe_user_request",
+        "unsupported_legal_claim_risk",
+        "other"
+      ]
+    },
+    "risk_level": {
+      "type": "string",
+      "description": "Severity level for the risk situation.",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "extreme"
+      ]
+    },
+    "jurisdiction": {
+      "type": "object",
+      "description": "Jurisdiction, court, agency, or locality considerations for this risk.",
+      "additionalProperties": false,
+      "required": [
+        "jurisdiction_required",
+        "country",
+        "state",
+        "locality",
+        "court",
+        "agency",
+        "jurisdiction_unknown_handling",
+        "jurisdiction_notes"
+      ],
+      "properties": {
+        "jurisdiction_required": {
+          "type": "boolean",
+          "description": "Whether Pro-One must identify jurisdiction before giving specific source-backed guidance."
+        },
+        "country": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "locality": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "court": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "agency": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "jurisdiction_unknown_handling": {
+          "type": "string",
+          "description": "How Pro-One should continue when jurisdiction is unknown.",
+          "enum": [
+            "continue_with_general_information",
+            "ask_minimum_clarifying_question",
+            "offer_jurisdiction_identification_steps",
+            "provide_court_or_agency_finder_prompt",
+            "narrow_scope_before_answering"
+          ]
+        },
+        "jurisdiction_notes": {
+          "type": "string",
+          "description": "Notes about jurisdiction, court, agency, forum, or locality limits."
+        }
+      }
+    },
+    "related_records": {
+      "type": "object",
+      "description": "Other Pro-One records connected to this risk.",
+      "additionalProperties": false,
+      "required": [
+        "source_ids",
+        "workflow_ids",
+        "process_step_ids",
+        "legal_document_ids",
+        "intake_ids",
+        "legal_rule_ids"
+      ],
+      "properties": {
+        "source_ids": {
+          "type": "array",
+          "description": "Source identifiers relevant to this risk.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "workflow_ids": {
+          "type": "array",
+          "description": "Workflow identifiers where this risk may appear.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "process_step_ids": {
+          "type": "array",
+          "description": "Process-step identifiers where this risk may appear.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "legal_document_ids": {
+          "type": "array",
+          "description": "Legal-document identifiers where this risk may appear.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "intake_ids": {
+          "type": "array",
+          "description": "Intake identifiers where this risk may be detected.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "legal_rule_ids": {
+          "type": "array",
+          "description": "Legal-rule identifiers related to this risk.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "trigger_signals": {
+      "type": "object",
+      "description": "Signals that indicate this risk may be present.",
+      "additionalProperties": false,
+      "required": [
+        "user_statements",
+        "document_signals",
+        "timing_signals",
+        "source_signals"
+      ],
+      "properties": {
+        "user_statements": {
+          "type": "array",
+          "description": "User statements that may trigger this risk.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "document_signals": {
+          "type": "array",
+          "description": "Document features, titles, or language that may trigger this risk.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "timing_signals": {
+          "type": "array",
+          "description": "Date, deadline, hearing, service, or timing signals that may trigger this risk.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_signals": {
+          "type": "array",
+          "description": "Signals from source records, legal rules, workflows, or process steps that may trigger this risk.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "trigger_notes": {
+          "type": "string",
+          "description": "Additional trigger notes."
+        }
+      }
+    },
+    "user_context": {
+      "type": "object",
+      "description": "User facts needed to route the risk safely.",
+      "additionalProperties": false,
+      "required": [
+        "required_facts",
+        "optional_facts",
+        "facts_not_to_collect",
+        "unknown_fact_handling"
+      ],
+      "properties": {
+        "required_facts": {
+          "type": "array",
+          "description": "Minimum facts needed to continue in a safe support mode.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "optional_facts": {
+          "type": "array",
+          "description": "Facts that may help but should not be required unless needed.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "facts_not_to_collect": {
+          "type": "array",
+          "description": "Facts Pro-One should not ask for in this risk flow.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "unknown_fact_handling": {
+          "type": "string",
+          "description": "How Pro-One should continue when needed facts are missing.",
+          "enum": [
+            "ask_one_clarifying_question",
+            "continue_with_general_information",
+            "continue_with_checklist",
+            "continue_with_issue_spotting",
+            "pause_for_missing_information",
+            "narrow_scope_before_answering"
+          ]
+        },
+        "user_context_notes": {
+          "type": "string",
+          "description": "Notes about user context and fact limits."
+        }
+      }
+    },
+    "unsafe_requests": {
+      "type": "object",
+      "description": "Requests Pro-One should not assist with, and how to continue safely.",
+      "additionalProperties": false,
+      "required": [
+        "unsafe_request_examples",
+        "refusal_required",
+        "refusal_style",
+        "continue_safe_parts"
+      ],
+      "properties": {
+        "unsafe_request_examples": {
+          "type": "array",
+          "description": "Examples of unsafe user requests related to this risk.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "refusal_required": {
+          "type": "boolean",
+          "description": "Whether Pro-One must refuse at least the unsafe part of the request."
+        },
+        "refusal_style": {
+          "type": "string",
+          "description": "How refusal should be framed.",
+          "enum": [
+            "refuse_unsafe_part_only",
+            "brief_boundary_then_continue",
+            "safety_first_then_continue",
+            "source_limit_then_continue"
+          ]
+        },
+        "continue_safe_parts": {
+          "type": "boolean",
+          "description": "Whether Pro-One should continue with safe support after refusing the unsafe part."
+        },
+        "safe_alternatives": {
+          "type": "array",
+          "description": "Safe alternatives Pro-One may provide.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unsafe_request_notes": {
+          "type": "string",
+          "description": "Additional unsafe-request notes."
+        }
+      }
+    },
+    "support_routing": {
+      "type": "object",
+      "description": "How Pro-One should route support when this risk appears.",
+      "additionalProperties": false,
+      "required": [
+        "default_response_strategy",
+        "safe_continuation_required",
+        "support_modes",
+        "routing_notes"
+      ],
+      "properties": {
+        "default_response_strategy": {
+          "type": "string",
+          "description": "Default support strategy for this risk.",
+          "enum": [
+            "continue_in_safer_mode",
+            "continue_with_urgent_support",
+            "continue_with_deadline_awareness",
+            "continue_with_issue_spotting",
+            "narrow_then_continue",
+            "refuse_unsafe_part_and_continue_safe_part"
+          ]
+        },
+        "safe_continuation_required": {
+          "type": "boolean",
+          "description": "Whether Pro-One should continue helping in a safe mode whenever possible."
+        },
+        "support_modes": {
+          "type": "array",
+          "description": "Support modes allowed for this risk.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "general_information",
+              "source_backed_steps",
+              "checklist",
+              "document_explanation",
+              "issue_spotting",
+              "deadline_awareness",
+              "urgent_support",
+              "court_or_agency_resource_prompt",
+              "free_or_low_cost_resource_prompt",
+              "scope_boundary",
+              "privacy_prompt",
+              "redaction_prompt"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "routing_notes": {
+          "type": "string",
+          "description": "Notes about routing, safe continuation, and user burden."
+        }
+      }
+    },
+    "allowed_support": {
+      "type": "object",
+      "description": "Support Pro-One may provide for this risk.",
+      "additionalProperties": false,
+      "required": [
+        "allowed_outputs",
+        "allowed_actions",
+        "allowed_language"
+      ],
+      "properties": {
+        "allowed_outputs": {
+          "type": "array",
+          "description": "Outputs Pro-One may produce.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "allowed_actions": {
+          "type": "array",
+          "description": "Actions Pro-One may take in the response flow.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "allowed_language": {
+          "type": "array",
+          "description": "Approved language patterns or framing.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allowed_support_notes": {
+          "type": "string",
+          "description": "Additional allowed-support notes."
+        }
+      }
+    },
+    "prohibited_support": {
+      "type": "object",
+      "description": "Support Pro-One must not provide for this risk.",
+      "additionalProperties": false,
+      "required": [
+        "prohibited_outputs",
+        "prohibited_actions",
+        "prohibited_language"
+      ],
+      "properties": {
+        "prohibited_outputs": {
+          "type": "array",
+          "description": "Outputs Pro-One must not produce.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "prohibited_actions": {
+          "type": "array",
+          "description": "Actions Pro-One must not take.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "prohibited_language": {
+          "type": "array",
+          "description": "Language Pro-One should avoid.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prohibited_support_notes": {
+          "type": "string",
+          "description": "Additional prohibited-support notes."
+        }
+      }
+    },
+    "deadline_handling": {
+      "type": "object",
+      "description": "How Pro-One should handle deadlines related to this risk.",
+      "additionalProperties": false,
+      "required": [
+        "deadline_relevant",
+        "deadline_strategy",
+        "deadline_outputs_allowed",
+        "deadline_outputs_prohibited"
+      ],
+      "properties": {
+        "deadline_relevant": {
+          "type": "boolean",
+          "description": "Whether deadlines are relevant to this risk."
+        },
+        "deadline_strategy": {
+          "type": "string",
+          "description": "How Pro-One should treat deadlines.",
+          "enum": [
+            "no_deadline",
+            "deadline_awareness_only",
+            "source_backed_deadline_information",
+            "urgent_support_without_final_calculation",
+            "human_help_as_additional_option"
+          ]
+        },
+        "deadline_outputs_allowed": {
+          "type": "array",
+          "description": "Deadline-related outputs Pro-One may provide.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deadline_outputs_prohibited": {
+          "type": "array",
+          "description": "Deadline-related outputs Pro-One must not provide.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "deadline_notes": {
+          "type": "string",
+          "description": "Additional deadline notes."
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "description": "Privacy and sensitive-data controls for this risk.",
+      "additionalProperties": false,
+      "required": [
+        "sensitive_data_likely",
+        "redaction_prompt_required",
+        "data_minimization_required",
+        "restricted_data_categories",
+        "prohibited_data_categories"
+      ],
+      "properties": {
+        "sensitive_data_likely": {
+          "type": "boolean",
+          "description": "Whether the risk commonly involves sensitive data."
+        },
+        "redaction_prompt_required": {
+          "type": "boolean",
+          "description": "Whether Pro-One should prompt the user to redact or summarize sensitive information."
+        },
+        "data_minimization_required": {
+          "type": "boolean",
+          "description": "Whether Pro-One must minimize collected information."
+        },
+        "restricted_data_categories": {
+          "type": "array",
+          "description": "Sensitive data categories that require caution.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prohibited_data_categories": {
+          "type": "array",
+          "description": "Data categories Pro-One should not ask for.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "privacy_notes": {
+          "type": "string",
+          "description": "Additional privacy notes."
+        }
+      }
+    },
+    "human_help": {
+      "type": "object",
+      "description": "How Pro-One should frame human help, court help, agency help, legal aid, or other free and low-cost resources.",
+      "additionalProperties": false,
+      "required": [
+        "human_help_framing",
+        "resource_prompt_allowed",
+        "must_not_make_paid_help_the_default",
+        "human_help_notes"
+      ],
+      "properties": {
+        "human_help_framing": {
+          "type": "string",
+          "enum": [
+            "not_required_by_default",
+            "optional_free_or_low_cost_resource",
+            "recommended_for_high_risk_issues",
+            "urgent_for_extreme_risk"
+          ]
+        },
+        "resource_prompt_allowed": {
+          "type": "boolean",
+          "description": "Whether Pro-One may point to court, agency, legal aid, self-help, or free and low-cost resources."
+        },
+        "must_not_make_paid_help_the_default": {
+          "type": "boolean",
+          "description": "Whether Pro-One must avoid framing paid counsel as the default route."
+        },
+        "human_help_notes": {
+          "type": "string",
+          "description": "Notes about human-help framing and Pro-One's access mission."
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "description": "Review status within Pro-One.",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reviewed_by",
+        "reviewed_on"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "needs_review",
+            "reviewed",
+            "approved",
+            "deprecated",
+            "rejected"
+          ]
+        },
+        "reviewed_by": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Reviewer name, handle, or role."
+        },
+        "reviewed_on": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "Date of review."
+        },
+        "review_notes": {
+          "type": "string",
+          "description": "Notes from risk-definition review."
+        }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "description": "Testing requirements before this risk definition can be supported.",
+      "additionalProperties": false,
+      "required": [
+        "required_tests",
+        "success_criteria",
+        "known_failure_modes"
+      ],
+      "properties": {
+        "required_tests": {
+          "type": "array",
+          "description": "Tests or evaluation categories required for this risk definition.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "success_criteria": {
+          "type": "array",
+          "description": "What must be true for the risk definition to pass review.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "known_failure_modes": {
+          "type": "array",
+          "description": "Known ways this risk handling could fail, over-refuse, under-warn, collect too much data, or abandon users.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evaluation_notes": {
+          "type": "string",
+          "description": "Additional evaluation notes."
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes."
+    }
+  }
+}
