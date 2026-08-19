@@ -1,0 +1,625 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/zeitcow/pro-one/schemas/evaluation-fixture.schema.json",
+  "title": "Pro-One Evaluation Fixture",
+  "description": "Schema for defining test scenarios used to evaluate whether Pro-One responses are accurate, source-grounded, within scope, privacy-conscious, risk-aware, and safely useful.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "description",
+    "status",
+    "fixture_type",
+    "priority",
+    "related_records",
+    "jurisdiction",
+    "scenario",
+    "source_context",
+    "expected_behavior",
+    "prohibited_behavior",
+    "privacy",
+    "risk",
+    "scoring",
+    "review"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable evaluation fixture identifier.",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for the evaluation fixture."
+    },
+    "description": {
+      "type": "string",
+      "description": "Plain-language description of what this fixture tests."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current fixture maturity status.",
+      "enum": [
+        "proposed",
+        "drafted",
+        "tested",
+        "active",
+        "deprecated",
+        "rejected"
+      ]
+    },
+    "fixture_type": {
+      "type": "string",
+      "description": "Primary evaluation category.",
+      "enum": [
+        "accuracy",
+        "source_grounding",
+        "scope_boundary",
+        "legal_safety",
+        "privacy",
+        "risk_routing",
+        "deadline_awareness",
+        "unsafe_request",
+        "document_support",
+        "intake_minimization",
+        "refusal_and_safe_continuation",
+        "regression",
+        "other"
+      ]
+    },
+    "priority": {
+      "type": "string",
+      "description": "Priority level for evaluation.",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "related_records": {
+      "type": "object",
+      "description": "Other Pro-One records connected to this fixture.",
+      "additionalProperties": false,
+      "required": [
+        "source_ids",
+        "workflow_ids",
+        "process_step_ids",
+        "legal_document_ids",
+        "intake_ids",
+        "legal_rule_ids",
+        "risk_ids"
+      ],
+      "properties": {
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "workflow_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "process_step_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "legal_document_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "intake_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "legal_rule_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "risk_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "jurisdiction": {
+      "type": "object",
+      "description": "Jurisdiction facts used in the test scenario.",
+      "additionalProperties": false,
+      "required": [
+        "country",
+        "state",
+        "locality",
+        "court",
+        "agency",
+        "jurisdiction_known",
+        "jurisdiction_notes"
+      ],
+      "properties": {
+        "country": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "locality": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "court": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "agency": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "jurisdiction_known": {
+          "type": "boolean",
+          "description": "Whether jurisdiction is known in the fixture."
+        },
+        "jurisdiction_notes": {
+          "type": "string",
+          "description": "Notes about jurisdiction assumptions, uncertainty, or limits."
+        }
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "description": "The user scenario being tested.",
+      "additionalProperties": false,
+      "required": [
+        "user_type",
+        "user_goal",
+        "user_input",
+        "facts_available",
+        "facts_missing",
+        "documents_or_excerpts",
+        "timing_context",
+        "assumed_limitations"
+      ],
+      "properties": {
+        "user_type": {
+          "type": "string",
+          "enum": [
+            "self_represented_individual",
+            "small_business_owner",
+            "small_business_operator",
+            "nonprofit_operator",
+            "legal_aid_helper",
+            "other"
+          ]
+        },
+        "user_goal": {
+          "type": "string",
+          "description": "What the user is trying to accomplish."
+        },
+        "user_input": {
+          "type": "string",
+          "description": "The test prompt or user message."
+        },
+        "facts_available": {
+          "type": "array",
+          "description": "Facts available to Pro-One in the scenario.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "facts_missing": {
+          "type": "array",
+          "description": "Facts that are missing and should not be assumed.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "documents_or_excerpts": {
+          "type": "array",
+          "description": "Document titles, excerpts, or summaries available in the scenario.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "timing_context": {
+          "type": "string",
+          "description": "Deadline, hearing, service, filing, or timing context."
+        },
+        "assumed_limitations": {
+          "type": "array",
+          "description": "Limits the evaluated response must respect.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "source_context": {
+      "type": "object",
+      "description": "Source expectations for the evaluated response.",
+      "additionalProperties": false,
+      "required": [
+        "source_required",
+        "allowed_source_ids",
+        "prohibited_source_ids",
+        "citation_required",
+        "source_notes"
+      ],
+      "properties": {
+        "source_required": {
+          "type": "boolean",
+          "description": "Whether the response must be source-backed."
+        },
+        "allowed_source_ids": {
+          "type": "array",
+          "description": "Sources the response may rely on.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "prohibited_source_ids": {
+          "type": "array",
+          "description": "Sources the response must not rely on.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "citation_required": {
+          "type": "boolean",
+          "description": "Whether citations or source references are required."
+        },
+        "source_notes": {
+          "type": "string",
+          "description": "Notes about source use, source limits, or source uncertainty."
+        }
+      }
+    },
+    "expected_behavior": {
+      "type": "object",
+      "description": "What a passing response should do.",
+      "additionalProperties": false,
+      "required": [
+        "required_response_modes",
+        "required_elements",
+        "optional_elements",
+        "must_ask_questions",
+        "must_not_ask_questions",
+        "safe_continuation_required",
+        "human_help_framing"
+      ],
+      "properties": {
+        "required_response_modes": {
+          "type": "array",
+          "description": "Support modes the response must use.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "general_information",
+              "source_backed_steps",
+              "checklist",
+              "document_explanation",
+              "issue_spotting",
+              "deadline_awareness",
+              "urgent_support",
+              "court_or_agency_resource_prompt",
+              "free_or_low_cost_resource_prompt",
+              "scope_boundary",
+              "privacy_prompt",
+              "redaction_prompt",
+              "refusal_of_unsafe_part",
+              "safe_continuation"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "required_elements": {
+          "type": "array",
+          "description": "Content that must appear in a passing response.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "optional_elements": {
+          "type": "array",
+          "description": "Content that may appear but is not required.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "must_ask_questions": {
+          "type": "array",
+          "description": "Clarifying questions the response must ask, if any.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "must_not_ask_questions": {
+          "type": "array",
+          "description": "Questions the response must not ask.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "safe_continuation_required": {
+          "type": "boolean",
+          "description": "Whether the response must continue with safe support."
+        },
+        "human_help_framing": {
+          "type": "string",
+          "enum": [
+            "not_required_by_default",
+            "optional_free_or_low_cost_resource",
+            "recommended_for_high_risk_issues",
+            "urgent_for_extreme_risk"
+          ]
+        },
+        "expected_behavior_notes": {
+          "type": "string",
+          "description": "Additional expected-behavior notes."
+        }
+      }
+    },
+    "prohibited_behavior": {
+      "type": "object",
+      "description": "What a response must not do.",
+      "additionalProperties": false,
+      "required": [
+        "prohibited_outputs",
+        "prohibited_actions",
+        "prohibited_language",
+        "failure_modes"
+      ],
+      "properties": {
+        "prohibited_outputs": {
+          "type": "array",
+          "description": "Outputs that fail the fixture.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "prohibited_actions": {
+          "type": "array",
+          "description": "Actions that fail the fixture.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "prohibited_language": {
+          "type": "array",
+          "description": "Language patterns that fail the fixture.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "failure_modes": {
+          "type": "array",
+          "description": "Known ways a response could fail.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "prohibited_behavior_notes": {
+          "type": "string",
+          "description": "Additional prohibited-behavior notes."
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "description": "Privacy expectations for the fixture.",
+      "additionalProperties": false,
+      "required": [
+        "sensitive_data_present",
+        "redaction_expected",
+        "data_minimization_expected",
+        "prohibited_data_collection"
+      ],
+      "properties": {
+        "sensitive_data_present": {
+          "type": "boolean",
+          "description": "Whether the scenario includes or implies sensitive data."
+        },
+        "redaction_expected": {
+          "type": "boolean",
+          "description": "Whether the response should ask for redaction or summaries."
+        },
+        "data_minimization_expected": {
+          "type": "boolean",
+          "description": "Whether the response should minimize collected information."
+        },
+        "prohibited_data_collection": {
+          "type": "array",
+          "description": "Data the response must not request.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "privacy_notes": {
+          "type": "string",
+          "description": "Additional privacy notes."
+        }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "description": "Risk expectations for the fixture.",
+      "additionalProperties": false,
+      "required": [
+        "risk_expected",
+        "expected_risk_ids",
+        "expected_risk_level",
+        "risk_routing_expected",
+        "risk_notes"
+      ],
+      "properties": {
+        "risk_expected": {
+          "type": "boolean",
+          "description": "Whether the response should detect risk."
+        },
+        "expected_risk_ids": {
+          "type": "array",
+          "description": "Risk identifiers expected to be triggered.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "expected_risk_level": {
+          "type": "string",
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high",
+            "extreme"
+          ]
+        },
+        "risk_routing_expected": {
+          "type": "string",
+          "enum": [
+            "none",
+            "continue_in_safer_mode",
+            "continue_with_urgent_support",
+            "continue_with_deadline_awareness",
+            "continue_with_issue_spotting",
+            "narrow_then_continue",
+            "refuse_unsafe_part_and_continue_safe_part"
+          ]
+        },
+        "risk_notes": {
+          "type": "string",
+          "description": "Additional risk notes."
+        }
+      }
+    },
+    "scoring": {
+      "type": "object",
+      "description": "Pass, fail, and review criteria.",
+      "additionalProperties": false,
+      "required": [
+        "pass_conditions",
+        "fail_conditions",
+        "manual_review_required",
+        "severity_if_failed"
+      ],
+      "properties": {
+        "pass_conditions": {
+          "type": "array",
+          "description": "Conditions required to pass.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "fail_conditions": {
+          "type": "array",
+          "description": "Conditions that cause failure.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "manual_review_required": {
+          "type": "boolean",
+          "description": "Whether this fixture requires human review."
+        },
+        "severity_if_failed": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "scoring_notes": {
+          "type": "string",
+          "description": "Additional scoring notes."
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "description": "Review status for the fixture.",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reviewed_by",
+        "reviewed_on"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "needs_review",
+            "reviewed",
+            "approved",
+            "deprecated",
+            "rejected"
+          ]
+        },
+        "reviewed_by": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reviewed_on": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "review_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes."
+    }
+  }
+}
