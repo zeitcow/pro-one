@@ -126,6 +126,8 @@ The system should help users understand when they may need:
 - emergency assistance
 - a trusted public-interest resource
 
+Prefer free, official, self-help, legal-aid, nonprofit, and low-cost resources when they appropriately meet the need. Recommend qualified professional assistance when risk, complexity, or consequences make that appropriate. Safe continuation should remain available alongside escalation where possible.
+
 ## Small-business ethics
 
 Small businesses may use Pro-One for disputes, contracts, invoices, customer issues, vendor issues, or employment-related matters.

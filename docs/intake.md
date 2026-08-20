@@ -162,27 +162,27 @@ Legal-document records describe document categories, required facts, drafting li
 
 Intake helps determine whether document support is appropriate and what facts are needed.
 
-### Future legal-rule schema
+### Legal-rule schema
 
-Legal-rule records will define source-backed rule statements.
+Legal-rule records define source-backed rule statements.
 
 Intake should not create legal-rule claims on its own. It should route users to source-backed support when the rule foundation exists.
 
-### Future risk schema
+### Risk schema
 
-Risk records will define recurring risk situations and support routing.
+Risk records define recurring risk situations and support routing.
 
-The intake schema already includes risk signals, but the future risk schema will make those controls more reusable and consistent.
+The intake schema includes local risk signals, while reusable risk definitions keep recurring controls consistent across domains.
 
-### Future evaluation-fixture schema
+### Evaluation-fixture schema
 
-Evaluation fixtures will test intake flows.
+Evaluation fixtures test intake flows.
 
 They should check whether intake asks only necessary questions, avoids unnecessary sensitive data, routes urgent users safely, and does not abandon users.
 
-### Future response schema
+### Response schema
 
-The response schema will define what a safe final answer should include.
+The response schema defines what a safe user-facing answer should include.
 
 Intake prepares the facts and support mode needed for the response.
 
@@ -370,10 +370,10 @@ Human help should not be framed as the default requirement.
 
 The schema supports:
 
-- `not_required_by_default`
-- `optional_free_or_low_cost_resource`
-- `recommended_for_high_risk_issues`
-- `urgent_for_extreme_risk`
+- `not_required`
+- `resources_optional`
+- `qualified_help_recommended`
+- `qualified_help_urgent`
 
 This allows Pro-One to remain useful while still being honest about serious risks.
 

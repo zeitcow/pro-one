@@ -1,0 +1,419 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "common.schema.json",
+  "title": "Pro-One Common Definitions",
+  "description": "Shared identifiers, version metadata, jurisdiction structures, review provenance, maturity states, risk concepts, routing behavior, and assistance vocabulary used by Pro-One records.",
+  "$defs": {
+    "recordId": {
+      "type": "string",
+      "description": "Stable record identifier.",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "recordIdArray": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/recordId"
+      },
+      "uniqueItems": true
+    },
+    "schemaVersion": {
+      "type": "string",
+      "description": "Version of the record schema contract. This changes when a migration may be required.",
+      "const": "1.0.0"
+    },
+    "recordVersion": {
+      "type": "string",
+      "description": "Version of this record's content, independent of the schema version.",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "lastModified": {
+      "type": "string",
+      "format": "date",
+      "description": "Date this record content was last modified."
+    },
+    "maturityStatus": {
+      "type": "string",
+      "description": "Lifecycle state for a specification record. Supported means reviewed and eligible for use in a publicly supported workflow, not that an application is deployed.",
+      "enum": [
+        "proposed",
+        "researched",
+        "designed",
+        "tested",
+        "supported",
+        "deprecated",
+        "rejected"
+      ]
+    },
+    "reviewStatus": {
+      "type": "string",
+      "description": "Outcome or current state of a review.",
+      "enum": [
+        "proposed",
+        "needs_review",
+        "reviewed",
+        "approved",
+        "deprecated",
+        "rejected"
+      ]
+    },
+    "reviewInformation": {
+      "type": "object",
+      "description": "Review state and provenance. Reviewer role records capacity, not professional credentials; legal credentials must never be inferred from this object.",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reviewed_by",
+        "reviewer_role",
+        "review_scope",
+        "reviewed_on",
+        "reviewed_record_version"
+      ],
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/reviewStatus"
+        },
+        "reviewed_by": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Reviewer identity or project handle, if a review has occurred."
+        },
+        "reviewer_role": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "maintainer",
+            "subject_matter_reviewer",
+            "legal_reviewer",
+            "safety_reviewer",
+            "privacy_reviewer",
+            "security_reviewer",
+            "technical_reviewer",
+            "other",
+            null
+          ],
+          "description": "Capacity in which the reviewer acted. A legal_reviewer label does not by itself assert that the reviewer is an attorney."
+        },
+        "review_scope": {
+          "type": "array",
+          "description": "Specific review types or areas covered.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "schema",
+              "technical",
+              "source_authority",
+              "source_freshness",
+              "jurisdiction",
+              "legal_information_boundary",
+              "safety",
+              "privacy",
+              "security",
+              "accessibility",
+              "evaluation",
+              "other"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "reviewed_on": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "Date the review occurred."
+        },
+        "reviewed_record_version": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/recordVersion"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Exact record version reviewed, or null when no review has occurred."
+        },
+        "review_notes": {
+          "type": "string",
+          "description": "Review notes, limitations, or follow-up work."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "reviewed",
+                  "approved"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reviewed_by": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reviewer_role": {
+                "type": "string"
+              },
+              "review_scope": {
+                "minItems": 1
+              },
+              "reviewed_on": {
+                "type": "string"
+              },
+              "reviewed_record_version": {
+                "$ref": "#/$defs/recordVersion"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "countryCode": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code in uppercase ASCII, for example US.",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "jurisdiction": {
+      "type": "object",
+      "description": "Jurisdiction or institution to which a record applies.",
+      "additionalProperties": false,
+      "required": [
+        "country"
+      ],
+      "properties": {
+        "country": {
+          "$ref": "#/$defs/countryCode"
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "locality": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "court": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "agency": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "jurisdiction_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "scenarioJurisdiction": {
+      "type": "object",
+      "description": "Jurisdiction facts for a scenario that may intentionally leave the jurisdiction unknown.",
+      "additionalProperties": false,
+      "required": [
+        "country",
+        "state",
+        "locality",
+        "court",
+        "agency",
+        "jurisdiction_known",
+        "jurisdiction_notes"
+      ],
+      "properties": {
+        "country": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/countryCode"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "locality": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "court": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "agency": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "jurisdiction_known": {
+          "type": "boolean"
+        },
+        "jurisdiction_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "riskLevel": {
+      "type": "string",
+      "description": "Severity or potential harm, separate from urgency and routing behavior.",
+      "enum": [
+        "none",
+        "low",
+        "medium",
+        "high",
+        "extreme"
+      ]
+    },
+    "urgencyLevel": {
+      "type": "string",
+      "description": "Time sensitivity, independent of potential harm.",
+      "enum": [
+        "routine",
+        "time_sensitive",
+        "urgent",
+        "immediate"
+      ]
+    },
+    "supportMode": {
+      "type": "string",
+      "enum": [
+        "general_information",
+        "source_backed_steps",
+        "checklist",
+        "document_explanation",
+        "issue_spotting",
+        "deadline_awareness",
+        "urgent_support",
+        "court_or_agency_resource_prompt",
+        "free_or_low_cost_resource_prompt",
+        "qualified_professional_resource_prompt",
+        "scope_boundary",
+        "privacy_prompt",
+        "redaction_prompt",
+        "refusal_of_unsafe_part",
+        "safe_continuation",
+        "workflow_selection",
+        "process_step_guidance",
+        "document_boundary_guidance",
+        "user_confirmed_draft"
+      ]
+    },
+    "routingBehavior": {
+      "type": "string",
+      "description": "Assistance or routing behavior; high severity does not automatically require refusal.",
+      "enum": [
+        "none",
+        "continue_in_safer_mode",
+        "continue_with_urgent_support",
+        "continue_with_deadline_awareness",
+        "continue_with_source_backed_steps",
+        "continue_with_checklist",
+        "continue_with_issue_spotting",
+        "continue_with_document_explanation",
+        "continue_with_court_or_agency_resource_prompt",
+        "continue_with_free_or_low_cost_resource_prompt",
+        "continue_with_qualified_professional_resource_prompt",
+        "narrow_then_continue",
+        "pause_for_missing_information",
+        "avoid_final_decision",
+        "refuse_unsafe_part_and_continue_safe_part"
+      ]
+    },
+    "humanHelpFraming": {
+      "type": "string",
+      "description": "How human assistance should be framed while preserving safe continuation where possible.",
+      "enum": [
+        "not_required",
+        "resources_optional",
+        "qualified_help_recommended",
+        "qualified_help_urgent"
+      ]
+    },
+    "humanHelpResourcePolicy": {
+      "type": "string",
+      "description": "Resource-selection principle. Free, official, self-help, legal-aid, and low-cost resources are preferred when they appropriately meet the need; qualified professional assistance may be recommended when risk, complexity, or consequences warrant it.",
+      "enum": [
+        "free_official_or_low_cost_when_appropriate",
+        "best_fit_for_risk_and_need",
+        "qualified_professional_assistance_recommended"
+      ]
+    },
+    "deadlineHandling": {
+      "type": "string",
+      "description": "Canonical treatment of deadlines in specification records.",
+      "enum": [
+        "not_applicable",
+        "awareness_only",
+        "source_backed_information",
+        "qualified_review_required",
+        "unsupported"
+      ]
+    },
+    "evaluationRequirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_evaluation_fixture_ids",
+        "required_tests",
+        "success_criteria",
+        "known_failure_modes"
+      ],
+      "properties": {
+        "required_evaluation_fixture_ids": {
+          "$ref": "#/$defs/recordIdArray"
+        },
+        "required_tests": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "success_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "known_failure_modes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evaluation_notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

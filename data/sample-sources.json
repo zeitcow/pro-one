@@ -1,12 +1,16 @@
 [
   {
     "id": "example-state-court-name-change-guide",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Example State Court Name Change Guide",
+    "status": "proposed",
     "description": "Sample metadata record for an official court self-help guide related to adult name change.",
     "source_type": "official_self_help",
     "url": "https://example.org/courts/self-help/name-change",
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -15,14 +19,21 @@
     "authority": {
       "level": "official_secondary",
       "issuing_body": "Example State Courts",
-      "is_source_of_truth": true,
+      "is_source_of_truth": false,
       "authority_notes": "Sample official self-help source. This is placeholder data and should not be treated as an approved real source."
     },
     "dates": {
       "published": null,
-      "effective": null,
+      "effective_from": null,
+      "effective_through": null,
       "last_updated": null,
-      "last_checked": "2026-08-18"
+      "last_verified": null
+    },
+    "provenance": {
+      "source_content_version": null,
+      "content_hash": null,
+      "superseded_by_source_id": null,
+      "provenance_notes": "Placeholder source; no captured source content."
     },
     "access": {
       "is_free": true,
@@ -39,7 +50,10 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample only. Not approved for production use."
     },
     "workflow_fit": {
@@ -47,7 +61,7 @@
         "name_change",
         "court_self_help"
       ],
-      "supported_workflows": [
+      "workflow_ids": [
         "name_change_information"
       ],
       "risk_level": "medium",
@@ -64,19 +78,23 @@
     },
     "citation": {
       "preferred_citation": "Example State Courts, Name Change Guide",
-      "retrieved_at": "2026-08-18",
+      "retrieved_at": null,
       "archive_url": null
     },
     "notes": "This sample demonstrates how Pro-One can describe an official self-help source before it is approved."
   },
   {
     "id": "example-city-small-business-license-guide",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Example City Small Business License Guide",
+    "status": "proposed",
     "description": "Sample metadata record for an agency guidance page related to small business licensing.",
     "source_type": "agency_guidance",
     "url": "https://example.org/business/licenses",
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": "Example City",
       "court": null,
@@ -85,14 +103,21 @@
     "authority": {
       "level": "official_secondary",
       "issuing_body": "Example City Business Office",
-      "is_source_of_truth": true,
+      "is_source_of_truth": false,
       "authority_notes": "Sample agency guidance source. This is placeholder data and should not be treated as an approved real source."
     },
     "dates": {
       "published": null,
-      "effective": null,
+      "effective_from": null,
+      "effective_through": null,
       "last_updated": null,
-      "last_checked": "2026-08-18"
+      "last_verified": null
+    },
+    "provenance": {
+      "source_content_version": null,
+      "content_hash": null,
+      "superseded_by_source_id": null,
+      "provenance_notes": "Placeholder source; no captured source content."
     },
     "access": {
       "is_free": true,
@@ -109,7 +134,10 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample only. Not approved for production use."
     },
     "workflow_fit": {
@@ -117,7 +145,7 @@
         "small_business",
         "business_license"
       ],
-      "supported_workflows": [
+      "workflow_ids": [
         "small_business_license_information"
       ],
       "risk_level": "medium",
@@ -134,9 +162,593 @@
     },
     "citation": {
       "preferred_citation": "Example City Business Office, Small Business License Guide",
-      "retrieved_at": "2026-08-18",
+      "retrieved_at": null,
       "archive_url": null
     },
     "notes": "This sample demonstrates how Pro-One can describe a local small-business source before it is approved."
+  },
+  {
+    "id": "example-state-civil-discovery-rules",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Example State Civil Discovery Rules",
+    "status": "proposed",
+    "description": "Placeholder metadata for example state civil discovery rules; this is not real legal authority or legal guidance.",
+    "source_type": "court_rule",
+    "url": "https://example.org/courts/rules/civil-discovery",
+    "jurisdiction": {
+      "country": "US",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Fictional jurisdiction used only to demonstrate record relationships."
+    },
+    "authority": {
+      "level": "official_primary",
+      "issuing_body": "Example State Courts",
+      "is_source_of_truth": false,
+      "authority_notes": "Placeholder classification only; the example URL does not establish authority."
+    },
+    "dates": {
+      "published": null,
+      "effective_from": null,
+      "effective_through": null,
+      "last_updated": null,
+      "last_verified": null
+    },
+    "provenance": {
+      "source_content_version": null,
+      "content_hash": null,
+      "superseded_by_source_id": null,
+      "provenance_notes": "Placeholder source; no source content was captured."
+    },
+    "access": {
+      "is_free": true,
+      "requires_login": false,
+      "format": "html",
+      "access_notes": "Sample source record using an example URL."
+    },
+    "rights": {
+      "reuse_status": "unknown",
+      "license": null,
+      "terms_url": null,
+      "rights_notes": "Reuse status unknown because this is placeholder sample data."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder source record only. Not approved for supported use."
+    },
+    "workflow_fit": {
+      "topics": [
+        "civil_discovery",
+        "interrogatories",
+        "document_requests",
+        "requests_for_admission"
+      ],
+      "workflow_ids": [
+        "civil_discovery_information"
+      ],
+      "risk_level": "high",
+      "limitations": [
+        "Placeholder record only.",
+        "Must be replaced with current, verifiable authority before supported use."
+      ],
+      "not_for": [
+        "supported_user_facing_use",
+        "final_deadline_calculation"
+      ]
+    },
+    "citation": {
+      "preferred_citation": "Example State Civil Discovery Rules",
+      "retrieved_at": null,
+      "archive_url": null
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-state-trial-court-discovery-guide",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Example State Trial Court Discovery Guide",
+    "status": "proposed",
+    "description": "Placeholder metadata for example state trial court discovery guide; this is not real legal authority or legal guidance.",
+    "source_type": "court_instruction",
+    "url": "https://example.org/courts/guides/discovery",
+    "jurisdiction": {
+      "country": "US",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Trial Court",
+      "agency": null,
+      "jurisdiction_notes": "Fictional jurisdiction used only to demonstrate record relationships."
+    },
+    "authority": {
+      "level": "official_secondary",
+      "issuing_body": "Example State Trial Court",
+      "is_source_of_truth": false,
+      "authority_notes": "Placeholder classification only; the example URL does not establish authority."
+    },
+    "dates": {
+      "published": null,
+      "effective_from": null,
+      "effective_through": null,
+      "last_updated": null,
+      "last_verified": null
+    },
+    "provenance": {
+      "source_content_version": null,
+      "content_hash": null,
+      "superseded_by_source_id": null,
+      "provenance_notes": "Placeholder source; no source content was captured."
+    },
+    "access": {
+      "is_free": true,
+      "requires_login": false,
+      "format": "html",
+      "access_notes": "Sample source record using an example URL."
+    },
+    "rights": {
+      "reuse_status": "unknown",
+      "license": null,
+      "terms_url": null,
+      "rights_notes": "Reuse status unknown because this is placeholder sample data."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder source record only. Not approved for supported use."
+    },
+    "workflow_fit": {
+      "topics": [
+        "civil_discovery",
+        "court_instructions"
+      ],
+      "workflow_ids": [
+        "civil_discovery_information"
+      ],
+      "risk_level": "medium",
+      "limitations": [
+        "Placeholder record only.",
+        "Must be replaced with current, verifiable authority before supported use."
+      ],
+      "not_for": [
+        "supported_user_facing_use",
+        "final_deadline_calculation"
+      ]
+    },
+    "citation": {
+      "preferred_citation": "Example State Trial Court Discovery Guide",
+      "retrieved_at": null,
+      "archive_url": null
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-state-court-discovery-self-help",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Example State Court Discovery Self-Help Guide",
+    "status": "proposed",
+    "description": "Placeholder metadata for example state court discovery self-help guide; this is not real legal authority or legal guidance.",
+    "source_type": "official_self_help",
+    "url": "https://example.org/courts/self-help/discovery",
+    "jurisdiction": {
+      "country": "US",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Fictional jurisdiction used only to demonstrate record relationships."
+    },
+    "authority": {
+      "level": "official_secondary",
+      "issuing_body": "Example State Courts",
+      "is_source_of_truth": false,
+      "authority_notes": "Placeholder classification only; the example URL does not establish authority."
+    },
+    "dates": {
+      "published": null,
+      "effective_from": null,
+      "effective_through": null,
+      "last_updated": null,
+      "last_verified": null
+    },
+    "provenance": {
+      "source_content_version": null,
+      "content_hash": null,
+      "superseded_by_source_id": null,
+      "provenance_notes": "Placeholder source; no source content was captured."
+    },
+    "access": {
+      "is_free": true,
+      "requires_login": false,
+      "format": "html",
+      "access_notes": "Sample source record using an example URL."
+    },
+    "rights": {
+      "reuse_status": "unknown",
+      "license": null,
+      "terms_url": null,
+      "rights_notes": "Reuse status unknown because this is placeholder sample data."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder source record only. Not approved for supported use."
+    },
+    "workflow_fit": {
+      "topics": [
+        "civil_discovery",
+        "plain_language_navigation"
+      ],
+      "workflow_ids": [
+        "civil_discovery_information"
+      ],
+      "risk_level": "medium",
+      "limitations": [
+        "Placeholder record only.",
+        "Must be replaced with current, verifiable authority before supported use."
+      ],
+      "not_for": [
+        "supported_user_facing_use",
+        "final_deadline_calculation"
+      ]
+    },
+    "citation": {
+      "preferred_citation": "Example State Court Discovery Self-Help Guide",
+      "retrieved_at": null,
+      "archive_url": null
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-state-subpoena-rule",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Example State Subpoena Rule",
+    "status": "proposed",
+    "description": "Placeholder metadata for example state subpoena rule; this is not real legal authority or legal guidance.",
+    "source_type": "court_rule",
+    "url": "https://example.org/courts/rules/subpoenas",
+    "jurisdiction": {
+      "country": "US",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Fictional jurisdiction used only to demonstrate record relationships."
+    },
+    "authority": {
+      "level": "official_primary",
+      "issuing_body": "Example State Courts",
+      "is_source_of_truth": false,
+      "authority_notes": "Placeholder classification only; the example URL does not establish authority."
+    },
+    "dates": {
+      "published": null,
+      "effective_from": null,
+      "effective_through": null,
+      "last_updated": null,
+      "last_verified": null
+    },
+    "provenance": {
+      "source_content_version": null,
+      "content_hash": null,
+      "superseded_by_source_id": null,
+      "provenance_notes": "Placeholder source; no source content was captured."
+    },
+    "access": {
+      "is_free": true,
+      "requires_login": false,
+      "format": "html",
+      "access_notes": "Sample source record using an example URL."
+    },
+    "rights": {
+      "reuse_status": "unknown",
+      "license": null,
+      "terms_url": null,
+      "rights_notes": "Reuse status unknown because this is placeholder sample data."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder source record only. Not approved for supported use."
+    },
+    "workflow_fit": {
+      "topics": [
+        "subpoena",
+        "service",
+        "objections"
+      ],
+      "workflow_ids": [
+        "subpoena_information"
+      ],
+      "risk_level": "high",
+      "limitations": [
+        "Placeholder record only.",
+        "Must be replaced with current, verifiable authority before supported use."
+      ],
+      "not_for": [
+        "supported_user_facing_use",
+        "final_deadline_calculation"
+      ]
+    },
+    "citation": {
+      "preferred_citation": "Example State Subpoena Rule",
+      "retrieved_at": null,
+      "archive_url": null
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-state-court-subpoena-guide",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Example State Court Subpoena Guide",
+    "status": "proposed",
+    "description": "Placeholder metadata for example state court subpoena guide; this is not real legal authority or legal guidance.",
+    "source_type": "court_instruction",
+    "url": "https://example.org/courts/guides/subpoenas",
+    "jurisdiction": {
+      "country": "US",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Fictional jurisdiction used only to demonstrate record relationships."
+    },
+    "authority": {
+      "level": "official_secondary",
+      "issuing_body": "Example State Courts",
+      "is_source_of_truth": false,
+      "authority_notes": "Placeholder classification only; the example URL does not establish authority."
+    },
+    "dates": {
+      "published": null,
+      "effective_from": null,
+      "effective_through": null,
+      "last_updated": null,
+      "last_verified": null
+    },
+    "provenance": {
+      "source_content_version": null,
+      "content_hash": null,
+      "superseded_by_source_id": null,
+      "provenance_notes": "Placeholder source; no source content was captured."
+    },
+    "access": {
+      "is_free": true,
+      "requires_login": false,
+      "format": "html",
+      "access_notes": "Sample source record using an example URL."
+    },
+    "rights": {
+      "reuse_status": "unknown",
+      "license": null,
+      "terms_url": null,
+      "rights_notes": "Reuse status unknown because this is placeholder sample data."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder source record only. Not approved for supported use."
+    },
+    "workflow_fit": {
+      "topics": [
+        "subpoena",
+        "court_instructions"
+      ],
+      "workflow_ids": [
+        "subpoena_information"
+      ],
+      "risk_level": "medium",
+      "limitations": [
+        "Placeholder record only.",
+        "Must be replaced with current, verifiable authority before supported use."
+      ],
+      "not_for": [
+        "supported_user_facing_use",
+        "final_deadline_calculation"
+      ]
+    },
+    "citation": {
+      "preferred_citation": "Example State Court Subpoena Guide",
+      "retrieved_at": null,
+      "archive_url": null
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-state-small-claims-guide",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Example State Small Claims Guide",
+    "status": "proposed",
+    "description": "Placeholder metadata for example state small claims guide; this is not real legal authority or legal guidance.",
+    "source_type": "official_self_help",
+    "url": "https://example.org/courts/self-help/small-claims",
+    "jurisdiction": {
+      "country": "US",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Fictional jurisdiction used only to demonstrate record relationships."
+    },
+    "authority": {
+      "level": "official_secondary",
+      "issuing_body": "Example State Courts",
+      "is_source_of_truth": false,
+      "authority_notes": "Placeholder classification only; the example URL does not establish authority."
+    },
+    "dates": {
+      "published": null,
+      "effective_from": null,
+      "effective_through": null,
+      "last_updated": null,
+      "last_verified": null
+    },
+    "provenance": {
+      "source_content_version": null,
+      "content_hash": null,
+      "superseded_by_source_id": null,
+      "provenance_notes": "Placeholder source; no source content was captured."
+    },
+    "access": {
+      "is_free": true,
+      "requires_login": false,
+      "format": "html",
+      "access_notes": "Sample source record using an example URL."
+    },
+    "rights": {
+      "reuse_status": "unknown",
+      "license": null,
+      "terms_url": null,
+      "rights_notes": "Reuse status unknown because this is placeholder sample data."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder source record only. Not approved for supported use."
+    },
+    "workflow_fit": {
+      "topics": [
+        "small_claims",
+        "business_dispute"
+      ],
+      "workflow_ids": [
+        "small_business_dispute_information"
+      ],
+      "risk_level": "medium",
+      "limitations": [
+        "Placeholder record only.",
+        "Must be replaced with current, verifiable authority before supported use."
+      ],
+      "not_for": [
+        "supported_user_facing_use",
+        "final_deadline_calculation"
+      ]
+    },
+    "citation": {
+      "preferred_citation": "Example State Small Claims Guide",
+      "retrieved_at": null,
+      "archive_url": null
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-state-consumer-protection-agency-guide",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Example State Consumer Protection Agency Guide",
+    "status": "proposed",
+    "description": "Placeholder metadata for example state consumer protection agency guide; this is not real legal authority or legal guidance.",
+    "source_type": "agency_guidance",
+    "url": "https://example.org/consumer-protection/disputes",
+    "jurisdiction": {
+      "country": "US",
+      "state": "Example State",
+      "locality": null,
+      "court": null,
+      "agency": "Example State Consumer Protection Agency",
+      "jurisdiction_notes": "Fictional jurisdiction used only to demonstrate record relationships."
+    },
+    "authority": {
+      "level": "official_secondary",
+      "issuing_body": "Example State Consumer Protection Agency",
+      "is_source_of_truth": false,
+      "authority_notes": "Placeholder classification only; the example URL does not establish authority."
+    },
+    "dates": {
+      "published": null,
+      "effective_from": null,
+      "effective_through": null,
+      "last_updated": null,
+      "last_verified": null
+    },
+    "provenance": {
+      "source_content_version": null,
+      "content_hash": null,
+      "superseded_by_source_id": null,
+      "provenance_notes": "Placeholder source; no source content was captured."
+    },
+    "access": {
+      "is_free": true,
+      "requires_login": false,
+      "format": "html",
+      "access_notes": "Sample source record using an example URL."
+    },
+    "rights": {
+      "reuse_status": "unknown",
+      "license": null,
+      "terms_url": null,
+      "rights_notes": "Reuse status unknown because this is placeholder sample data."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder source record only. Not approved for supported use."
+    },
+    "workflow_fit": {
+      "topics": [
+        "consumer_protection",
+        "business_dispute"
+      ],
+      "workflow_ids": [
+        "small_business_dispute_information"
+      ],
+      "risk_level": "medium",
+      "limitations": [
+        "Placeholder record only.",
+        "Must be replaced with current, verifiable authority before supported use."
+      ],
+      "not_for": [
+        "supported_user_facing_use",
+        "final_deadline_calculation"
+      ]
+    },
+    "citation": {
+      "preferred_citation": "Example State Consumer Protection Agency Guide",
+      "retrieved_at": null,
+      "archive_url": null
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
   }
 ]

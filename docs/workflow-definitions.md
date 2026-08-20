@@ -27,7 +27,7 @@ This keeps Pro-One grounded, narrow, and reviewable.
 
 ## Files
 
-This PR introduces three workflow-definition files:
+This foundation consists of three workflow-definition files:
 
 - `schemas/workflow.schema.json`
 - `data/sample-workflows.json`
@@ -238,7 +238,7 @@ A workflow may allow document help only when the workflow, sources, intake, and 
 
 ## Document drafting
 
-Workflow definitions can support future drafting of legal documents, but only with clear limits.
+Workflow definitions can specify future document assistance, but only with clear limits. The canonical output value is `user_confirmed_draft`: it means a draft structure populated from the user's explicit choices and confirmed facts, not autonomous drafting or a legal-sufficiency determination.
 
 A workflow may allow drafting or outlining documents such as:
 
@@ -262,7 +262,7 @@ But the workflow should define:
 
 Document generation should be source-grounded and based on user-provided facts.
 
-It should not invent facts, guarantee legal sufficiency, or decide strategy for the user.
+For an answer to a complaint, a reviewed workflow may explain sourced response categories and place the user's explicit admissions, denials, lack-of-knowledge selections, and confirmed defenses into a draft structure. It must not choose those positions, infer facts from silence, invent defenses or objections, guarantee legal sufficiency, or decide strategy for the user.
 
 ## Safety
 
@@ -338,7 +338,7 @@ A workflow should not be approved unless its required sources are identified and
 
 A source should not be attached to a workflow unless it actually supports that workflow.
 
-## Relationship to future schemas
+## Relationships across schema domains
 
 Workflow definitions will connect to later schemas, including:
 

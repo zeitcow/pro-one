@@ -106,6 +106,8 @@ Security review checks whether the change creates technical risk, exposes secret
 
 Evaluation review checks whether a workflow can be tested before it is treated as supported.
 
+Reviewer-role metadata records the capacity in which someone reviewed a change. It does not imply that a reviewer is an attorney or holds any other credential unless that credential is explicitly and accurately documented.
+
 ## Changes that need extra review
 
 Extra review is required for changes involving:
@@ -140,8 +142,11 @@ Before adding a workflow, the project should consider:
 - what harms could happen if the output is wrong
 - how the workflow can be evaluated
 - whether the project can explain limitations clearly
+- what jurisdiction-specific review of the legal-information/legal-advice boundary and other applicable requirements is needed
 
 Workflow selection is covered in more detail in `docs/workflow-selection.md`.
+
+The `legal_information_only` schema field is an architectural constraint, not a legal or regulatory determination. The project must not claim attorney review, regulatory approval, or public support unless those facts are documented and true.
 
 ## Roadmap decisions
 

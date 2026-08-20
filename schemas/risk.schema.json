@@ -1,17 +1,22 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/zeitcow/pro-one/schemas/risk.schema.json",
+  "$id": "risk.schema.json",
   "title": "Pro-One Risk",
   "description": "Schema for defining recurring legal-risk situations, urgent support routing, unsafe requests, deadline awareness, privacy risks, safe continuation rules, human-help framing, review status, and evaluation requirements.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "id",
+    "schema_version",
+    "record_version",
+    "last_modified",
     "title",
     "description",
     "status",
     "risk_type",
-    "risk_level",
+    "severity",
+    "urgency",
+    "integrity_risks",
     "jurisdiction",
     "related_records",
     "trigger_signals",
@@ -28,9 +33,16 @@
   ],
   "properties": {
     "id": {
-      "type": "string",
-      "description": "Stable risk identifier used by Pro-One.",
-      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+      "$ref": "common.schema.json#/$defs/recordId"
+    },
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "record_version": {
+      "$ref": "common.schema.json#/$defs/recordVersion"
+    },
+    "last_modified": {
+      "$ref": "common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
@@ -41,17 +53,7 @@
       "description": "Plain-language explanation of the risk situation."
     },
     "status": {
-      "type": "string",
-      "description": "Current risk-definition maturity status.",
-      "enum": [
-        "proposed",
-        "researched",
-        "designed",
-        "tested",
-        "supported",
-        "deprecated",
-        "rejected"
-      ]
+      "$ref": "common.schema.json#/$defs/maturityStatus"
     },
     "risk_type": {
       "type": "string",
@@ -76,15 +78,30 @@
         "other"
       ]
     },
-    "risk_level": {
-      "type": "string",
-      "description": "Severity level for the risk situation.",
-      "enum": [
-        "low",
-        "medium",
-        "high",
-        "extreme"
-      ]
+    "severity": {
+      "$ref": "common.schema.json#/$defs/riskLevel"
+    },
+    "urgency": {
+      "$ref": "common.schema.json#/$defs/urgencyLevel"
+    },
+    "integrity_risks": {
+      "type": "array",
+      "description": "Integrity or abuse dimensions, separate from harm severity and urgency.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "none",
+          "fabrication",
+          "deception",
+          "evidence_concealment",
+          "evidence_destruction",
+          "record_alteration",
+          "abuse_of_process",
+          "other"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
     },
     "jurisdiction": {
       "type": "object",
@@ -106,9 +123,13 @@
           "description": "Whether Pro-One must identify jurisdiction before giving specific source-backed guidance."
         },
         "country": {
-          "type": [
-            "string",
-            "null"
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/countryCode"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
         "state": {
@@ -169,7 +190,7 @@
           "type": "array",
           "description": "Source identifiers relevant to this risk.",
           "items": {
-            "type": "string"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -177,7 +198,7 @@
           "type": "array",
           "description": "Workflow identifiers where this risk may appear.",
           "items": {
-            "type": "string"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -185,7 +206,7 @@
           "type": "array",
           "description": "Process-step identifiers where this risk may appear.",
           "items": {
-            "type": "string"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -193,7 +214,7 @@
           "type": "array",
           "description": "Legal-document identifiers where this risk may appear.",
           "items": {
-            "type": "string"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -201,7 +222,7 @@
           "type": "array",
           "description": "Intake identifiers where this risk may be detected.",
           "items": {
-            "type": "string"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -209,7 +230,7 @@
           "type": "array",
           "description": "Legal-rule identifiers related to this risk.",
           "items": {
-            "type": "string"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         }
@@ -373,16 +394,7 @@
       ],
       "properties": {
         "default_response_strategy": {
-          "type": "string",
-          "description": "Default support strategy for this risk.",
-          "enum": [
-            "continue_in_safer_mode",
-            "continue_with_urgent_support",
-            "continue_with_deadline_awareness",
-            "continue_with_issue_spotting",
-            "narrow_then_continue",
-            "refuse_unsafe_part_and_continue_safe_part"
-          ]
+          "$ref": "common.schema.json#/$defs/routingBehavior"
         },
         "safe_continuation_required": {
           "type": "boolean",
@@ -392,21 +404,7 @@
           "type": "array",
           "description": "Support modes allowed for this risk.",
           "items": {
-            "type": "string",
-            "enum": [
-              "general_information",
-              "source_backed_steps",
-              "checklist",
-              "document_explanation",
-              "issue_spotting",
-              "deadline_awareness",
-              "urgent_support",
-              "court_or_agency_resource_prompt",
-              "free_or_low_cost_resource_prompt",
-              "scope_boundary",
-              "privacy_prompt",
-              "redaction_prompt"
-            ]
+            "$ref": "common.schema.json#/$defs/supportMode"
           },
           "uniqueItems": true,
           "minItems": 1
@@ -512,9 +510,9 @@
         },
         "deadline_strategy": {
           "type": "string",
-          "description": "How Pro-One should treat deadlines.",
+          "description": "Risk-specific deadline routing, separate from the canonical deadline-handling value used by workflow and document records.",
           "enum": [
-            "no_deadline",
+            "not_applicable",
             "deadline_awareness_only",
             "source_backed_deadline_information",
             "urgent_support_without_final_calculation",
@@ -594,26 +592,19 @@
       "required": [
         "human_help_framing",
         "resource_prompt_allowed",
-        "must_not_make_paid_help_the_default",
+        "resource_selection_policy",
         "human_help_notes"
       ],
       "properties": {
         "human_help_framing": {
-          "type": "string",
-          "enum": [
-            "not_required_by_default",
-            "optional_free_or_low_cost_resource",
-            "recommended_for_high_risk_issues",
-            "urgent_for_extreme_risk"
-          ]
+          "$ref": "common.schema.json#/$defs/humanHelpFraming"
         },
         "resource_prompt_allowed": {
           "type": "boolean",
           "description": "Whether Pro-One may point to court, agency, legal aid, self-help, or free and low-cost resources."
         },
-        "must_not_make_paid_help_the_default": {
-          "type": "boolean",
-          "description": "Whether Pro-One must avoid framing paid counsel as the default route."
+        "resource_selection_policy": {
+          "$ref": "common.schema.json#/$defs/humanHelpResourcePolicy"
         },
         "human_help_notes": {
           "type": "string",
@@ -622,87 +613,60 @@
       }
     },
     "review": {
-      "type": "object",
-      "description": "Review status within Pro-One.",
-      "additionalProperties": false,
-      "required": [
-        "status",
-        "reviewed_by",
-        "reviewed_on"
-      ],
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": [
-            "proposed",
-            "needs_review",
-            "reviewed",
-            "approved",
-            "deprecated",
-            "rejected"
-          ]
-        },
-        "reviewed_by": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Reviewer name, handle, or role."
-        },
-        "reviewed_on": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date",
-          "description": "Date of review."
-        },
-        "review_notes": {
-          "type": "string",
-          "description": "Notes from risk-definition review."
-        }
-      }
+      "$ref": "common.schema.json#/$defs/reviewInformation"
     },
     "evaluation": {
-      "type": "object",
-      "description": "Testing requirements before this risk definition can be supported.",
-      "additionalProperties": false,
-      "required": [
-        "required_tests",
-        "success_criteria",
-        "known_failure_modes"
-      ],
-      "properties": {
-        "required_tests": {
-          "type": "array",
-          "description": "Tests or evaluation categories required for this risk definition.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "success_criteria": {
-          "type": "array",
-          "description": "What must be true for the risk definition to pass review.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "known_failure_modes": {
-          "type": "array",
-          "description": "Known ways this risk handling could fail, over-refuse, under-warn, collect too much data, or abandon users.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "evaluation_notes": {
-          "type": "string",
-          "description": "Additional evaluation notes."
-        }
-      }
+      "$ref": "common.schema.json#/$defs/evaluationRequirements"
     },
     "notes": {
       "type": "string",
       "description": "Additional notes."
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "supported"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "review": {
+            "properties": {
+              "status": {
+                "const": "approved"
+              },
+              "review_scope": {
+                "allOf": [
+                  { "contains": { "const": "schema" } },
+                  { "contains": { "const": "safety" } },
+                  { "contains": { "const": "evaluation" } }
+                ]
+              }
+            },
+            "required": [
+              "status",
+              "review_scope"
+            ]
+          },
+          "evaluation": {
+            "properties": {
+              "required_evaluation_fixture_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "required_evaluation_fixture_ids"
+            ]
+          }
+        }
+      }
+    }
+  ]
 }

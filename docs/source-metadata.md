@@ -15,6 +15,7 @@ Source metadata helps Pro-One track:
 - whether it is free to access
 - whether it can be reused
 - when it was last checked
+- its effective period, source/content version, supersession, and optional content hash
 - which workflows it may support
 - what limits or risks apply
 
@@ -22,7 +23,7 @@ Legal AI workflows should not rely on sources that are vague, stale, unsupported
 
 ## Files
 
-This PR introduces three source-metadata files:
+This foundation consists of three source-metadata files:
 
 - `schemas/source.schema.json`
 - `data/sample-sources.json`
@@ -44,6 +45,8 @@ They are examples only.
 
 They should not be treated as real legal authority, reliable legal information, or supported workflow inputs.
 
+Source records use the shared maturity states: `proposed`, `researched`, `designed`, `tested`, `supported`, `deprecated`, and `rejected`. Supported source status requires approved review provenance and a recorded last-verification date. Sample sources remain proposed.
+
 ## Source records
 
 Each source record should describe one source.
@@ -51,6 +54,7 @@ Each source record should describe one source.
 A source may be:
 
 - a statute
+- a regulation
 - a court rule
 - a court form
 - court instructions
@@ -61,6 +65,8 @@ A source may be:
 - a court opinion
 - another legal-information source
 
+Use `regulation` for formally promulgated administrative law. Use `agency_rule` for other agency rule materials when that distinction is accurate, and `agency_guidance` for nonbinding instructions or explanatory material. Record the issuing body and authority level rather than inferring legal effect from the label alone.
+
 The goal is to describe the source clearly enough that a reviewer can decide whether it belongs in a workflow.
 
 ## Required metadata
@@ -68,12 +74,17 @@ The goal is to describe the source clearly enough that a reviewer can decide whe
 Each source record requires:
 
 - `id`
+- `schema_version`
+- `record_version`
+- `last_modified`
 - `title`
+- `status`
 - `source_type`
 - `url`
 - `jurisdiction`
 - `authority`
 - `dates`
+- `provenance`
 - `access`
 - `rights`
 - `review`
@@ -132,17 +143,20 @@ A source with unknown authority should not be used as a source of truth.
 
 The `dates` field tracks freshness.
 
-At minimum, each source record must include `last_checked`.
+At minimum, each source record must include `last_verified`. It may be null for an unverified placeholder; supported source status requires an actual verification date.
 
 Other useful dates include:
 
 - `published`
-- `effective`
+- `effective_from`
+- `effective_through`
 - `last_updated`
 
 Legal sources can change. A source that was reliable at one time may become outdated.
 
 Source review should include checking whether the source is still current.
+
+The `provenance` object records a publisher-provided source/content version when available, an optional `sha256:` content hash for captured material, and a `superseded_by_source_id` relationship. Placeholder records may use null values rather than inventing provenance.
 
 ## Access
 
@@ -175,7 +189,7 @@ When reuse rights are uncertain, Pro-One should be conservative.
 
 ## Review status
 
-The `review` field tracks whether a source has been reviewed.
+The top-level `status` field tracks record maturity using the shared lifecycle vocabulary. The `review` field separately tracks whether a source has been reviewed.
 
 Review statuses include:
 
@@ -197,7 +211,7 @@ The `workflow_fit` field explains how the source may be used.
 It tracks:
 
 - topics
-- supported workflows
+- workflow IDs
 - risk level
 - limitations
 - uses the source should not support
@@ -244,6 +258,8 @@ Before adding a real source, check:
 - What risks exist if the source is misunderstood?
 - What should the source not be used for?
 - Has the source been reviewed?
+- What source/content version and effective period apply?
+- Does another record supersede it, and should captured content have a hash?
 
 If these questions cannot be answered, the source should stay in `proposed` or `needs_review` status.
 
@@ -274,13 +290,12 @@ A source should not be approved for a workflow unless the workflow has clear sco
 
 ## Future improvements
 
-Future PRs may add:
+The repository now includes schema, record, reference, and state-invariant validation. Future work may add:
 
-- source validation scripts
 - source review checklists
 - real source records
 - workflow source maps
-- evaluation fixtures tied to sources
+- additional evaluation fixtures tied to sources
 - automated freshness checks
 - archive capture rules
 

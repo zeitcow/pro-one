@@ -1,107 +1,73 @@
 # MVP
 
-The first Pro-One MVP should be intentionally narrow.
+The first Pro-One MVP is a proposal, not an implemented product. It should remain intentionally narrow: one jurisdiction, one civil-procedure task, one reviewed source corpus, and explicit release gates.
 
-The goal is to prove that the project can support one legal workflow with grounded legal information, citations, and clear limitations.
+## Direction
 
-## MVP direction
+The proposed MVP would help a self-represented civil litigant understand and prepare a basic answer to a civil complaint. Its purpose is to explain sourced concepts, organize information, and structure a user-reviewed draft—not to make litigation decisions.
 
-The first MVP will focus on helping a self-represented civil litigant understand and prepare a basic answer to a civil complaint in one jurisdiction.
+## Intended behavior
 
-The goal is not to replace a lawyer or provide case-specific legal advice. The goal is to help users understand the procedural path, organize their facts, identify relevant court rules and official resources, and prepare a draft response that they can review before filing.
+A future implementation should:
 
-## MVP goal
+1. identify the document, jurisdiction, and reviewed workflow
+2. retrieve approved, current sources for the propositions being explained
+3. explain what admissions, denials, lack-of-knowledge responses, and defenses generally mean when the sources support those explanations
+4. collect and organize user-confirmed facts
+5. record the user's explicit decisions for each allegation or section
+6. populate a draft structure from those explicit decisions only where a reviewed workflow permits it
+7. show citations, limitations, unanswered questions, and required review points
+8. evaluate the output against reviewed fixtures before public support
 
-Build a small working system that can:
+The system must not:
 
-1. accept a user's legal question, document, or task description
-2. identify the supported jurisdiction and legal workflow
-3. retrieve relevant passages from an approved legal corpus
-4. generate plain-language guidance based on those passages
-5. show citations to the supporting sources
-6. explain limitations when the retrieved material is insufficient
+- decide what the user should admit, deny, or state based on lack of knowledge
+- invent facts, defenses, objections, or legal authority
+- select litigation strategy or predict an outcome
+- turn silence, ambiguity, or model inference into a factual choice
+- calculate a final deadline without adequate reviewed authority and required facts
+- represent that a pleading is complete or legally sufficient merely because it was generated
+- file, serve, sign, or submit a document for the user
 
 ## Initial scope
 
-The MVP should include:
-
 - one user type: self-represented civil litigants
-- one jurisdiction
-- one procedural task: understanding and preparing a basic answer to a civil complaint
-- one approved legal corpus
-- one retrieval pipeline
-- cited procedural guidance
-- plain-language explanations
-- clear refusal or limitation behavior when the system cannot find adequate support
+- one jurisdiction selected through documented review
+- one task: understanding and preparing a basic answer to a civil complaint
+- one inspectable, approved legal corpus
+- source-backed procedural explanations and citations
+- structured intake and user-confirmation controls
+- warnings, refusal of unsafe parts, and safe continuation
+- privacy and data-minimization controls
+- reviewed evaluation fixtures
 
-## Required behavior
+Payments, accounts, attorney matching, multi-jurisdiction coverage, broad legal advice, automated submissions, complex strategy, production deployment, mobile apps, and advanced interface work remain out of scope.
 
-The MVP should:
+## Source and review requirements
 
-- cite the sources used in the answer
-- distinguish supported guidance from unsupported claims
-- avoid making claims that are not supported by retrieved material
-- tell the user when it cannot find enough information
-- avoid presenting itself as a lawyer
-- avoid creating the impression of an attorney-client relationship
-- clearly warn users about deadlines, court rules, and the need to verify information before filing
+The corpus should be selected by proposition, not by a single universal source ranking. Statutes, regulations, cases, and rules may support substantive propositions; court rules, forms, and instructions may support filing and procedural requirements; official self-help and legal-aid materials may support plain-language explanation and navigation.
 
-## Out of scope
+Before the workflow is publicly supported, the project should complete jurisdiction-specific review of the legal-information/legal-advice boundary and other applicable requirements. A `legal_information_only` label is a design constraint, not a legal conclusion. The project does not currently claim attorney review.
 
-The first MVP should not include:
+## Example interaction boundary
 
-- payments
-- user accounts
-- document filing
-- attorney matching
-- multi-jurisdiction coverage
-- broad legal advice
-- automated court submissions
-- complex case strategy
-- production deployment
-- mobile apps
-- advanced UI polish
+```text
+User: I was served with a civil complaint. What does an answer do?
 
-## Candidate first corpus
+Permitted future behavior:
+- identify or ask for jurisdiction and the document title
+- explain sourced response categories and procedural structure
+- ask the user to confirm facts and choose their own response for each allegation
+- place those explicit choices into a clearly labeled draft structure
+- show sources, unresolved questions, deadlines requiring verification, and limitations
 
-The first corpus should be small enough to inspect and test.
-
-Possible candidates:
-
-- official court self-help materials for answering a complaint
-- civil procedure rules for one jurisdiction
-- official answer forms and instructions
-- a narrow set of statutes or court rules relevant to the selected workflow
-
-The final corpus should be selected based on source quality, public availability, and ease of citation.
+Prohibited behavior:
+- choose "admit" or "deny" for the user
+- invent a defense or factual explanation
+- select a litigation strategy
+- state that the draft is ready or legally sufficient solely because it was generated
+```
 
 ## Success criteria
 
-The MVP is successful when a user within the supported scope can receive:
-
-- a clear explanation of the procedural task
-- a structured set of next steps
-- supporting citations
-- a visible jurisdiction
-- a limitation statement where appropriate
-- no unsupported legal claims
-
-## Example user experience
-
-```text
-User:
-I was served with a civil complaint. What do I need to do?
-
-System behavior:
-- identify that the user is asking about responding to a civil complaint
-- confirm or request jurisdiction
-- retrieve relevant court rules, official instructions, and forms
-- explain the answer deadline and basic response options if supported by sources
-- guide the user through admissions, denials, lack of knowledge, and possible defenses at a high level
-- show citations
-- explain limits if facts, jurisdiction, or source support are unclear
-```
-
-## Development principle
-
-The MVP should favor correctness, transparency, and narrow scope over broad coverage.
+The MVP should not be called publicly supported until it passes source-grounding, citation, jurisdiction, fact-integrity, user-decision, privacy, deadline, safe-continuation, and legal-boundary evaluations. Correctness, transparency, and narrow scope matter more than broad coverage.

@@ -1,12 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/zeitcow/pro-one/schemas/intake.schema.json",
+  "$id": "intake.schema.json",
   "title": "Pro-One Intake",
   "description": "Schema for defining user intake flows, required and optional questions, data minimization, sensitive-data limits, risk-aware support routing, safe continuation modes, privacy controls, and evaluation requirements.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "id",
+    "schema_version",
+    "record_version",
+    "last_modified",
     "title",
     "description",
     "status",
@@ -28,9 +31,16 @@
   ],
   "properties": {
     "id": {
-      "type": "string",
-      "description": "Stable intake identifier used by Pro-One.",
-      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+      "$ref": "common.schema.json#/$defs/recordId"
+    },
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "record_version": {
+      "$ref": "common.schema.json#/$defs/recordVersion"
+    },
+    "last_modified": {
+      "$ref": "common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
@@ -41,17 +51,7 @@
       "description": "Plain-language explanation of the intake flow and its purpose."
     },
     "status": {
-      "type": "string",
-      "description": "Current intake-definition maturity status.",
-      "enum": [
-        "proposed",
-        "researched",
-        "designed",
-        "tested",
-        "supported",
-        "deprecated",
-        "rejected"
-      ]
+      "$ref": "common.schema.json#/$defs/maturityStatus"
     },
     "intake_type": {
       "type": "string",
@@ -75,7 +75,7 @@
       "type": "array",
       "description": "Workflow identifiers this intake may support.",
       "items": {
-        "type": "string"
+        "$ref": "common.schema.json#/$defs/recordId"
       },
       "uniqueItems": true
     },
@@ -83,7 +83,7 @@
       "type": "array",
       "description": "Process-step identifiers this intake may support.",
       "items": {
-        "type": "string"
+        "$ref": "common.schema.json#/$defs/recordId"
       },
       "uniqueItems": true
     },
@@ -91,7 +91,7 @@
       "type": "array",
       "description": "Legal-document identifiers this intake may support.",
       "items": {
-        "type": "string"
+        "$ref": "common.schema.json#/$defs/recordId"
       },
       "uniqueItems": true
     },
@@ -326,19 +326,7 @@
           "type": "array",
           "description": "Support modes available by default.",
           "items": {
-            "type": "string",
-            "enum": [
-              "general_information",
-              "source_backed_steps",
-              "checklist",
-              "document_explanation",
-              "issue_spotting",
-              "court_or_agency_resource_prompt",
-              "free_or_low_cost_resource_prompt",
-              "workflow_selection",
-              "process_step_guidance",
-              "document_boundary_guidance"
-            ]
+            "$ref": "common.schema.json#/$defs/supportMode"
           },
           "uniqueItems": true,
           "minItems": 1
@@ -347,20 +335,7 @@
           "type": "array",
           "description": "Safer support modes used when risk signals appear.",
           "items": {
-            "type": "string",
-            "enum": [
-              "continue_with_urgent_support",
-              "continue_with_deadline_awareness",
-              "continue_with_source_backed_steps",
-              "continue_with_checklist",
-              "continue_with_issue_spotting",
-              "continue_with_document_explanation",
-              "continue_with_court_or_agency_resource_prompt",
-              "continue_with_free_or_low_cost_resource_prompt",
-              "narrow_scope_before_answering",
-              "pause_for_missing_information",
-              "avoid_final_decision"
-            ]
+            "$ref": "common.schema.json#/$defs/routingBehavior"
           },
           "uniqueItems": true,
           "minItems": 1
@@ -370,14 +345,7 @@
           "description": "Whether intake should keep Pro-One helping in a safe mode rather than ending assistance."
         },
         "human_help_framing": {
-          "type": "string",
-          "description": "How Pro-One should frame human help when appropriate.",
-          "enum": [
-            "not_required_by_default",
-            "optional_free_or_low_cost_resource",
-            "recommended_for_high_risk_issues",
-            "urgent_for_extreme_risk"
-          ]
+          "$ref": "common.schema.json#/$defs/humanHelpFraming"
         },
         "routing_notes": {
           "type": "string",
@@ -418,15 +386,7 @@
           }
         },
         "routing_response": {
-          "type": "string",
-          "description": "Default response strategy when risk signals appear.",
-          "enum": [
-            "continue_in_safer_mode",
-            "continue_with_urgent_support",
-            "continue_with_issue_spotting",
-            "narrow_then_continue",
-            "refuse_unsafe_part_and_continue_safe_part"
-          ]
+          "$ref": "common.schema.json#/$defs/routingBehavior"
         },
         "risk_signal_notes": {
           "type": "string",
@@ -508,87 +468,66 @@
       }
     },
     "review": {
-      "type": "object",
-      "description": "Review status within Pro-One.",
-      "additionalProperties": false,
-      "required": [
-        "status",
-        "reviewed_by",
-        "reviewed_on"
-      ],
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": [
-            "proposed",
-            "needs_review",
-            "reviewed",
-            "approved",
-            "deprecated",
-            "rejected"
-          ]
-        },
-        "reviewed_by": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Reviewer name, handle, or role."
-        },
-        "reviewed_on": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date",
-          "description": "Date of review."
-        },
-        "review_notes": {
-          "type": "string",
-          "description": "Notes from intake-definition review."
-        }
-      }
+      "$ref": "common.schema.json#/$defs/reviewInformation"
     },
     "evaluation": {
-      "type": "object",
-      "description": "Testing requirements before this intake definition can be supported.",
-      "additionalProperties": false,
-      "required": [
-        "required_tests",
-        "success_criteria",
-        "known_failure_modes"
-      ],
-      "properties": {
-        "required_tests": {
-          "type": "array",
-          "description": "Tests or evaluation categories required for this intake.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "success_criteria": {
-          "type": "array",
-          "description": "What must be true for the intake definition to pass review.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "known_failure_modes": {
-          "type": "array",
-          "description": "Known ways intake could fail, over-collect data, abandon users, or misroute users.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "evaluation_notes": {
-          "type": "string",
-          "description": "Additional evaluation notes."
-        }
-      }
+      "$ref": "common.schema.json#/$defs/evaluationRequirements"
     },
     "notes": {
       "type": "string",
       "description": "Additional notes."
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "supported"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "review": {
+            "properties": {
+              "status": {
+                "const": "approved"
+              },
+              "review_scope": {
+                "allOf": [
+                  { "contains": { "const": "schema" } },
+                  { "contains": { "const": "jurisdiction" } },
+                  { "contains": { "const": "legal_information_boundary" } },
+                  { "contains": { "const": "safety" } },
+                  { "contains": { "const": "privacy" } },
+                  { "contains": { "const": "evaluation" } }
+                ]
+              }
+            },
+            "required": [
+              "status",
+              "review_scope"
+            ]
+          },
+          "evaluation": {
+            "properties": {
+              "required_evaluation_fixture_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "required_evaluation_fixture_ids"
+            ]
+          },
+          "workflow_ids": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
 }

@@ -1,12 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/zeitcow/pro-one/schemas/legal-document.schema.json",
+  "$id": "legal-document.schema.json",
   "title": "Pro-One Legal Document",
   "description": "Schema for defining legal documents, document-help boundaries, required user facts, source support, legal-rule support, filing and service limits, deadline handling, safety controls, and evaluation requirements.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "id",
+    "schema_version",
+    "record_version",
+    "last_modified",
     "title",
     "description",
     "status",
@@ -28,9 +31,16 @@
   ],
   "properties": {
     "id": {
-      "type": "string",
-      "description": "Stable legal-document identifier used by Pro-One.",
-      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+      "$ref": "common.schema.json#/$defs/recordId"
+    },
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "record_version": {
+      "$ref": "common.schema.json#/$defs/recordVersion"
+    },
+    "last_modified": {
+      "$ref": "common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
@@ -41,17 +51,7 @@
       "description": "Plain-language explanation of the document and its role."
     },
     "status": {
-      "type": "string",
-      "description": "Current document-definition maturity status.",
-      "enum": [
-        "proposed",
-        "researched",
-        "designed",
-        "tested",
-        "supported",
-        "deprecated",
-        "rejected"
-      ]
+      "$ref": "common.schema.json#/$defs/maturityStatus"
     },
     "document_type": {
       "type": "string",
@@ -92,7 +92,7 @@
       "type": "array",
       "description": "Workflow identifiers this document supports.",
       "items": {
-        "type": "string"
+        "$ref": "common.schema.json#/$defs/recordId"
       },
       "minItems": 1,
       "uniqueItems": true
@@ -101,55 +101,12 @@
       "type": "array",
       "description": "Process-step identifiers this document supports.",
       "items": {
-        "type": "string"
+        "$ref": "common.schema.json#/$defs/recordId"
       },
       "uniqueItems": true
     },
     "jurisdiction": {
-      "type": "object",
-      "description": "Jurisdiction, court, or agency this document definition applies to.",
-      "additionalProperties": false,
-      "required": [
-        "country"
-      ],
-      "properties": {
-        "country": {
-          "type": "string",
-          "description": "Country code or country name."
-        },
-        "state": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "State, province, or equivalent jurisdiction."
-        },
-        "locality": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "County, city, district, or local jurisdiction if relevant."
-        },
-        "court": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Court name if the document is court-specific."
-        },
-        "agency": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Agency name if the document is agency-specific."
-        },
-        "jurisdiction_notes": {
-          "type": "string",
-          "description": "Notes about jurisdiction limits, venue limits, agency limits, or uncertainty."
-        }
-      }
+      "$ref": "common.schema.json#/$defs/jurisdiction"
     },
     "sources": {
       "type": "object",
@@ -164,7 +121,7 @@
           "type": "array",
           "description": "Source IDs required to support this document definition.",
           "items": {
-            "type": "string"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -172,7 +129,7 @@
           "type": "array",
           "description": "Additional source IDs that may support this document definition.",
           "items": {
-            "type": "string"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -199,7 +156,7 @@
           "type": "array",
           "description": "Legal-rule IDs required to support this document definition.",
           "items": {
-            "type": "string"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -207,7 +164,7 @@
           "type": "array",
           "description": "Additional legal-rule IDs that may support this document definition.",
           "items": {
-            "type": "string"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -338,9 +295,10 @@
               "checklist",
               "outline",
               "template_completion",
-              "guided_draft",
+              "user_confirmed_draft",
               "draft_review_prompt",
-              "issue_spotting_prompt"
+              "issue_spotting_prompt",
+              "resource_prompt"
             ]
           },
           "uniqueItems": true
@@ -406,7 +364,7 @@
               "source_link",
               "checklist",
               "review_prompt",
-              "human_help_prompt"
+              "resource_prompt"
             ]
           },
           "uniqueItems": true
@@ -439,21 +397,13 @@
           "description": "Whether deadlines may matter for this document."
         },
         "deadline_handling": {
-          "type": "string",
-          "description": "How Pro-One should handle deadlines for this document.",
-          "enum": [
-            "no_deadline",
-            "informational_only",
-            "source_required",
-            "human_review_required",
-            "unsupported"
-          ]
+          "$ref": "common.schema.json#/$defs/deadlineHandling"
         },
         "deadline_source_ids": {
           "type": "array",
           "description": "Source IDs that support deadline information for this document.",
           "items": {
-            "type": "string"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -510,13 +460,7 @@
       ],
       "properties": {
         "risk_level": {
-          "type": "string",
-          "description": "Risk level for this document type.",
-          "enum": [
-            "low",
-            "medium",
-            "high"
-          ]
+          "$ref": "common.schema.json#/$defs/riskLevel"
         },
         "escalation_triggers": {
           "type": "array",
@@ -546,87 +490,83 @@
       }
     },
     "review": {
-      "type": "object",
-      "description": "Review status within Pro-One.",
-      "additionalProperties": false,
-      "required": [
-        "status",
-        "reviewed_by",
-        "reviewed_on"
-      ],
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": [
-            "proposed",
-            "needs_review",
-            "reviewed",
-            "approved",
-            "deprecated",
-            "rejected"
-          ]
-        },
-        "reviewed_by": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Reviewer name, handle, or role."
-        },
-        "reviewed_on": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date",
-          "description": "Date of review."
-        },
-        "review_notes": {
-          "type": "string",
-          "description": "Notes from document-definition review."
-        }
-      }
+      "$ref": "common.schema.json#/$defs/reviewInformation"
     },
     "evaluation": {
-      "type": "object",
-      "description": "Testing requirements before this document definition can be supported.",
-      "additionalProperties": false,
-      "required": [
-        "required_tests",
-        "success_criteria",
-        "known_failure_modes"
-      ],
-      "properties": {
-        "required_tests": {
-          "type": "array",
-          "description": "Tests or evaluation categories required for this document.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "success_criteria": {
-          "type": "array",
-          "description": "What must be true for the document definition to pass review.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "known_failure_modes": {
-          "type": "array",
-          "description": "Known ways this document help could fail or mislead users.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "evaluation_notes": {
-          "type": "string",
-          "description": "Additional evaluation notes."
-        }
-      }
+      "$ref": "common.schema.json#/$defs/evaluationRequirements"
     },
     "notes": {
       "type": "string",
       "description": "Additional notes."
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "supported"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "review": {
+            "properties": {
+              "status": {
+                "const": "approved"
+              },
+              "review_scope": {
+                "allOf": [
+                  { "contains": { "const": "schema" } },
+                  { "contains": { "const": "jurisdiction" } },
+                  { "contains": { "const": "legal_information_boundary" } },
+                  { "contains": { "const": "safety" } },
+                  { "contains": { "const": "privacy" } },
+                  { "contains": { "const": "evaluation" } }
+                ]
+              }
+            },
+            "required": [
+              "status",
+              "review_scope"
+            ]
+          },
+          "evaluation": {
+            "properties": {
+              "required_evaluation_fixture_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "required_evaluation_fixture_ids"
+            ]
+          },
+          "sources": {
+            "properties": {
+              "required_source_ids": {
+                "minItems": 1
+              },
+              "source_review_required": {
+                "const": true
+              }
+            }
+          },
+          "legal_rules": {
+            "properties": {
+              "required_rule_ids": {
+                "minItems": 1
+              },
+              "rule_review_required": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }

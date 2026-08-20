@@ -109,6 +109,8 @@ Before merging, check:
 
 For Markdown changes, run:
 
+    python -B -m unittest discover --start-directory tests --verbose
+    python scripts/validate_repository.py
     git diff --check
     git diff --staged --check
 
@@ -176,7 +178,7 @@ When writing documentation:
 
 ## Source and corpus workflow
 
-Future source or corpus contributions should follow the source standards.
+Source or corpus contributions should follow the source standards.
 
 Before adding a source, consider:
 

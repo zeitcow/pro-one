@@ -1,6 +1,9 @@
 [
   {
     "id": "example-imminent-deadline-urgent-support-response",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Imminent Deadline Urgent Support Response",
     "description": "Response pattern for users who report a near or uncertain legal deadline and need immediate organization support without unsupported deadline calculation.",
     "status": "proposed",
@@ -37,7 +40,7 @@
     "source_use": {
       "source_required": false,
       "citation_required": false,
-      "allowed_source_statuses": [
+      "allowed_source_review_statuses": [
         "reviewed",
         "approved"
       ],
@@ -180,9 +183,9 @@
       "next_step_notes": "Next steps should prioritize identifying the document, date, and issuing authority."
     },
     "human_help": {
-      "human_help_framing": "recommended_for_high_risk_issues",
+      "human_help_framing": "qualified_help_recommended",
       "resource_prompt_allowed": true,
-      "must_not_make_paid_help_the_default": true,
+      "resource_selection_policy": "best_fit_for_risk_and_need",
       "resource_types_allowed": [
         "court_self_help",
         "court_clerk_information_resource",
@@ -222,7 +225,10 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample response pattern only."
     },
     "evaluation": {
@@ -255,6 +261,9 @@
   },
   {
     "id": "example-discovery-boundary-response",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Discovery Boundary Response",
     "description": "Response pattern for discovery questions involving interrogatories, requests for production, requests for admission, objections, privilege, sanctions, or deadlines.",
     "status": "proposed",
@@ -296,7 +305,7 @@
     "source_use": {
       "source_required": false,
       "citation_required": false,
-      "allowed_source_statuses": [
+      "allowed_source_review_statuses": [
         "reviewed",
         "approved"
       ],
@@ -442,9 +451,9 @@
       "next_step_notes": "Next steps should focus on organizing requests, identifying facts, and protecting privacy."
     },
     "human_help": {
-      "human_help_framing": "recommended_for_high_risk_issues",
+      "human_help_framing": "qualified_help_recommended",
       "resource_prompt_allowed": true,
-      "must_not_make_paid_help_the_default": true,
+      "resource_selection_policy": "best_fit_for_risk_and_need",
       "resource_types_allowed": [
         "court_self_help",
         "legal_aid",
@@ -488,7 +497,10 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample response pattern only."
     },
     "evaluation": {
@@ -522,6 +534,9 @@
   },
   {
     "id": "example-subpoena-safe-continuation-response",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Subpoena Safe Continuation Response",
     "description": "Response pattern for subpoena questions involving dates, requested records, testimony, service validity, compliance, confidentiality, and issue spotting.",
     "status": "proposed",
@@ -563,7 +578,7 @@
     "source_use": {
       "source_required": false,
       "citation_required": false,
-      "allowed_source_statuses": [
+      "allowed_source_review_statuses": [
         "reviewed",
         "approved"
       ],
@@ -712,9 +727,9 @@
       "next_step_notes": "Next steps should focus on identifying the issuing authority, date, requested action, and records."
     },
     "human_help": {
-      "human_help_framing": "recommended_for_high_risk_issues",
+      "human_help_framing": "qualified_help_recommended",
       "resource_prompt_allowed": true,
-      "must_not_make_paid_help_the_default": true,
+      "resource_selection_policy": "best_fit_for_risk_and_need",
       "resource_types_allowed": [
         "court_self_help",
         "court_clerk_information_resource",
@@ -760,7 +775,10 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample response pattern only."
     },
     "evaluation": {
@@ -794,6 +812,9 @@
   },
   {
     "id": "example-evidence-integrity-safe-refusal-response",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Evidence Integrity Safe Refusal Response",
     "description": "Response pattern for requests to fabricate, backdate, alter, hide, destroy, or misrepresent facts or records while continuing with truthful organization support.",
     "status": "proposed",
@@ -829,7 +850,7 @@
     "source_use": {
       "source_required": false,
       "citation_required": false,
-      "allowed_source_statuses": [
+      "allowed_source_review_statuses": [
         "reviewed",
         "approved"
       ],
@@ -965,9 +986,9 @@
       "next_step_notes": "Next steps should focus on truthful facts, real records, missing records, and safe organization."
     },
     "human_help": {
-      "human_help_framing": "urgent_for_extreme_risk",
+      "human_help_framing": "qualified_help_urgent",
       "resource_prompt_allowed": true,
-      "must_not_make_paid_help_the_default": true,
+      "resource_selection_policy": "best_fit_for_risk_and_need",
       "resource_types_allowed": [
         "legal_aid",
         "free_clinic",
@@ -1010,7 +1031,10 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample response pattern only."
     },
     "evaluation": {

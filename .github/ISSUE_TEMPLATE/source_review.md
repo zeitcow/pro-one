@@ -19,7 +19,7 @@ Add the source URL or location.
 Check any that apply:
 
 - [ ] Statute
-- [ ] Regulation
+- [ ] Regulation (formally promulgated administrative law)
 - [ ] Court rule
 - [ ] Official court form
 - [ ] Official court instructions
@@ -62,6 +62,8 @@ Explain briefly.
 Does the source show a publication date, last updated date, version, or effective date?
 
 Add details here.
+
+If known, include the effective-from and effective-through dates, source/content version, whether it supersedes another source, and the date the content was last verified.
 
 ## Reuse and access
 

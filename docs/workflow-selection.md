@@ -188,6 +188,10 @@ A workflow should avoid:
 
 The workflow may help users understand options, organize facts, find sources, and prepare questions.
 
+Where a reviewed document workflow permits, it may also structure a draft from explicit user decisions and confirmed facts. It must not choose admissions, denials, defenses, objections, factual positions, or litigation strategy, and it must not treat generation as proof of legal sufficiency.
+
+Labeling a workflow `legal_information_only` is an architectural constraint, not a legal conclusion. Before public support, the project should consider jurisdiction-specific review of the legal-information/legal-advice boundary and other applicable requirements. The repository must not claim attorney review unless it actually occurred and is documented.
+
 ## Privacy impact
 
 A workflow should collect only the information needed for the task.
@@ -343,7 +347,9 @@ Examples include:
 - unclear jurisdiction
 - facts that could materially change legal options
 
-When the risk is high, the workflow should route users to official resources or qualified legal help rather than generating confident legal answers.
+When risk, complexity, or consequences warrant it, the workflow should recommend official resources or qualified professional assistance while continuing with safe, bounded support where possible.
+
+Prefer free, official, self-help, legal-aid, nonprofit, and low-cost resources when they can appropriately meet the user's need. Do not categorically avoid qualified paid assistance when it is the appropriate option, and do not make it the only path by default.
 
 ## Documentation requirement
 

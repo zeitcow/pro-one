@@ -1,6 +1,6 @@
 # Architecture
 
-Pro-One is intended to be a workflow-first legal AI system rather than a general-purpose legal chatbot.
+Pro-One is currently an architecture and specification foundation for a future workflow-first legal AI system rather than a general-purpose legal chatbot. No production pipeline or publicly supported workflow exists today.
 
 The system should help self-represented users and small businesses understand legal processes, organize their facts, and complete common legal tasks using structured workflows, retrieval from approved legal sources, and AI-generated explanations that cite their supporting material.
 
@@ -16,20 +16,31 @@ Pro-One should be:
 - **Accessible:** Legal information should be written in clear language.
 - **Free and open:** Core access should remain free, and the software should be open for inspection, contribution, and reuse.
 
-## Planned pipeline
+## Specification foundation
+
+The repository defines nine interoperable record domains: sources, workflows, process steps, legal documents, intakes, legal rules, risks, response patterns, and evaluation fixtures. `schemas/common.schema.json` centralizes record identifiers, version metadata, known jurisdiction structures, maturity and review states, review provenance, harm severity, urgency, support modes, routing behavior, human-help framing, and deadline handling where the concepts are semantically shared.
+
+Country values use uppercase ISO 3166-1 alpha-2 codes across every domain—for example, `US` rather than a display name. User interfaces may localize those codes for display without changing stored records.
+
+All domain records include `schema_version`, `record_version`, and `last_modified`. Review objects distinguish reviewer identity or handle, reviewer role, review scope, review date, and the exact record version reviewed. A reviewer role is a project capacity and does not assert professional credentials.
+
+The sample records are fictional and proposed. Schema validity establishes structural conformance only; it does not make a record accurate, reviewed, approved, supported, or legally appropriate.
+
+## Intended pipeline
 
 ```text
-user question or task
+user need
   -> intake
-  -> jurisdiction detection
-  -> legal topic classification
-  -> source selection
-  -> retrieval
-  -> context building
-  -> answer or workflow generation
-  -> citation display
-  -> confidence and limitation signals
+  -> jurisdiction and workflow identification
+  -> approved sources
+  -> source-backed legal rules and process steps
+  -> risk controls
+  -> response pattern
+  -> citations and limitations
+  -> evaluation
 ```
+
+This diagram is an intended architecture. It is not running in production.
 
 ## First MVP direction
 
@@ -37,7 +48,7 @@ The first MVP should focus on one narrow legal workflow rather than broad legal 
 
 A strong first workflow is helping a self-represented civil litigant understand and prepare a basic answer to a civil complaint in one jurisdiction.
 
-This keeps the project focused on a real procedural need while allowing the system to demonstrate intake, jurisdiction awareness, retrieval, citations, plain-language explanations, and refusal behavior.
+This keeps the project focused on a real procedural need while allowing a future implementation to demonstrate intake, jurisdiction awareness, retrieval, citations, plain-language explanations, user-confirmed draft structure, and safe refusal behavior. The system may explain sourced response categories and organize explicit user decisions, but it must not choose admissions, denials, defenses, objections, facts, or litigation strategy.
 
 ## Long-term direction
 
@@ -173,9 +184,9 @@ The first MVP should not attempt to:
 - rely on unsupported model output
 - optimize for a polished user interface before the retrieval and grounding pipeline works
 
-## Future evaluation
+## Application evaluation
 
-Pro-One should eventually evaluate:
+Before any workflow is publicly supported, a future application should evaluate:
 
 - retrieval recall
 - citation accuracy

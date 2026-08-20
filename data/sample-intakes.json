@@ -1,6 +1,9 @@
 [
   {
     "id": "example-name-change-intake",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Name-Change Intake",
     "description": "Sample intake flow for helping a user identify basic name-change workflow needs while minimizing sensitive data.",
     "status": "proposed",
@@ -117,10 +120,10 @@
         "continue_with_checklist",
         "continue_with_document_explanation",
         "continue_with_court_or_agency_resource_prompt",
-        "narrow_scope_before_answering"
+        "narrow_then_continue"
       ],
       "avoid_abandonment": true,
-      "human_help_framing": "optional_free_or_low_cost_resource",
+      "human_help_framing": "resources_optional",
       "routing_notes": "Risk routing should not end support. It should keep the user moving through safer, narrower, source-backed help."
     },
     "risk_signals": {
@@ -171,10 +174,14 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample intake definition only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "minimum_questioning",
         "jurisdiction_routing",
@@ -201,6 +208,9 @@
   },
   {
     "id": "example-discovery-deadline-intake",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Discovery Deadline Intake",
     "description": "Sample intake flow for urgent civil discovery questions where Pro-One should continue with safer deadline-aware support.",
     "status": "proposed",
@@ -326,7 +336,7 @@
         "avoid_final_decision"
       ],
       "avoid_abandonment": true,
-      "human_help_framing": "recommended_for_high_risk_issues",
+      "human_help_framing": "qualified_help_recommended",
       "routing_notes": "Even with an imminent deadline, Pro-One should keep helping by organizing the issue, flagging risks, and providing a checklist while avoiding final legal decisions."
     },
     "risk_signals": {
@@ -383,10 +393,14 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample intake definition only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "urgent_support_routing",
         "deadline_awareness",
@@ -416,6 +430,9 @@
   },
   {
     "id": "example-subpoena-intake",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Subpoena Intake",
     "description": "Sample intake flow for subpoena questions where Pro-One should provide source-backed issue spotting and urgent support without deciding compliance or validity.",
     "status": "proposed",
@@ -541,7 +558,7 @@
         "avoid_final_decision"
       ],
       "avoid_abandonment": true,
-      "human_help_framing": "recommended_for_high_risk_issues",
+      "human_help_framing": "qualified_help_recommended",
       "routing_notes": "Subpoena support should continue in an urgent, source-backed, issue-spotting mode rather than ending assistance."
     },
     "risk_signals": {
@@ -596,10 +613,14 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample intake definition only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "urgent_support_routing",
         "deadline_awareness",
@@ -629,6 +650,9 @@
   },
   {
     "id": "example-small-business-demand-letter-intake",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Small-Business Demand Letter Intake",
     "description": "Sample intake flow for helping a small business organize facts for a demand letter or dispute communication.",
     "status": "proposed",
@@ -659,7 +683,7 @@
         "Identify the dispute type.",
         "Collect only user-confirmed facts.",
         "Organize payment, contract, invoice, or service information.",
-        "Provide a checklist or guided draft when safe.",
+        "Provide a checklist or user-confirmed draft when safe.",
         "Flag lawsuits, deadlines, regulated activity, or legal threats for safer support."
       ],
       "prohibited_goals": [
@@ -747,12 +771,12 @@
         "continue_with_source_backed_steps",
         "continue_with_checklist",
         "continue_with_issue_spotting",
-        "narrow_scope_before_answering",
+        "narrow_then_continue",
         "continue_with_free_or_low_cost_resource_prompt",
         "avoid_final_decision"
       ],
       "avoid_abandonment": true,
-      "human_help_framing": "optional_free_or_low_cost_resource",
+      "human_help_framing": "resources_optional",
       "routing_notes": "The intake should keep helping small businesses organize facts and communicate professionally while narrowing when risks appear."
     },
     "risk_signals": {
@@ -806,10 +830,14 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample intake definition only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "fact_confirmation",
         "minimum_questioning",

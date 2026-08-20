@@ -1,194 +1,109 @@
 # Development Setup
 
-Pro-One is an early-stage project. The repository currently focuses on documentation, project standards, safety principles, evaluation principles, and planning for future legal AI workflows.
-
-This guide explains how to set up the repository locally and make small, reviewable contributions.
-
-## Current project status
-
-Pro-One does not currently include a production application, backend service, frontend app, database, or AI pipeline.
-
-At this stage, contributors can work on:
-
-- documentation
-- source standards
-- safety standards
-- evaluation planning
-- workflow planning
-- issue templates
-- future schema and corpus design
-
-Application setup instructions should be added when the project includes runnable code.
+Pro-One is currently an architecture, specification, and technical-foundation repository. It contains interoperable JSON Schemas, fictional sample records, validation tooling, issue templates, and standards for sources, safety, privacy, governance, workflows, responses, and evaluation. It does not contain a production application, backend, frontend, database, or AI pipeline.
 
 ## Prerequisites
 
-Recommended tools:
-
 - Git
-- GitHub account
-- code editor such as VS Code
-- terminal such as PowerShell, Terminal, or a Unix shell
-
-Future code contributions may require additional tools, but those should be documented when they are introduced.
+- Python 3.10 or later
+- a code editor and terminal
+- a GitHub account if you plan to open a pull request
 
 ## Clone the repository
 
-Clone the repository from GitHub:
+```bash
+git clone https://github.com/pro-one-org/pro-one.git
+cd pro-one
+```
 
-    git clone https://github.com/zeitcow/pro-one.git
-    cd pro-one
+## Install validation dependencies
 
-Check the repository status:
+Use a virtual environment if desired, then install the single development dependency:
 
-    git status
+```bash
+python -m pip install -r requirements-dev.txt
+```
 
-Expected result:
+On Windows, `py -m pip` and `py scripts/validate_repository.py` may be used when the Python launcher is available.
 
-    On branch main
-    nothing to commit, working tree clean
+## Run repository validation
 
-## Configure Git identity
+Run the same validation used by continuous integration:
 
-Use a Git identity that you are comfortable using for public open-source contributions.
+```bash
+python -B -m unittest discover --start-directory tests --verbose
+python scripts/validate_repository.py
+```
 
-Check your current Git configuration:
+The standalone tests confirm that relative schema references resolve through a standard Draft 2020-12 validator without the repository's in-memory registry, enforce supported evaluation-fixture invariants, distinguish supporting dependencies from negative/test references, and keep generated environment directories out of repository scans.
 
-    git config user.name
-    git config user.email
+The repository validator checks:
 
-Set local repository identity if needed:
+- every JSON file parses as UTF-8 JSON
+- every schema is valid JSON Schema Draft 2020-12
+- each sample record validates against its corresponding schema
+- every schema-declared typed cross-record ID field is classified and resolves
+- supporting dependencies satisfy lifecycle rules while negative/test references remain non-supporting
+- supported-state and review/source invariants hold
+- Markdown fences, relative links, and common encoding problems
+- stale repository and PR-history wording covered by the automated checks
 
-    git config user.name "Your Name"
-    git config user.email "your-email@example.com"
+Schema `$id` values are portable filenames, and domain schemas reference the sibling `common.schema.json` with relative `$ref` values. Tools that accept schema file paths should use the `schemas/` directory as the retrieval base.
 
-Contributors who prefer not to expose a personal email address should consider using a GitHub-provided no-reply email address.
+Before committing, also run:
 
-## Keep work on branches
+```bash
+git diff --check
+git status --short
+```
 
-Do not make changes directly on `main`.
+## How schemas and records fit together
 
-Create a branch for each small contribution:
+The nine record domains under [`schemas/`](../schemas/) correspond to the nine `data/sample-*.json` files. Shared concepts live in [`schemas/common.schema.json`](../schemas/common.schema.json) and are referenced by the domain schemas.
 
-    git checkout main
-    git pull origin main
-    git checkout -b docs/example-change
+All sample records are fictional placeholders. A valid proposed record is not necessarily reviewed, approved, or supported. The `schema_version`, `record_version`, and `last_modified` fields provide a migration path; review provenance records the exact `reviewed_record_version` when a review occurs.
 
-Branch names should be short and descriptive.
+## Add or change a record
 
-Examples:
+1. Choose the correct domain schema and sample-data file.
+2. Use a stable lowercase identifier matching the common identifier format.
+3. Set accurate version metadata. Increment `record_version` when record content changes materially.
+4. Add only real relationships to records that exist in the repository.
+5. Keep placeholder records `proposed` with null review provenance until an actual review occurs.
+6. Update related records where the relationship is reciprocal or otherwise documented.
+7. Update the relevant Markdown documentation.
+8. Run repository validation.
 
-- `docs/development-setup`
-- `docs/source-metadata`
-- `schema/source-metadata`
-- `tests/evaluation-fixtures`
+Do not invent reviewer identities, review dates, professional credentials, source versions, effective dates, or hashes.
 
-## Make small changes
+## Change a schema or shared enum
 
-Pro-One should favor small, reviewable changes.
+Changes to [`schemas/common.schema.json`](../schemas/common.schema.json) can affect several domains at once. Before changing shared maturity states, review states, risk levels, urgency, support modes, routing behavior, deadline handling, or human-help framing:
 
-A good contribution should usually do one thing:
+1. search all schemas, data, and documentation for the existing term
+2. confirm the concepts are genuinely semantically identical
+3. preserve separate definitions when the concepts differ
+4. update every affected schema, record, validator rule, issue template, and document together
+5. describe migration impact in the pull request
 
-- add one focused document
-- update one standard
-- add one schema
-- add one test fixture
-- improve one workflow description
-- fix one bug or inconsistency
+## Branches and pull requests
 
-Avoid mixing unrelated changes in the same pull request.
+Do not make contribution work directly on `main`.
 
-## Check changes before committing
+```bash
+git switch main
+git pull --ff-only origin main
+git switch -c docs/example-change
+```
 
-Before committing, review the changed files:
+Keep changes narrow and reviewable. A pull request should explain what changed, why it is useful, whether it affects legal information, sources, safety, privacy, evaluation, or user-facing boundaries, and how it was validated.
 
-    git status
-    git diff
-
-For Markdown and text changes, also check for whitespace issues:
-
-    git diff --check
-
-After staging files, check the staged diff:
-
-    git add path/to/file.md
-    git diff --staged --check
-    git diff --staged --stat
-
-## Commit messages
-
-Use clear commit messages.
-
-Examples:
-
-- `docs: add development setup guide`
-- `docs: update source standards`
-- `schema: add source metadata schema`
-- `tests: add retrieval evaluation fixtures`
-
-Commit messages should describe what changed, not just that something was updated.
-
-## Push and open a pull request
-
-Push the branch:
-
-    git push -u origin branch-name
-
-Open a pull request on GitHub.
-
-The pull request should explain:
-
-- what changed
-- why the change is useful
-- whether it affects legal information, safety, privacy, evaluation, or source grounding
-- how it was reviewed or tested
-
-## After a pull request is merged
-
-After a pull request is merged, update local `main`:
-
-    git checkout main
-    git pull origin main
-    git status
-
-Then delete the local branch:
-
-    git branch -d branch-name
-
-If the pull request was squash-merged and Git warns that the branch is not fully merged, it is usually safe to delete the local branch after confirming the PR was merged:
-
-    git branch -D branch-name
-
-Delete the remote branch if it is no longer needed:
-
-    git push origin --delete branch-name
+Useful branch prefixes include `docs/`, `schema/`, `tests/`, `fix/`, and `refactor/`.
 
 ## Secrets and sensitive information
 
-Do not commit:
-
-- API keys
-- credentials
-- private user data
-- legal documents from real users
-- confidential business records
-- private court papers
-- sensitive prompts or outputs
-- environment files containing secrets
-
-Future code should use environment variables or a dedicated secret-management process for secrets.
-
-## Windows and PowerShell notes
-
-PowerShell may show warnings such as:
-
-    LF will be replaced by CRLF
-
-This is common on Windows and usually not a problem.
-
-If a file already exists, PowerShell may show an error when using `ni` or `New-Item`. That is usually harmless if the file was already created intentionally.
+Do not commit API keys, credentials, private user data, real legal documents, confidential business records, sensitive prompts or outputs, or environment files containing secrets. The repository does not need real user facts to test its current specification layer.
 
 ## Guiding rule
 
-Set up the project in a way that keeps contributions small, public, reviewable, and safe.
-
-Pro-One should grow carefully, especially where changes affect legal information, privacy, source grounding, or user safety.
+Keep schemas, sample records, documentation, and validation synchronized. A machine-valid record may still be unsafe or legally inappropriate; supported status requires the additional review and evaluation gates documented by the project.

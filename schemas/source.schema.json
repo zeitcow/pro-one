@@ -1,18 +1,23 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/zeitcow/pro-one/schemas/source.schema.json",
+  "$id": "source.schema.json",
   "title": "Pro-One Source Metadata",
   "description": "Metadata schema for legal and legal-information sources used by Pro-One.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "id",
+    "schema_version",
+    "record_version",
+    "last_modified",
     "title",
+    "status",
     "source_type",
     "url",
     "jurisdiction",
     "authority",
     "dates",
+    "provenance",
     "access",
     "rights",
     "review",
@@ -21,13 +26,23 @@
   ],
   "properties": {
     "id": {
-      "type": "string",
-      "description": "Stable source identifier used by Pro-One.",
-      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+      "$ref": "common.schema.json#/$defs/recordId"
+    },
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "record_version": {
+      "$ref": "common.schema.json#/$defs/recordVersion"
+    },
+    "last_modified": {
+      "$ref": "common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
       "description": "Human-readable source title."
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/maturityStatus"
     },
     "description": {
       "type": "string",
@@ -38,6 +53,7 @@
       "description": "General category of source.",
       "enum": [
         "statute",
+        "regulation",
         "court_rule",
         "court_form",
         "court_instruction",
@@ -56,46 +72,7 @@
       "description": "Canonical public URL for the source."
     },
     "jurisdiction": {
-      "type": "object",
-      "description": "Jurisdiction or institution the source applies to.",
-      "additionalProperties": false,
-      "required": [
-        "country"
-      ],
-      "properties": {
-        "country": {
-          "type": "string",
-          "description": "Country code or country name."
-        },
-        "state": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "State, province, or equivalent jurisdiction."
-        },
-        "locality": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "County, city, district, or local jurisdiction if relevant."
-        },
-        "court": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Court name if the source is court-specific."
-        },
-        "agency": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Agency name if the source is agency-specific."
-        }
-      }
+      "$ref": "common.schema.json#/$defs/jurisdiction"
     },
     "authority": {
       "type": "object",
@@ -137,7 +114,7 @@
       "description": "Dates used to judge freshness and review status.",
       "additionalProperties": false,
       "required": [
-        "last_checked"
+        "last_verified"
       ],
       "properties": {
         "published": {
@@ -148,13 +125,21 @@
           "format": "date",
           "description": "Date the source was published, if known."
         },
-        "effective": {
+        "effective_from": {
           "type": [
             "string",
             "null"
           ],
           "format": "date",
           "description": "Effective date, if relevant and known."
+        },
+        "effective_through": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "Last effective date, if the source has expired or been superseded."
         },
         "last_updated": {
           "type": [
@@ -164,10 +149,54 @@
           "format": "date",
           "description": "Date the source was last updated by the publisher, if known."
         },
-        "last_checked": {
-          "type": "string",
+        "last_verified": {
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "date",
-          "description": "Date Pro-One last checked the source."
+          "description": "Date Pro-One last verified the source content, or null for an unverified placeholder."
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "description": "Practical source-content provenance used for freshness checks and future migrations.",
+      "additionalProperties": false,
+      "required": [
+        "source_content_version",
+        "content_hash",
+        "superseded_by_source_id"
+      ],
+      "properties": {
+        "source_content_version": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Publisher-provided version, revision, edition, or release identifier, when available."
+        },
+        "content_hash": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "description": "Optional SHA-256 hash of captured source content, prefixed with sha256:."
+        },
+        "superseded_by_source_id": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/recordId"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Source record that supersedes this one, if known."
+        },
+        "provenance_notes": {
+          "type": "string"
         }
       }
     },
@@ -249,46 +278,7 @@
       }
     },
     "review": {
-      "type": "object",
-      "description": "Review status within Pro-One.",
-      "additionalProperties": false,
-      "required": [
-        "status",
-        "reviewed_by",
-        "reviewed_on"
-      ],
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": [
-            "proposed",
-            "needs_review",
-            "reviewed",
-            "approved",
-            "deprecated",
-            "rejected"
-          ]
-        },
-        "reviewed_by": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Reviewer name, handle, or role."
-        },
-        "reviewed_on": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date",
-          "description": "Date of review."
-        },
-        "review_notes": {
-          "type": "string",
-          "description": "Notes from source review."
-        }
-      }
+      "$ref": "common.schema.json#/$defs/reviewInformation"
     },
     "workflow_fit": {
       "type": "object",
@@ -296,7 +286,7 @@
       "additionalProperties": false,
       "required": [
         "topics",
-        "supported_workflows",
+        "workflow_ids",
         "risk_level"
       ],
       "properties": {
@@ -308,22 +298,16 @@
           },
           "uniqueItems": true
         },
-        "supported_workflows": {
+        "workflow_ids": {
           "type": "array",
           "description": "Workflow identifiers this source may support.",
           "items": {
-            "type": "string"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "risk_level": {
-          "type": "string",
-          "description": "Risk level if this source is used incorrectly.",
-          "enum": [
-            "low",
-            "medium",
-            "high"
-          ]
+          "$ref": "common.schema.json#/$defs/riskLevel"
         },
         "limitations": {
           "type": "array",
@@ -355,9 +339,12 @@
           "description": "Preferred citation or source label."
         },
         "retrieved_at": {
-          "type": "string",
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "date",
-          "description": "Date the source was retrieved or checked."
+          "description": "Date the source was actually retrieved, or null for an unretrieved placeholder."
         },
         "archive_url": {
           "type": [
@@ -373,5 +360,62 @@
       "type": "string",
       "description": "Additional notes."
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "supported"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "review": {
+            "properties": {
+              "status": {
+                "const": "approved"
+              },
+              "review_scope": {
+                "allOf": [
+                  { "contains": { "const": "schema" } },
+                  { "contains": { "const": "source_authority" } },
+                  { "contains": { "const": "source_freshness" } },
+                  { "contains": { "const": "jurisdiction" } }
+                ]
+              }
+            },
+            "required": [
+              "status",
+              "review_scope"
+            ]
+          },
+          "dates": {
+            "required": [
+              "last_verified"
+            ],
+            "properties": {
+              "last_verified": {
+                "type": "string"
+              }
+            }
+          },
+          "citation": {
+            "properties": {
+              "retrieved_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "retrieved_at"
+            ]
+          }
+        }
+      }
+    }
+  ]
 }
