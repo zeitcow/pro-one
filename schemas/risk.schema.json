@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/pro-one-org/pro-one/schemas/risk.schema.json",
+  "$id": "risk.schema.json",
   "title": "Pro-One Risk",
   "description": "Schema for defining recurring legal-risk situations, urgent support routing, unsafe requests, deadline awareness, privacy risks, safe continuation rules, human-help framing, review status, and evaluation requirements.",
   "type": "object",
@@ -33,16 +33,16 @@
   ],
   "properties": {
     "id": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+      "$ref": "common.schema.json#/$defs/recordId"
     },
     "schema_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/schemaVersion"
+      "$ref": "common.schema.json#/$defs/schemaVersion"
     },
     "record_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordVersion"
+      "$ref": "common.schema.json#/$defs/recordVersion"
     },
     "last_modified": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/lastModified"
+      "$ref": "common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
@@ -53,7 +53,7 @@
       "description": "Plain-language explanation of the risk situation."
     },
     "status": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/maturityStatus"
+      "$ref": "common.schema.json#/$defs/maturityStatus"
     },
     "risk_type": {
       "type": "string",
@@ -79,10 +79,10 @@
       ]
     },
     "severity": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/riskLevel"
+      "$ref": "common.schema.json#/$defs/riskLevel"
     },
     "urgency": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/urgencyLevel"
+      "$ref": "common.schema.json#/$defs/urgencyLevel"
     },
     "integrity_risks": {
       "type": "array",
@@ -123,9 +123,13 @@
           "description": "Whether Pro-One must identify jurisdiction before giving specific source-backed guidance."
         },
         "country": {
-          "type": [
-            "string",
-            "null"
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/countryCode"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
         "state": {
@@ -186,7 +190,7 @@
           "type": "array",
           "description": "Source identifiers relevant to this risk.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -194,7 +198,7 @@
           "type": "array",
           "description": "Workflow identifiers where this risk may appear.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -202,7 +206,7 @@
           "type": "array",
           "description": "Process-step identifiers where this risk may appear.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -210,7 +214,7 @@
           "type": "array",
           "description": "Legal-document identifiers where this risk may appear.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -218,7 +222,7 @@
           "type": "array",
           "description": "Intake identifiers where this risk may be detected.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -226,7 +230,7 @@
           "type": "array",
           "description": "Legal-rule identifiers related to this risk.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         }
@@ -390,7 +394,7 @@
       ],
       "properties": {
         "default_response_strategy": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/routingBehavior"
+          "$ref": "common.schema.json#/$defs/routingBehavior"
         },
         "safe_continuation_required": {
           "type": "boolean",
@@ -400,7 +404,7 @@
           "type": "array",
           "description": "Support modes allowed for this risk.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/supportMode"
+            "$ref": "common.schema.json#/$defs/supportMode"
           },
           "uniqueItems": true,
           "minItems": 1
@@ -593,14 +597,14 @@
       ],
       "properties": {
         "human_help_framing": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/humanHelpFraming"
+          "$ref": "common.schema.json#/$defs/humanHelpFraming"
         },
         "resource_prompt_allowed": {
           "type": "boolean",
           "description": "Whether Pro-One may point to court, agency, legal aid, self-help, or free and low-cost resources."
         },
         "resource_selection_policy": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/humanHelpResourcePolicy"
+          "$ref": "common.schema.json#/$defs/humanHelpResourcePolicy"
         },
         "human_help_notes": {
           "type": "string",
@@ -609,10 +613,10 @@
       }
     },
     "review": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/reviewInformation"
+      "$ref": "common.schema.json#/$defs/reviewInformation"
     },
     "evaluation": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/evaluationRequirements"
+      "$ref": "common.schema.json#/$defs/evaluationRequirements"
     },
     "notes": {
       "type": "string",

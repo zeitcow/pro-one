@@ -7,8 +7,9 @@ import json
 import re
 import sys
 from collections import defaultdict
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Iterable, Iterator, Literal
 
 from jsonschema import Draft202012Validator, FormatChecker
 from referencing import Registry, Resource
@@ -17,6 +18,33 @@ from referencing import Registry, Resource
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_DIR = ROOT / "schemas"
 DATA_DIR = ROOT / "data"
+PROJECT_OWNED_DIRECTORIES = (
+    ROOT / ".github",
+    ROOT / "data",
+    ROOT / "docs",
+    ROOT / "schemas",
+    ROOT / "scripts",
+    ROOT / "tests",
+)
+EXCLUDED_DIRECTORY_NAMES = {
+    ".cache",
+    ".git",
+    ".mypy_cache",
+    ".nox",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".tox",
+    ".venv",
+    "__pycache__",
+    "build",
+    "coverage",
+    "dist",
+    "htmlcov",
+    "node_modules",
+    "site-packages",
+    "vendor",
+    "venv",
+}
 
 DATA_SCHEMAS = {
     "sample-evaluation-fixtures.json": ("evaluation_fixture", "evaluation-fixture.schema.json"),
@@ -30,31 +58,63 @@ DATA_SCHEMAS = {
     "sample-workflows.json": ("workflow", "workflow.schema.json"),
 }
 
+ReferenceRole = Literal["supporting", "test_or_negative"]
+
+
+@dataclass(frozen=True)
+class ReferenceSpec:
+    target_kind: str
+    role: ReferenceRole = "supporting"
+
+
 REFERENCE_FIELDS = {
-    "source_ids": "source",
-    "required_source_ids": "source",
-    "optional_source_ids": "source",
-    "allowed_source_ids": "source",
-    "prohibited_source_ids": "source",
-    "deadline_source_ids": "source",
-    "superseded_by_source_id": "source",
-    "workflow_ids": "workflow",
-    "supported_workflow_ids": "workflow",
-    "process_step_ids": "process_step",
-    "supported_process_step_ids": "process_step",
-    "previous_step_ids": "process_step",
-    "next_step_ids": "process_step",
-    "legal_document_ids": "legal_document",
-    "document_ids": "legal_document",
-    "supported_document_ids": "legal_document",
-    "legal_rule_ids": "legal_rule",
-    "required_rule_ids": "legal_rule",
-    "optional_rule_ids": "legal_rule",
-    "risk_ids": "risk",
-    "expected_risk_ids": "risk",
-    "evaluation_fixture_ids": "evaluation_fixture",
-    "required_evaluation_fixture_ids": "evaluation_fixture",
-    "response_ids": "response",
+    "allowed_source_ids": ReferenceSpec("source"),
+    "deadline_source_ids": ReferenceSpec("source"),
+    "depends_on": ReferenceSpec("process_step"),
+    "document_ids": ReferenceSpec("legal_document"),
+    "evaluation_fixture_ids": ReferenceSpec("evaluation_fixture"),
+    "excluded_document_ids": ReferenceSpec("legal_document", "test_or_negative"),
+    "excluded_process_step_ids": ReferenceSpec("process_step", "test_or_negative"),
+    "excluded_workflow_ids": ReferenceSpec("workflow", "test_or_negative"),
+    "expected_risk_ids": ReferenceSpec("risk"),
+    "intake_ids": ReferenceSpec("intake"),
+    "legal_document_ids": ReferenceSpec("legal_document"),
+    "legal_rule_ids": ReferenceSpec("legal_rule"),
+    "next_step_ids": ReferenceSpec("process_step"),
+    "optional_rule_ids": ReferenceSpec("legal_rule"),
+    "optional_source_ids": ReferenceSpec("source"),
+    "process_step_ids": ReferenceSpec("process_step"),
+    "prohibited_source_ids": ReferenceSpec("source", "test_or_negative"),
+    "required_evaluation_fixture_ids": ReferenceSpec("evaluation_fixture"),
+    "required_rule_ids": ReferenceSpec("legal_rule"),
+    "required_source_ids": ReferenceSpec("source"),
+    "response_ids": ReferenceSpec("response"),
+    "risk_ids": ReferenceSpec("risk"),
+    "source_ids": ReferenceSpec("source"),
+    "superseded_by_source_id": ReferenceSpec("source", "test_or_negative"),
+    "supported_document_ids": ReferenceSpec("legal_document"),
+    "supported_process_step_ids": ReferenceSpec("process_step"),
+    "supported_workflow_ids": ReferenceSpec("workflow"),
+    "workflow_ids": ReferenceSpec("workflow"),
+}
+
+# Evaluation fixtures identify records under test. Those relationships are not
+# supporting dependencies and may intentionally target rejected or deprecated
+# records for regression and negative-behavior checks.
+REFERENCE_PATH_OVERRIDES: dict[
+    tuple[str, tuple[str, ...]], ReferenceRole
+] = {
+    ("evaluation_fixture", ("related_records", field_name)): "test_or_negative"
+    for field_name in (
+        "source_ids",
+        "workflow_ids",
+        "process_step_ids",
+        "legal_document_ids",
+        "intake_ids",
+        "legal_rule_ids",
+        "risk_ids",
+        "response_ids",
+    )
 }
 
 DISALLOWED_DEPENDENCY_STATES = {"deprecated", "rejected"}
@@ -90,31 +150,78 @@ def json_path(parts: Iterable[Any]) -> str:
     return result
 
 
-def walk_references(value: Any, path: tuple[Any, ...] = ()):
+def is_project_owned(path: Path) -> bool:
+    relative = path.relative_to(ROOT)
+    return not any(part in EXCLUDED_DIRECTORY_NAMES for part in relative.parts)
+
+
+def iter_project_files(suffixes: set[str]) -> Iterator[Path]:
+    """Yield only repository-owned files, independent of local environments."""
+    for path in sorted(ROOT.iterdir()):
+        if path.is_file() and path.suffix.lower() in suffixes:
+            yield path
+    for directory in PROJECT_OWNED_DIRECTORIES:
+        if not directory.exists():
+            continue
+        for path in sorted(directory.rglob("*")):
+            if path.is_file() and path.suffix.lower() in suffixes and is_project_owned(path):
+                yield path
+
+
+def discover_schema_reference_fields(value: Any) -> set[str]:
+    fields: set[str] = set()
+    if isinstance(value, dict):
+        properties = value.get("properties")
+        if isinstance(properties, dict):
+            fields.update(
+                key
+                for key in properties
+                if key.endswith(("_id", "_ids")) or key == "depends_on"
+            )
+        for child in value.values():
+            fields.update(discover_schema_reference_fields(child))
+    elif isinstance(value, list):
+        for child in value:
+            fields.update(discover_schema_reference_fields(child))
+    return fields
+
+
+def reference_spec_for(
+    record_kind: str, field_path: tuple[Any, ...], field_name: str
+) -> ReferenceSpec | None:
+    spec = REFERENCE_FIELDS.get(field_name)
+    if spec is None:
+        return None
+    string_path = tuple(str(part) for part in field_path)
+    override = REFERENCE_PATH_OVERRIDES.get((record_kind, string_path))
+    return ReferenceSpec(spec.target_kind, override) if override else spec
+
+
+def walk_references(
+    value: Any, record_kind: str, path: tuple[Any, ...] = ()
+):
     if isinstance(value, dict):
         for key, child in value.items():
             current = path + (key,)
-            target_kind = REFERENCE_FIELDS.get(key)
-            if target_kind:
+            spec = reference_spec_for(record_kind, current, key)
+            if spec:
                 if isinstance(child, list):
                     for index, record_id in enumerate(child):
                         if isinstance(record_id, str):
-                            yield target_kind, record_id, current + (index,)
+                            yield spec, record_id, current + (index,)
                 elif isinstance(child, str):
-                    yield target_kind, child, current
-            yield from walk_references(child, current)
+                    yield spec, child, current
+            yield from walk_references(child, record_kind, current)
     elif isinstance(value, list):
         for index, child in enumerate(value):
-            yield from walk_references(child, path + (index,))
+            yield from walk_references(child, record_kind, path + (index,))
 
 
 def validate_markdown(report: ValidationReport) -> None:
     link_pattern = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
     fence_pattern = re.compile(r"^\s*(`{3,}|~{3,})")
 
-    for path in sorted(ROOT.rglob("*.md")):
-        if ".git" in path.parts:
-            continue
+    for path in iter_project_files({".md"}):
         try:
             text = path.read_text(encoding="utf-8")
         except (OSError, UnicodeError) as exc:
@@ -193,71 +300,16 @@ def validate_review_provenance(
             )
 
 
-def main() -> int:
-    report = ValidationReport()
-
-    parsed_json: dict[Path, Any] = {}
-    for path in sorted(ROOT.rglob("*.json")):
-        if ".git" not in path.parts:
-            value = load_json(path, report)
-            if value is not None:
-                parsed_json[path] = value
-
-    schemas: dict[str, dict[str, Any]] = {}
-    registry = Registry()
-    for path in sorted(SCHEMA_DIR.glob("*.json")):
-        schema = parsed_json.get(path)
-        if not isinstance(schema, dict):
-            continue
-        try:
-            Draft202012Validator.check_schema(schema)
-            registry = registry.with_resource(schema["$id"], Resource.from_contents(schema))
-        except Exception as exc:  # check_schema raises several detailed exception types
-            report.error(f"{path.relative_to(ROOT)}: invalid Draft 2020-12 schema: {exc}")
-            continue
-        schemas[path.name] = schema
-        report.checked("JSON Schemas")
-
-    records_by_kind: dict[str, dict[str, dict[str, Any]]] = defaultdict(dict)
-    record_locations: dict[tuple[str, str], str] = {}
-
-    for filename, (kind, schema_name) in DATA_SCHEMAS.items():
-        path = DATA_DIR / filename
-        records = parsed_json.get(path)
-        schema = schemas.get(schema_name)
-        if not isinstance(records, list):
-            report.error(f"data/{filename}: expected a JSON array")
-            continue
-        if schema is None:
-            report.error(f"data/{filename}: schema {schema_name} was not available")
-            continue
-
-        validator = Draft202012Validator(schema, registry=registry, format_checker=FormatChecker())
-        for index, record in enumerate(records):
-            if not isinstance(record, dict):
-                report.error(f"data/{filename}[{index}]: expected an object")
-                continue
-            record_id = record.get("id")
-            if not isinstance(record_id, str):
-                report.error(f"data/{filename}[{index}]: missing string id")
-                continue
-            if record_id in records_by_kind[kind]:
-                report.error(f"data/{filename}: duplicate {kind} id {record_id!r}")
-            records_by_kind[kind][record_id] = record
-            record_locations[(kind, record_id)] = f"data/{filename}:{record_id}"
-
-            errors = sorted(validator.iter_errors(record), key=lambda error: list(error.path))
-            for error in errors:
-                report.error(
-                    f"data/{filename}:{record_id}:{json_path(error.path)}: {error.message}"
-                )
-            report.checked("Sample records")
-            validate_review_provenance(filename, record, report)
-
+def validate_cross_record_references(
+    records_by_kind: dict[str, dict[str, dict[str, Any]]],
+    record_locations: dict[tuple[str, str], str],
+    report: ValidationReport,
+) -> None:
     for kind, records in records_by_kind.items():
         for record_id, record in records.items():
             location = record_locations[(kind, record_id)]
-            for target_kind, target_id, path in walk_references(record):
+            for spec, target_id, path in walk_references(record, kind):
+                target_kind = spec.target_kind
                 target = records_by_kind.get(target_kind, {}).get(target_id)
                 if target is None:
                     report.error(
@@ -266,10 +318,13 @@ def main() -> int:
                     continue
                 report.checked("Cross-record references")
 
-                if is_supported(record):
+                if is_supported(record) and spec.role == "supporting":
                     target_maturity = maturity_status(target)
                     target_review = review_status(target)
-                    if target_maturity in DISALLOWED_DEPENDENCY_STATES or target_review in DISALLOWED_DEPENDENCY_STATES:
+                    if (
+                        target_maturity in DISALLOWED_DEPENDENCY_STATES
+                        or target_review in DISALLOWED_DEPENDENCY_STATES
+                    ):
                         report.error(
                             f"{location}: supported record depends on {target_kind} {target_id!r} "
                             f"with maturity={target_maturity!r}, review={target_review!r}"
@@ -311,15 +366,92 @@ def main() -> int:
                             f"{location}: high-risk supported response must allow only approved sources"
                         )
 
+
+def main() -> int:
+    report = ValidationReport()
+
+    parsed_json: dict[Path, Any] = {}
+    for path in iter_project_files({".json"}):
+        value = load_json(path, report)
+        if value is not None:
+            parsed_json[path] = value
+
+    schemas: dict[str, dict[str, Any]] = {}
+    registry = Registry()
+    discovered_reference_fields: set[str] = set()
+    for path in sorted(SCHEMA_DIR.glob("*.json")):
+        schema = parsed_json.get(path)
+        if not isinstance(schema, dict):
+            continue
+        try:
+            Draft202012Validator.check_schema(schema)
+            registry = registry.with_resource(schema["$id"], Resource.from_contents(schema))
+        except Exception as exc:  # check_schema raises several detailed exception types
+            report.error(f"{path.relative_to(ROOT)}: invalid Draft 2020-12 schema: {exc}")
+            continue
+        schemas[path.name] = schema
+        discovered_reference_fields.update(discover_schema_reference_fields(schema))
+        report.checked("JSON Schemas")
+
+    missing_reference_specs = discovered_reference_fields - REFERENCE_FIELDS.keys()
+    unused_reference_specs = REFERENCE_FIELDS.keys() - discovered_reference_fields
+    if missing_reference_specs:
+        report.error(
+            "Typed reference fields missing validator definitions: "
+            + ", ".join(sorted(missing_reference_specs))
+        )
+    if unused_reference_specs:
+        report.error(
+            "Validator reference definitions not present in schemas: "
+            + ", ".join(sorted(unused_reference_specs))
+        )
+    report.checked("Typed reference fields", len(discovered_reference_fields))
+
+    records_by_kind: dict[str, dict[str, dict[str, Any]]] = defaultdict(dict)
+    record_locations: dict[tuple[str, str], str] = {}
+
+    for filename, (kind, schema_name) in DATA_SCHEMAS.items():
+        path = DATA_DIR / filename
+        records = parsed_json.get(path)
+        schema = schemas.get(schema_name)
+        if not isinstance(records, list):
+            report.error(f"data/{filename}: expected a JSON array")
+            continue
+        if schema is None:
+            report.error(f"data/{filename}: schema {schema_name} was not available")
+            continue
+
+        validator = Draft202012Validator(schema, registry=registry, format_checker=FormatChecker())
+        for index, record in enumerate(records):
+            if not isinstance(record, dict):
+                report.error(f"data/{filename}[{index}]: expected an object")
+                continue
+            record_id = record.get("id")
+            if not isinstance(record_id, str):
+                report.error(f"data/{filename}[{index}]: missing string id")
+                continue
+            if record_id in records_by_kind[kind]:
+                report.error(f"data/{filename}: duplicate {kind} id {record_id!r}")
+            records_by_kind[kind][record_id] = record
+            record_locations[(kind, record_id)] = f"data/{filename}:{record_id}"
+
+            errors = sorted(validator.iter_errors(record), key=lambda error: list(error.path))
+            for error in errors:
+                report.error(
+                    f"data/{filename}:{record_id}:{json_path(error.path)}: {error.message}"
+                )
+            report.checked("Sample records")
+            validate_review_provenance(filename, record, report)
+
+    validate_cross_record_references(records_by_kind, record_locations, report)
+
     validate_markdown(report)
 
     stale_patterns = {
         "old repository identity": re.compile("zeit" + "cow" + re.escape("/pro-one"), re.IGNORECASE),
         "PR-history wording": re.compile(r"\bThis PR " + "introduces" + r"\b", re.IGNORECASE),
     }
-    for path in sorted(ROOT.rglob("*")):
-        if not path.is_file() or ".git" in path.parts or path.suffix.lower() not in {".md", ".json", ".yml", ".yaml", ".py"}:
-            continue
+    for path in iter_project_files({".md", ".json", ".yml", ".yaml", ".py"}):
         try:
             text = path.read_text(encoding="utf-8")
         except UnicodeError as exc:

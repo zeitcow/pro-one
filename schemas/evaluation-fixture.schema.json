@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/pro-one-org/pro-one/schemas/evaluation-fixture.schema.json",
+  "$id": "evaluation-fixture.schema.json",
   "title": "Pro-One Evaluation Fixture",
   "description": "Schema for defining test scenarios used to evaluate whether Pro-One responses are accurate, source-grounded, within scope, privacy-conscious, risk-aware, and safely useful.",
   "type": "object",
@@ -28,16 +28,16 @@
   ],
   "properties": {
     "id": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+      "$ref": "common.schema.json#/$defs/recordId"
     },
     "schema_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/schemaVersion"
+      "$ref": "common.schema.json#/$defs/schemaVersion"
     },
     "record_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordVersion"
+      "$ref": "common.schema.json#/$defs/recordVersion"
     },
     "last_modified": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/lastModified"
+      "$ref": "common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
@@ -48,7 +48,7 @@
       "description": "Plain-language description of what this fixture tests."
     },
     "status": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/maturityStatus"
+      "$ref": "common.schema.json#/$defs/maturityStatus"
     },
     "fixture_type": {
       "type": "string",
@@ -97,59 +97,59 @@
         "source_ids": {
           "type": "array",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "workflow_ids": {
           "type": "array",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "process_step_ids": {
           "type": "array",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "legal_document_ids": {
           "type": "array",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "intake_ids": {
           "type": "array",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "legal_rule_ids": {
           "type": "array",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "risk_ids": {
           "type": "array",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "response_ids": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordIdArray"
+          "$ref": "common.schema.json#/$defs/recordIdArray"
         }
       }
     },
     "jurisdiction": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/scenarioJurisdiction"
+      "$ref": "common.schema.json#/$defs/scenarioJurisdiction"
     },
     "scenario": {
       "type": "object",
@@ -240,7 +240,7 @@
           "type": "array",
           "description": "Sources the response may rely on.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -248,7 +248,7 @@
           "type": "array",
           "description": "Sources the response must not rely on.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -280,7 +280,7 @@
           "type": "array",
           "description": "Support modes the response must use.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/supportMode"
+            "$ref": "common.schema.json#/$defs/supportMode"
           },
           "uniqueItems": true,
           "minItems": 1
@@ -319,7 +319,7 @@
           "description": "Whether the response must continue with safe support."
         },
         "human_help_framing": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/humanHelpFraming"
+          "$ref": "common.schema.json#/$defs/humanHelpFraming"
         },
         "expected_behavior_notes": {
           "type": "string",
@@ -432,15 +432,15 @@
           "type": "array",
           "description": "Risk identifiers expected to be triggered.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "expected_risk_level": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/riskLevel"
+          "$ref": "common.schema.json#/$defs/riskLevel"
         },
         "risk_routing_expected": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/routingBehavior"
+          "$ref": "common.schema.json#/$defs/routingBehavior"
         },
         "risk_notes": {
           "type": "string",
@@ -495,7 +495,7 @@
       }
     },
     "review": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/reviewInformation"
+      "$ref": "common.schema.json#/$defs/reviewInformation"
     },
     "notes": {
       "type": "string",
@@ -526,14 +526,64 @@
               "status"
             ]
           },
-          "evaluation": {
-            "properties": {
-              "required_evaluation_fixture_ids": {
-                "minItems": 1
+          "related_records": {
+            "anyOf": [
+              {
+                "properties": {
+                  "source_ids": {
+                    "minItems": 1
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "workflow_ids": {
+                    "minItems": 1
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "process_step_ids": {
+                    "minItems": 1
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "legal_document_ids": {
+                    "minItems": 1
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "intake_ids": {
+                    "minItems": 1
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "legal_rule_ids": {
+                    "minItems": 1
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "risk_ids": {
+                    "minItems": 1
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "response_ids": {
+                    "minItems": 1
+                  }
+                }
               }
-            },
-            "required": [
-              "required_evaluation_fixture_ids"
             ]
           }
         }

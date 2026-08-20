@@ -16,7 +16,7 @@
       "example-name-change-file-with-court"
     ],
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -226,7 +226,7 @@
       "example-civil-discovery-prepare-responses"
     ],
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Trial Court",
@@ -463,7 +463,7 @@
       "example-subpoena-identify-response-options"
     ],
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Trial Court",
@@ -689,7 +689,7 @@
       "example-small-business-prepare-demand-letter"
     ],
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": null,

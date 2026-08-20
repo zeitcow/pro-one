@@ -51,6 +51,7 @@ Follow [Development Setup](docs/development-setup.md), then run:
 
 ```bash
 python -m pip install -r requirements-dev.txt
+python -B -m unittest discover --start-directory tests --verbose
 python scripts/validate_repository.py
 git diff --check
 ```

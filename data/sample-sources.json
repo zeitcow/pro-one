@@ -10,7 +10,7 @@
     "source_type": "official_self_help",
     "url": "https://example.org/courts/self-help/name-change",
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -94,7 +94,7 @@
     "source_type": "agency_guidance",
     "url": "https://example.org/business/licenses",
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": "Example City",
       "court": null,
@@ -178,7 +178,7 @@
     "source_type": "court_rule",
     "url": "https://example.org/courts/rules/civil-discovery",
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -263,7 +263,7 @@
     "source_type": "court_instruction",
     "url": "https://example.org/courts/guides/discovery",
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Trial Court",
@@ -346,7 +346,7 @@
     "source_type": "official_self_help",
     "url": "https://example.org/courts/self-help/discovery",
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -429,7 +429,7 @@
     "source_type": "court_rule",
     "url": "https://example.org/courts/rules/subpoenas",
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -513,7 +513,7 @@
     "source_type": "court_instruction",
     "url": "https://example.org/courts/guides/subpoenas",
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -596,7 +596,7 @@
     "source_type": "official_self_help",
     "url": "https://example.org/courts/self-help/small-claims",
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -679,7 +679,7 @@
     "source_type": "agency_guidance",
     "url": "https://example.org/consumer-protection/disputes",
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": null,

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/pro-one-org/pro-one/schemas/intake.schema.json",
+  "$id": "intake.schema.json",
   "title": "Pro-One Intake",
   "description": "Schema for defining user intake flows, required and optional questions, data minimization, sensitive-data limits, risk-aware support routing, safe continuation modes, privacy controls, and evaluation requirements.",
   "type": "object",
@@ -31,16 +31,16 @@
   ],
   "properties": {
     "id": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+      "$ref": "common.schema.json#/$defs/recordId"
     },
     "schema_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/schemaVersion"
+      "$ref": "common.schema.json#/$defs/schemaVersion"
     },
     "record_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordVersion"
+      "$ref": "common.schema.json#/$defs/recordVersion"
     },
     "last_modified": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/lastModified"
+      "$ref": "common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
@@ -51,7 +51,7 @@
       "description": "Plain-language explanation of the intake flow and its purpose."
     },
     "status": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/maturityStatus"
+      "$ref": "common.schema.json#/$defs/maturityStatus"
     },
     "intake_type": {
       "type": "string",
@@ -75,7 +75,7 @@
       "type": "array",
       "description": "Workflow identifiers this intake may support.",
       "items": {
-        "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+        "$ref": "common.schema.json#/$defs/recordId"
       },
       "uniqueItems": true
     },
@@ -83,7 +83,7 @@
       "type": "array",
       "description": "Process-step identifiers this intake may support.",
       "items": {
-        "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+        "$ref": "common.schema.json#/$defs/recordId"
       },
       "uniqueItems": true
     },
@@ -91,7 +91,7 @@
       "type": "array",
       "description": "Legal-document identifiers this intake may support.",
       "items": {
-        "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+        "$ref": "common.schema.json#/$defs/recordId"
       },
       "uniqueItems": true
     },
@@ -326,7 +326,7 @@
           "type": "array",
           "description": "Support modes available by default.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/supportMode"
+            "$ref": "common.schema.json#/$defs/supportMode"
           },
           "uniqueItems": true,
           "minItems": 1
@@ -335,7 +335,7 @@
           "type": "array",
           "description": "Safer support modes used when risk signals appear.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/routingBehavior"
+            "$ref": "common.schema.json#/$defs/routingBehavior"
           },
           "uniqueItems": true,
           "minItems": 1
@@ -345,7 +345,7 @@
           "description": "Whether intake should keep Pro-One helping in a safe mode rather than ending assistance."
         },
         "human_help_framing": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/humanHelpFraming"
+          "$ref": "common.schema.json#/$defs/humanHelpFraming"
         },
         "routing_notes": {
           "type": "string",
@@ -386,7 +386,7 @@
           }
         },
         "routing_response": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/routingBehavior"
+          "$ref": "common.schema.json#/$defs/routingBehavior"
         },
         "risk_signal_notes": {
           "type": "string",
@@ -468,10 +468,10 @@
       }
     },
     "review": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/reviewInformation"
+      "$ref": "common.schema.json#/$defs/reviewInformation"
     },
     "evaluation": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/evaluationRequirements"
+      "$ref": "common.schema.json#/$defs/evaluationRequirements"
     },
     "notes": {
       "type": "string",

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/pro-one-org/pro-one/schemas/source.schema.json",
+  "$id": "source.schema.json",
   "title": "Pro-One Source Metadata",
   "description": "Metadata schema for legal and legal-information sources used by Pro-One.",
   "type": "object",
@@ -26,23 +26,23 @@
   ],
   "properties": {
     "id": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+      "$ref": "common.schema.json#/$defs/recordId"
     },
     "schema_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/schemaVersion"
+      "$ref": "common.schema.json#/$defs/schemaVersion"
     },
     "record_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordVersion"
+      "$ref": "common.schema.json#/$defs/recordVersion"
     },
     "last_modified": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/lastModified"
+      "$ref": "common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
       "description": "Human-readable source title."
     },
     "status": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/maturityStatus"
+      "$ref": "common.schema.json#/$defs/maturityStatus"
     },
     "description": {
       "type": "string",
@@ -72,7 +72,7 @@
       "description": "Canonical public URL for the source."
     },
     "jurisdiction": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/jurisdiction"
+      "$ref": "common.schema.json#/$defs/jurisdiction"
     },
     "authority": {
       "type": "object",
@@ -187,7 +187,7 @@
         "superseded_by_source_id": {
           "anyOf": [
             {
-              "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+              "$ref": "common.schema.json#/$defs/recordId"
             },
             {
               "type": "null"
@@ -278,7 +278,7 @@
       }
     },
     "review": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/reviewInformation"
+      "$ref": "common.schema.json#/$defs/reviewInformation"
     },
     "workflow_fit": {
       "type": "object",
@@ -302,12 +302,12 @@
           "type": "array",
           "description": "Workflow identifiers this source may support.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "risk_level": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/riskLevel"
+          "$ref": "common.schema.json#/$defs/riskLevel"
         },
         "limitations": {
           "type": "array",

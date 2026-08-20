@@ -336,8 +336,6 @@ The schema can represent these source-review states while a response pattern rem
 - `rejected`
 
 A supported source-backed response may allow only `reviewed` or `approved` sources. If the response supports `high` or `extreme` risk use, only `approved` sources may provide supporting authority. Deprecated or rejected sources may still appear in evaluation fixtures as prohibited, historical, or regression-test inputs, but they may not support a user-facing response.
-- `deprecated`
-- `rejected`
 
 Production-style responses should usually rely only on reviewed or approved sources.
 

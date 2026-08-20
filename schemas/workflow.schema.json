@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/pro-one-org/pro-one/schemas/workflow.schema.json",
+  "$id": "workflow.schema.json",
   "title": "Pro-One Workflow Definition",
   "description": "Schema for defining supported legal-information workflows, boundaries, source needs, outputs, review status, and safety limits.",
   "type": "object",
@@ -28,16 +28,16 @@
   ],
   "properties": {
     "id": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+      "$ref": "common.schema.json#/$defs/recordId"
     },
     "schema_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/schemaVersion"
+      "$ref": "common.schema.json#/$defs/schemaVersion"
     },
     "record_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordVersion"
+      "$ref": "common.schema.json#/$defs/recordVersion"
     },
     "last_modified": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/lastModified"
+      "$ref": "common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
@@ -48,7 +48,7 @@
       "description": "Short explanation of the workflow and who it helps."
     },
     "status": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/maturityStatus"
+      "$ref": "common.schema.json#/$defs/maturityStatus"
     },
     "user_types": {
       "type": "array",
@@ -81,7 +81,7 @@
       "uniqueItems": true
     },
     "jurisdiction": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/jurisdiction"
+      "$ref": "common.schema.json#/$defs/jurisdiction"
     },
     "scope": {
       "type": "object",
@@ -141,7 +141,7 @@
           "type": "array",
           "description": "Approved or proposed source IDs required for this workflow.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -149,7 +149,7 @@
           "type": "array",
           "description": "Additional source IDs that may support the workflow.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -219,7 +219,7 @@
           "type": "array",
           "description": "Process-step identifiers connected to this workflow.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -231,7 +231,7 @@
           }
         },
         "deadline_handling": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/deadlineHandling"
+          "$ref": "common.schema.json#/$defs/deadlineHandling"
         },
         "process_notes": {
           "type": "string",
@@ -312,7 +312,7 @@
       ],
       "properties": {
         "risk_level": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/riskLevel"
+          "$ref": "common.schema.json#/$defs/riskLevel"
         },
         "escalation_triggers": {
           "type": "array",
@@ -342,10 +342,10 @@
       }
     },
     "review": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/reviewInformation"
+      "$ref": "common.schema.json#/$defs/reviewInformation"
     },
     "evaluation": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/evaluationRequirements"
+      "$ref": "common.schema.json#/$defs/evaluationRequirements"
     },
     "notes": {
       "type": "string",

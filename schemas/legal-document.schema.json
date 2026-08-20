@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/pro-one-org/pro-one/schemas/legal-document.schema.json",
+  "$id": "legal-document.schema.json",
   "title": "Pro-One Legal Document",
   "description": "Schema for defining legal documents, document-help boundaries, required user facts, source support, legal-rule support, filing and service limits, deadline handling, safety controls, and evaluation requirements.",
   "type": "object",
@@ -31,16 +31,16 @@
   ],
   "properties": {
     "id": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+      "$ref": "common.schema.json#/$defs/recordId"
     },
     "schema_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/schemaVersion"
+      "$ref": "common.schema.json#/$defs/schemaVersion"
     },
     "record_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordVersion"
+      "$ref": "common.schema.json#/$defs/recordVersion"
     },
     "last_modified": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/lastModified"
+      "$ref": "common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
@@ -51,7 +51,7 @@
       "description": "Plain-language explanation of the document and its role."
     },
     "status": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/maturityStatus"
+      "$ref": "common.schema.json#/$defs/maturityStatus"
     },
     "document_type": {
       "type": "string",
@@ -92,7 +92,7 @@
       "type": "array",
       "description": "Workflow identifiers this document supports.",
       "items": {
-        "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+        "$ref": "common.schema.json#/$defs/recordId"
       },
       "minItems": 1,
       "uniqueItems": true
@@ -101,12 +101,12 @@
       "type": "array",
       "description": "Process-step identifiers this document supports.",
       "items": {
-        "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+        "$ref": "common.schema.json#/$defs/recordId"
       },
       "uniqueItems": true
     },
     "jurisdiction": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/jurisdiction"
+      "$ref": "common.schema.json#/$defs/jurisdiction"
     },
     "sources": {
       "type": "object",
@@ -121,7 +121,7 @@
           "type": "array",
           "description": "Source IDs required to support this document definition.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -129,7 +129,7 @@
           "type": "array",
           "description": "Additional source IDs that may support this document definition.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -156,7 +156,7 @@
           "type": "array",
           "description": "Legal-rule IDs required to support this document definition.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -164,7 +164,7 @@
           "type": "array",
           "description": "Additional legal-rule IDs that may support this document definition.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -397,13 +397,13 @@
           "description": "Whether deadlines may matter for this document."
         },
         "deadline_handling": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/deadlineHandling"
+          "$ref": "common.schema.json#/$defs/deadlineHandling"
         },
         "deadline_source_ids": {
           "type": "array",
           "description": "Source IDs that support deadline information for this document.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -460,7 +460,7 @@
       ],
       "properties": {
         "risk_level": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/riskLevel"
+          "$ref": "common.schema.json#/$defs/riskLevel"
         },
         "escalation_triggers": {
           "type": "array",
@@ -490,10 +490,10 @@
       }
     },
     "review": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/reviewInformation"
+      "$ref": "common.schema.json#/$defs/reviewInformation"
     },
     "evaluation": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/evaluationRequirements"
+      "$ref": "common.schema.json#/$defs/evaluationRequirements"
     },
     "notes": {
       "type": "string",

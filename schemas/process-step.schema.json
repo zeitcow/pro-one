@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/pro-one-org/pro-one/schemas/process-step.schema.json",
+  "$id": "process-step.schema.json",
   "title": "Pro-One Process Step",
   "description": "Schema for defining individual legal, court, agency, filing, service, hearing, deadline, and follow-up steps within Pro-One workflows.",
   "type": "object",
@@ -29,16 +29,16 @@
   ],
   "properties": {
     "id": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+      "$ref": "common.schema.json#/$defs/recordId"
     },
     "schema_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/schemaVersion"
+      "$ref": "common.schema.json#/$defs/schemaVersion"
     },
     "record_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordVersion"
+      "$ref": "common.schema.json#/$defs/recordVersion"
     },
     "last_modified": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/lastModified"
+      "$ref": "common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
@@ -49,13 +49,13 @@
       "description": "Plain-language explanation of the process step."
     },
     "status": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/maturityStatus"
+      "$ref": "common.schema.json#/$defs/maturityStatus"
     },
     "workflow_ids": {
       "type": "array",
       "description": "Workflow identifiers this process step may support.",
       "items": {
-        "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+        "$ref": "common.schema.json#/$defs/recordId"
       },
       "minItems": 1,
       "uniqueItems": true
@@ -116,7 +116,7 @@
           "type": "array",
           "description": "Step IDs that may usually follow this step.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -127,7 +127,7 @@
       }
     },
     "jurisdiction": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/jurisdiction"
+      "$ref": "common.schema.json#/$defs/jurisdiction"
     },
     "sources": {
       "type": "object",
@@ -142,7 +142,7 @@
           "type": "array",
           "description": "Source IDs required to support this process step.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -150,7 +150,7 @@
           "type": "array",
           "description": "Additional source IDs that may support this process step.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -325,13 +325,13 @@
           "description": "Whether deadlines may matter for this step."
         },
         "deadline_handling": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/deadlineHandling"
+          "$ref": "common.schema.json#/$defs/deadlineHandling"
         },
         "deadline_source_ids": {
           "type": "array",
           "description": "Source IDs that support deadline information for this step.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -353,7 +353,7 @@
       ],
       "properties": {
         "risk_level": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/riskLevel"
+          "$ref": "common.schema.json#/$defs/riskLevel"
         },
         "escalation_triggers": {
           "type": "array",
@@ -383,10 +383,10 @@
       }
     },
     "review": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/reviewInformation"
+      "$ref": "common.schema.json#/$defs/reviewInformation"
     },
     "evaluation": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/evaluationRequirements"
+      "$ref": "common.schema.json#/$defs/evaluationRequirements"
     },
     "notes": {
       "type": "string",

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json",
+  "$id": "common.schema.json",
   "title": "Pro-One Common Definitions",
   "description": "Shared identifiers, version metadata, jurisdiction structures, review provenance, maturity states, risk concepts, routing behavior, and assistance vocabulary used by Pro-One records.",
   "$defs": {
@@ -181,6 +181,11 @@
         }
       ]
     },
+    "countryCode": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code in uppercase ASCII, for example US.",
+      "pattern": "^[A-Z]{2}$"
+    },
     "jurisdiction": {
       "type": "object",
       "description": "Jurisdiction or institution to which a record applies.",
@@ -190,8 +195,7 @@
       ],
       "properties": {
         "country": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/countryCode"
         },
         "state": {
           "type": [
@@ -237,9 +241,13 @@
       ],
       "properties": {
         "country": {
-          "type": [
-            "string",
-            "null"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/countryCode"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
         "state": {

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/pro-one-org/pro-one/schemas/legal-rule.schema.json",
+  "$id": "legal-rule.schema.json",
   "title": "Pro-One Legal Rule",
   "description": "Schema for defining source-backed legal rule statements, jurisdiction limits, authority, effective dates, workflow fit, document fit, risk notes, review status, and evaluation requirements.",
   "type": "object",
@@ -29,16 +29,16 @@
   ],
   "properties": {
     "id": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+      "$ref": "common.schema.json#/$defs/recordId"
     },
     "schema_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/schemaVersion"
+      "$ref": "common.schema.json#/$defs/schemaVersion"
     },
     "record_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordVersion"
+      "$ref": "common.schema.json#/$defs/recordVersion"
     },
     "last_modified": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/lastModified"
+      "$ref": "common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
@@ -49,7 +49,7 @@
       "description": "Plain-language explanation of what this legal-rule record covers."
     },
     "status": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/maturityStatus"
+      "$ref": "common.schema.json#/$defs/maturityStatus"
     },
     "rule_type": {
       "type": "string",
@@ -92,9 +92,13 @@
       ],
       "properties": {
         "country": {
-          "type": [
-            "string",
-            "null"
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/countryCode"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
         "state": {
@@ -147,7 +151,7 @@
           "type": "array",
           "description": "Source identifiers required before this rule may be used.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true,
           "minItems": 1
@@ -156,7 +160,7 @@
           "type": "array",
           "description": "Additional source identifiers that may help explain or verify the rule.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -268,14 +272,14 @@
         "supported_workflow_ids": {
           "type": "array",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "excluded_workflow_ids": {
           "type": "array",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -297,14 +301,14 @@
         "supported_process_step_ids": {
           "type": "array",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "excluded_process_step_ids": {
           "type": "array",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -327,7 +331,7 @@
         "supported_document_ids": {
           "type": "array",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -372,7 +376,7 @@
         "excluded_document_ids": {
           "type": "array",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -441,7 +445,7 @@
           "type": "array",
           "description": "Support modes where this rule may be used.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/supportMode"
+            "$ref": "common.schema.json#/$defs/supportMode"
           },
           "uniqueItems": true,
           "minItems": 1
@@ -508,7 +512,7 @@
       ],
       "properties": {
         "risk_level": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/riskLevel"
+          "$ref": "common.schema.json#/$defs/riskLevel"
         },
         "risk_triggers": {
           "type": "array",
@@ -532,10 +536,10 @@
       }
     },
     "review": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/reviewInformation"
+      "$ref": "common.schema.json#/$defs/reviewInformation"
     },
     "evaluation": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/evaluationRequirements"
+      "$ref": "common.schema.json#/$defs/evaluationRequirements"
     },
     "notes": {
       "type": "string",

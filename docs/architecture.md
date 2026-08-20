@@ -20,6 +20,8 @@ Pro-One should be:
 
 The repository defines nine interoperable record domains: sources, workflows, process steps, legal documents, intakes, legal rules, risks, response patterns, and evaluation fixtures. `schemas/common.schema.json` centralizes record identifiers, version metadata, known jurisdiction structures, maturity and review states, review provenance, harm severity, urgency, support modes, routing behavior, human-help framing, and deadline handling where the concepts are semantically shared.
 
+Country values use uppercase ISO 3166-1 alpha-2 codes across every domain—for example, `US` rather than a display name. User interfaces may localize those codes for display without changing stored records.
+
 All domain records include `schema_version`, `record_version`, and `last_modified`. Review objects distinguish reviewer identity or handle, reviewer role, review scope, review date, and the exact record version reviewed. A reviewer role is a project capacity and does not assert professional credentials.
 
 The sample records are fictional and proposed. Schema validity establishes structural conformance only; it does not make a record accurate, reviewed, approved, supported, or legally appropriate.

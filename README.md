@@ -78,6 +78,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution expectations and [Develo
 
 ```bash
 python -m pip install -r requirements-dev.txt
+python -B -m unittest discover --start-directory tests --verbose
 python scripts/validate_repository.py
 ```
 

@@ -109,6 +109,7 @@ Before merging, check:
 
 For Markdown changes, run:
 
+    python -B -m unittest discover --start-directory tests --verbose
     python scripts/validate_repository.py
     git diff --check
     git diff --staged --check

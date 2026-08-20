@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/pro-one-org/pro-one/schemas/response.schema.json",
+  "$id": "response.schema.json",
   "title": "Pro-One Response",
   "description": "Schema for defining safe user-facing response patterns, including source use, scope limits, privacy prompts, risk handling, safe continuation, next steps, human-help framing, prohibited content, review status, and evaluation requirements.",
   "type": "object",
@@ -30,16 +30,16 @@
   ],
   "properties": {
     "id": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+      "$ref": "common.schema.json#/$defs/recordId"
     },
     "schema_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/schemaVersion"
+      "$ref": "common.schema.json#/$defs/schemaVersion"
     },
     "record_version": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordVersion"
+      "$ref": "common.schema.json#/$defs/recordVersion"
     },
     "last_modified": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/lastModified"
+      "$ref": "common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
@@ -50,7 +50,7 @@
       "description": "Plain-language description of what this response pattern controls."
     },
     "status": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/maturityStatus"
+      "$ref": "common.schema.json#/$defs/maturityStatus"
     },
     "response_type": {
       "type": "string",
@@ -92,7 +92,7 @@
           "type": "array",
           "description": "Source identifiers this response pattern may rely on.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -100,7 +100,7 @@
           "type": "array",
           "description": "Workflow identifiers this response pattern supports.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -108,7 +108,7 @@
           "type": "array",
           "description": "Process-step identifiers this response pattern supports.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -116,7 +116,7 @@
           "type": "array",
           "description": "Legal-document identifiers this response pattern supports.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -124,7 +124,7 @@
           "type": "array",
           "description": "Intake identifiers this response pattern supports.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -132,7 +132,7 @@
           "type": "array",
           "description": "Legal-rule identifiers this response pattern may use.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -140,7 +140,7 @@
           "type": "array",
           "description": "Risk identifiers this response pattern may respond to.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -148,7 +148,7 @@
           "type": "array",
           "description": "Evaluation fixtures that should test this response pattern.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+            "$ref": "common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         }
@@ -215,7 +215,7 @@
           "type": "array",
           "description": "Source review statuses allowed for this response pattern.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/reviewStatus"
+            "$ref": "common.schema.json#/$defs/reviewStatus"
           },
           "uniqueItems": true,
           "minItems": 1
@@ -277,7 +277,7 @@
           "type": "array",
           "description": "Support modes allowed for this response pattern.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/supportMode"
+            "$ref": "common.schema.json#/$defs/supportMode"
           },
           "uniqueItems": true,
           "minItems": 1
@@ -388,13 +388,13 @@
           "type": "array",
           "description": "Risk levels this response pattern may support.",
           "items": {
-            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/riskLevel"
+            "$ref": "common.schema.json#/$defs/riskLevel"
           },
           "uniqueItems": true,
           "minItems": 1
         },
         "risk_routing": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/routingBehavior"
+          "$ref": "common.schema.json#/$defs/routingBehavior"
         },
         "safe_continuation_required": {
           "type": "boolean",
@@ -627,14 +627,14 @@
       ],
       "properties": {
         "human_help_framing": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/humanHelpFraming"
+          "$ref": "common.schema.json#/$defs/humanHelpFraming"
         },
         "resource_prompt_allowed": {
           "type": "boolean",
           "description": "Whether the response may include a resource prompt."
         },
         "resource_selection_policy": {
-          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/humanHelpResourcePolicy"
+          "$ref": "common.schema.json#/$defs/humanHelpResourcePolicy"
         },
         "resource_types_allowed": {
           "type": "array",
@@ -710,10 +710,10 @@
       }
     },
     "review": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/reviewInformation"
+      "$ref": "common.schema.json#/$defs/reviewInformation"
     },
     "evaluation": {
-      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/evaluationRequirements"
+      "$ref": "common.schema.json#/$defs/evaluationRequirements"
     },
     "notes": {
       "type": "string",

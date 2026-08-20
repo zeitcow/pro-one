@@ -21,7 +21,7 @@
       "sequence_notes": "This should usually happen before completing any court forms."
     },
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -167,7 +167,7 @@
       "sequence_notes": "This step should follow review of current court instructions."
     },
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -320,7 +320,7 @@
       "sequence_notes": "Filing requirements may vary by court and must be source-backed."
     },
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -472,7 +472,7 @@
       "sequence_notes": "Submission requirements may vary by agency, location, and business activity."
     },
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": "Example City",
       "court": null,
@@ -626,7 +626,7 @@
       "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
     },
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -767,7 +767,7 @@
       "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
     },
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -908,7 +908,7 @@
       "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
     },
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -1049,7 +1049,7 @@
       "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
     },
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -1190,7 +1190,7 @@
       "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
     },
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -1329,7 +1329,7 @@
       "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
     },
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -1470,7 +1470,7 @@
       "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
     },
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -1609,7 +1609,7 @@
       "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
     },
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -1750,7 +1750,7 @@
       "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
     },
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -1889,7 +1889,7 @@
       "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
     },
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",

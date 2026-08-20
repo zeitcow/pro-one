@@ -17,7 +17,7 @@
       "filing_process"
     ],
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -191,7 +191,7 @@
       "small_business_information"
     ],
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": "Example City",
       "court": null,
@@ -364,7 +364,7 @@
       "requests_for_admission"
     ],
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -525,7 +525,7 @@
       "testimony"
     ],
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": "Example State Courts",
@@ -687,7 +687,7 @@
       "small_claims"
     ],
     "jurisdiction": {
-      "country": "United States",
+      "country": "US",
       "state": "Example State",
       "locality": null,
       "court": null,

@@ -31,18 +31,24 @@ On Windows, `py -m pip` and `py scripts/validate_repository.py` may be used when
 Run the same validation used by continuous integration:
 
 ```bash
+python -B -m unittest discover --start-directory tests --verbose
 python scripts/validate_repository.py
 ```
 
-The validator checks:
+The standalone tests confirm that relative schema references resolve through a standard Draft 2020-12 validator without the repository's in-memory registry, enforce supported evaluation-fixture invariants, distinguish supporting dependencies from negative/test references, and keep generated environment directories out of repository scans.
+
+The repository validator checks:
 
 - every JSON file parses as UTF-8 JSON
 - every schema is valid JSON Schema Draft 2020-12
 - each sample record validates against its corresponding schema
-- typed cross-record IDs resolve
+- every schema-declared typed cross-record ID field is classified and resolves
+- supporting dependencies satisfy lifecycle rules while negative/test references remain non-supporting
 - supported-state and review/source invariants hold
 - Markdown fences, relative links, and common encoding problems
 - stale repository and PR-history wording covered by the automated checks
+
+Schema `$id` values are portable filenames, and domain schemas reference the sibling `common.schema.json` with relative `$ref` values. Tools that accept schema file paths should use the `schemas/` directory as the retrieval base.
 
 Before committing, also run:
 
