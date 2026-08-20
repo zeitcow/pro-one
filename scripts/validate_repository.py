@@ -58,7 +58,7 @@ DATA_SCHEMAS = {
     "sample-workflows.json": ("workflow", "workflow.schema.json"),
 }
 
-ReferenceRole = Literal["supporting", "test_or_negative"]
+ReferenceRole = Literal["supporting", "association", "test_or_negative"]
 
 
 @dataclass(frozen=True)
@@ -105,23 +105,60 @@ REFERENCE_FIELDS = {
     "workflow_ids": ReferenceSpec("workflow"),
 }
 
-# Evaluation fixtures identify records under test. Those relationships are not
-# supporting dependencies and may intentionally target rejected or deprecated
-# records for regression and negative-behavior checks.
-REFERENCE_PATH_OVERRIDES: dict[
+# Reference roles are resolved by record domain and full object path. Backlinks,
+# applicability, and test-target relationships must resolve, but they do not
+# make the referenced record a prerequisite for lifecycle promotion.
+REFERENCE_PATH_ROLES: dict[
     tuple[str, tuple[str, ...]], ReferenceRole
 ] = {
-    ("evaluation_fixture", ("related_records", field_name)): "test_or_negative"
-    for field_name in (
-        "source_ids",
-        "workflow_ids",
-        "process_step_ids",
-        "legal_document_ids",
-        "intake_ids",
-        "legal_rule_ids",
-        "risk_ids",
-        "response_ids",
-    )
+    ("source", ("workflow_fit", "workflow_ids")): "association",
+    ("process_step", ("workflow_ids",)): "association",
+    ("process_step", ("sequence", "next_step_ids")): "association",
+    ("legal_document", ("workflow_ids",)): "association",
+    ("legal_document", ("process_step_ids",)): "association",
+    ("intake", ("workflow_ids",)): "association",
+    ("intake", ("process_step_ids",)): "association",
+    ("intake", ("document_ids",)): "association",
+    ("legal_rule", ("workflow_fit", "supported_workflow_ids")): "association",
+    ("legal_rule", ("process_step_fit", "supported_process_step_ids")): "association",
+    ("legal_rule", ("document_fit", "supported_document_ids")): "association",
+    **{
+        ("risk", ("related_records", field_name)): "association"
+        for field_name in (
+            "source_ids",
+            "workflow_ids",
+            "process_step_ids",
+            "legal_document_ids",
+            "intake_ids",
+            "legal_rule_ids",
+        )
+    },
+    **{
+        ("response", ("related_records", field_name)): "association"
+        for field_name in (
+            "workflow_ids",
+            "process_step_ids",
+            "legal_document_ids",
+            "intake_ids",
+            "risk_ids",
+            "evaluation_fixture_ids",
+        )
+    },
+    **{
+        ("evaluation_fixture", ("related_records", field_name)): "test_or_negative"
+        for field_name in (
+            "source_ids",
+            "workflow_ids",
+            "process_step_ids",
+            "legal_document_ids",
+            "intake_ids",
+            "legal_rule_ids",
+            "risk_ids",
+            "response_ids",
+        )
+    },
+    ("evaluation_fixture", ("source_context", "allowed_source_ids")): "test_or_negative",
+    ("evaluation_fixture", ("risk", "expected_risk_ids")): "test_or_negative",
 }
 
 SUPPORTED_DEPENDENCY_ELIGIBILITY = {
@@ -282,8 +319,8 @@ def reference_spec_for(
     if spec is None:
         return None
     string_path = tuple(str(part) for part in field_path)
-    override = REFERENCE_PATH_OVERRIDES.get((record_kind, string_path))
-    return ReferenceSpec(spec.target_kind, override) if override else spec
+    role = REFERENCE_PATH_ROLES.get((record_kind, string_path), spec.role)
+    return ReferenceSpec(spec.target_kind, role)
 
 
 def walk_references(
@@ -304,6 +341,22 @@ def walk_references(
     elif isinstance(value, list):
         for index, child in enumerate(value):
             yield from walk_references(child, record_kind, path + (index,))
+
+
+def supporting_dependency_edges(
+    records_by_kind: dict[str, dict[str, dict[str, Any]]],
+) -> set[tuple[tuple[str, str], tuple[str, str]]]:
+    """Return existing support-gating edges for graph regression checks."""
+    edges: set[tuple[tuple[str, str], tuple[str, str]]] = set()
+    for kind, records in records_by_kind.items():
+        for record_id, record in records.items():
+            for spec, target_id, _path in walk_references(record, kind):
+                if (
+                    spec.role == "supporting"
+                    and target_id in records_by_kind.get(spec.target_kind, {})
+                ):
+                    edges.add(((kind, record_id), (spec.target_kind, target_id)))
+    return edges
 
 
 def validate_markdown(report: ValidationReport) -> None:

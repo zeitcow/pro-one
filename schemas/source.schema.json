@@ -379,10 +379,19 @@
             "properties": {
               "status": {
                 "const": "approved"
+              },
+              "review_scope": {
+                "allOf": [
+                  { "contains": { "const": "schema" } },
+                  { "contains": { "const": "source_authority" } },
+                  { "contains": { "const": "source_freshness" } },
+                  { "contains": { "const": "jurisdiction" } }
+                ]
               }
             },
             "required": [
-              "status"
+              "status",
+              "review_scope"
             ]
           },
           "dates": {

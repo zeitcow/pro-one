@@ -14,6 +14,89 @@ ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_DIR = ROOT / "schemas"
 VALIDATOR_PATH = ROOT / "scripts" / "validate_repository.py"
 
+STANDALONE_SUPPORTED_SCHEMA_CASES = {
+    "source": (
+        "source.schema.json",
+        "sample-sources.json",
+        ("schema", "source_authority", "source_freshness", "jurisdiction"),
+    ),
+    "workflow": (
+        "workflow.schema.json",
+        "sample-workflows.json",
+        (
+            "schema",
+            "jurisdiction",
+            "legal_information_boundary",
+            "safety",
+            "evaluation",
+            "privacy",
+        ),
+    ),
+    "process_step": (
+        "process-step.schema.json",
+        "sample-process-steps.json",
+        ("schema", "jurisdiction", "legal_information_boundary", "safety", "evaluation"),
+    ),
+    "legal_document": (
+        "legal-document.schema.json",
+        "sample-legal-documents.json",
+        (
+            "schema",
+            "jurisdiction",
+            "legal_information_boundary",
+            "safety",
+            "privacy",
+            "evaluation",
+        ),
+    ),
+    "intake": (
+        "intake.schema.json",
+        "sample-intakes.json",
+        (
+            "schema",
+            "jurisdiction",
+            "legal_information_boundary",
+            "safety",
+            "privacy",
+            "evaluation",
+        ),
+    ),
+    "response": (
+        "response.schema.json",
+        "sample-responses.json",
+        (
+            "schema",
+            "jurisdiction",
+            "legal_information_boundary",
+            "safety",
+            "privacy",
+            "evaluation",
+        ),
+    ),
+    "legal_rule": (
+        "legal-rule.schema.json",
+        "sample-legal-rules.json",
+        (
+            "schema",
+            "source_authority",
+            "jurisdiction",
+            "legal_information_boundary",
+            "safety",
+            "evaluation",
+        ),
+    ),
+    "risk": (
+        "risk.schema.json",
+        "sample-risks.json",
+        ("schema", "safety", "evaluation"),
+    ),
+    "evaluation_fixture": (
+        "evaluation-fixture.schema.json",
+        "sample-evaluation-fixtures.json",
+        ("schema", "evaluation"),
+    ),
+}
+
 spec = importlib.util.spec_from_file_location("repository_validator", VALIDATOR_PATH)
 assert spec and spec.loader
 repository_validator = importlib.util.module_from_spec(spec)
@@ -76,7 +159,7 @@ class StandaloneSchemaTests(unittest.TestCase):
             "status": "approved",
             "reviewed_by": "schema-test-reviewer",
             "reviewer_role": "technical_reviewer",
-            "review_scope": ["evaluation"],
+            "review_scope": ["schema", "evaluation"],
             "reviewed_on": "2026-08-20",
             "reviewed_record_version": fixture["record_version"],
             "review_notes": "Synthetic test provenance; not sample-data review.",
@@ -94,6 +177,72 @@ class StandaloneSchemaTests(unittest.TestCase):
             "evaluation-fixture.schema.json", disconnected_fixture
         )
         self.assertNotEqual(0, invalid_result.returncode)
+
+    def supported_schema_instance(
+        self, kind: str, data_filename: str, review_scopes: tuple[str, ...]
+    ) -> dict:
+        instance = copy.deepcopy(
+            json.loads((ROOT / "data" / data_filename).read_text(encoding="utf-8"))[0]
+        )
+        instance["status"] = "supported"
+        instance["review"] = {
+            "status": "approved",
+            "reviewed_by": "schema-test-reviewer",
+            "reviewer_role": "technical_reviewer",
+            "review_scope": list(review_scopes),
+            "reviewed_on": "2026-08-20",
+            "reviewed_record_version": instance["record_version"],
+            "review_notes": "Synthetic test provenance; not sample-data review.",
+        }
+        if "evaluation" in instance:
+            instance["evaluation"]["required_evaluation_fixture_ids"] = [
+                "schema-test-fixture"
+            ]
+
+        if kind == "source":
+            instance["dates"]["last_verified"] = "2026-08-20"
+            instance["citation"]["retrieved_at"] = "2026-08-20"
+        elif kind == "intake":
+            instance["workflow_ids"] = ["schema-test-workflow"]
+        elif kind == "legal_rule":
+            instance["source_support"]["required_source_ids"] = ["schema-test-source"]
+            instance["source_support"]["source_review_required"] = True
+            instance["user_support"]["requires_citation"] = True
+        elif kind == "legal_document":
+            instance["sources"]["required_source_ids"] = ["schema-test-source"]
+            instance["sources"]["source_review_required"] = True
+            instance["legal_rules"]["required_rule_ids"] = ["schema-test-rule"]
+            instance["legal_rules"]["rule_review_required"] = True
+        elif kind == "process_step":
+            instance["sources"]["required_source_ids"] = ["schema-test-source"]
+            instance["sources"]["source_review_required"] = True
+        elif kind == "response":
+            instance["source_use"]["source_required"] = False
+
+        return instance
+
+    def test_all_supported_domain_schemas_require_complete_review_scopes(self) -> None:
+        for kind, (
+            schema_name,
+            data_filename,
+            required_scopes,
+        ) in STANDALONE_SUPPORTED_SCHEMA_CASES.items():
+            with self.subTest(kind=kind, state="complete"):
+                instance = self.supported_schema_instance(
+                    kind, data_filename, required_scopes
+                )
+                valid_result = self.validate_with_standard_cli(schema_name, instance)
+                self.assertEqual(0, valid_result.returncode, valid_result.stderr)
+
+            for missing_scope in required_scopes:
+                with self.subTest(kind=kind, missing_scope=missing_scope):
+                    instance["review"]["review_scope"] = [
+                        scope for scope in required_scopes if scope != missing_scope
+                    ]
+                    invalid_result = self.validate_with_standard_cli(
+                        schema_name, instance
+                    )
+                    self.assertNotEqual(0, invalid_result.returncode)
 
     def test_supported_workflow_requires_domain_review_scopes(self) -> None:
         workflow = json.loads(
@@ -304,6 +453,84 @@ class CrossRecordReferenceTests(unittest.TestCase):
 
         self.assertEqual([], report.errors)
 
+    def test_backlink_associations_do_not_gate_lifecycle_promotion(self) -> None:
+        process_step = {
+            "status": "supported",
+            "workflow_ids": ["proposed-workflow"],
+        }
+        process_step["review"] = approved_review("process_step", process_step)
+        legal_rule = {
+            "status": "supported",
+            "document_fit": {"supported_document_ids": ["proposed-document"]},
+        }
+        legal_rule["review"] = approved_review("legal_rule", legal_rule)
+        records = {
+            "process_step": {"supported-step": process_step},
+            "workflow": {
+                "proposed-workflow": {
+                    "status": "proposed",
+                    "review": {"status": "proposed"},
+                }
+            },
+            "legal_rule": {"supported-rule": legal_rule},
+            "legal_document": {
+                "proposed-document": {
+                    "status": "proposed",
+                    "review": {"status": "proposed"},
+                }
+            },
+        }
+        locations = {
+            (kind, record_id): f"test:{record_id}"
+            for kind, kind_records in records.items()
+            for record_id in kind_records
+        }
+        report = repository_validator.ValidationReport()
+
+        repository_validator.validate_cross_record_references(records, locations, report)
+
+        self.assertEqual([], report.errors)
+
+    def test_reciprocal_backlink_does_not_create_support_gating_cycle(self) -> None:
+        records = {
+            "workflow": {
+                "workflow": {
+                    "process": {"process_step_ids": ["step"]},
+                }
+            },
+            "process_step": {
+                "step": {
+                    "workflow_ids": ["workflow"],
+                }
+            },
+        }
+
+        edges = repository_validator.supporting_dependency_edges(records)
+        adjacency: dict[tuple[str, str], set[tuple[str, str]]] = {}
+        for source, target in edges:
+            adjacency.setdefault(source, set()).add(target)
+
+        def has_cycle(node: tuple[str, str], visiting: set, visited: set) -> bool:
+            if node in visiting:
+                return True
+            if node in visited:
+                return False
+            visiting.add(node)
+            if any(has_cycle(child, visiting, visited) for child in adjacency.get(node, set())):
+                return True
+            visiting.remove(node)
+            visited.add(node)
+            return False
+
+        nodes = set(adjacency) | {target for targets in adjacency.values() for target in targets}
+        self.assertFalse(any(has_cycle(node, set(), set()) for node in nodes))
+        self.assertEqual(
+            {
+                (("workflow", "workflow"), ("process_step", "step")),
+            },
+            edges,
+        )
+
 
 class SampleSemanticRegressionTests(unittest.TestCase):
     def test_corrected_workflows_do_not_contain_known_template_leakage(self) -> None:
@@ -339,6 +566,24 @@ class SampleSemanticRegressionTests(unittest.TestCase):
                 for phrase in phrases:
                     self.assertNotIn(phrase, serialized)
                 self.assertEqual("proposed", workflows[workflow_id]["status"])
+
+    def test_proposed_workflows_do_not_claim_reviewed_source_metadata(self) -> None:
+        workflows = {
+            workflow["id"]: workflow
+            for workflow in json.loads(
+                (ROOT / "data" / "sample-workflows.json").read_text(encoding="utf-8")
+            )
+        }
+        for workflow_id in (
+            "name_change_information",
+            "small_business_license_information",
+        ):
+            with self.subTest(workflow_id=workflow_id):
+                workflow = workflows[workflow_id]
+                self.assertIn("placeholder source metadata", workflow["description"])
+                self.assertNotIn("reviewed source metadata", workflow["description"])
+                self.assertEqual("proposed", workflow["status"])
+                self.assertEqual("proposed", workflow["review"]["status"])
 
 
 class ProjectScanTests(unittest.TestCase):

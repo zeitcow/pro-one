@@ -738,10 +738,21 @@
             "properties": {
               "status": {
                 "const": "approved"
+              },
+              "review_scope": {
+                "allOf": [
+                  { "contains": { "const": "schema" } },
+                  { "contains": { "const": "jurisdiction" } },
+                  { "contains": { "const": "legal_information_boundary" } },
+                  { "contains": { "const": "safety" } },
+                  { "contains": { "const": "privacy" } },
+                  { "contains": { "const": "evaluation" } }
+                ]
               }
             },
             "required": [
-              "status"
+              "status",
+              "review_scope"
             ]
           },
           "evaluation": {
