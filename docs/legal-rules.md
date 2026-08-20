@@ -132,11 +132,11 @@ For example, a discovery deadline-awareness rule may need:
 
 The intake should collect only the minimum facts needed.
 
-## Relationship to future risk schema
+## Relationship to risk definitions
 
-The future risk schema will make risk controls reusable across workflows.
+The risk schema makes risk controls reusable across workflows.
 
-Legal-rule records already include risk fields, but the future risk schema will help standardize recurring risks such as:
+Legal-rule records already include risk fields, but the risk schema helps standardize recurring risks such as:
 
 - imminent deadlines
 - subpoenas
@@ -167,9 +167,9 @@ They should check whether Pro-One:
 - continues in a safer support mode when needed
 - refuses unsafe uses while continuing safe support
 
-## Relationship to future response schema
+## Relationship to response patterns
 
-The future response schema will define what a safe user-facing answer must include.
+The response schema defines what a safe user-facing answer must include.
 
 Legal-rule records will support response requirements such as:
 
@@ -216,7 +216,7 @@ Each legal-rule record has a status:
 
 - `proposed`
 - `researched`
-- `drafted`
+- `designed`
 - `tested`
 - `supported`
 - `deprecated`

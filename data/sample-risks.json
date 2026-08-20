@@ -1,11 +1,18 @@
 [
   {
     "id": "example-imminent-deadline-risk",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Imminent Deadline Risk",
     "description": "Sample risk record for situations where a user reports a near, same-day, next-day, missed, or uncertain legal deadline.",
     "status": "proposed",
     "risk_type": "deadline_risk",
-    "risk_level": "high",
+    "severity": "high",
+    "urgency": "immediate",
+    "integrity_risks": [
+      "none"
+    ],
     "jurisdiction": {
       "jurisdiction_required": true,
       "country": "US",
@@ -205,18 +212,22 @@
       "privacy_notes": "Ask for summaries or redacted excerpts whenever possible."
     },
     "human_help": {
-      "human_help_framing": "recommended_for_high_risk_issues",
+      "human_help_framing": "qualified_help_recommended",
       "resource_prompt_allowed": true,
-      "must_not_make_paid_help_the_default": true,
+      "resource_selection_policy": "best_fit_for_risk_and_need",
       "human_help_notes": "Human help should be framed as an additional free, low-cost, court, agency, or legal aid option, not as abandonment."
     },
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample risk record only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "urgent_support_routing",
         "deadline_awareness",
@@ -244,11 +255,18 @@
   },
   {
     "id": "example-discovery-sanctions-risk",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Discovery Sanctions Risk",
     "description": "Sample risk record for civil discovery issues involving missed deadlines, motions to compel, requests for admission, sanctions threats, objections, privilege, or sensitive records.",
     "status": "proposed",
     "risk_type": "discovery_risk",
-    "risk_level": "high",
+    "severity": "high",
+    "urgency": "time_sensitive",
+    "integrity_risks": [
+      "none"
+    ],
     "jurisdiction": {
       "jurisdiction_required": true,
       "country": "US",
@@ -452,18 +470,22 @@
       "privacy_notes": "Discovery often involves sensitive material. Pro-One should prefer summaries and redacted excerpts."
     },
     "human_help": {
-      "human_help_framing": "recommended_for_high_risk_issues",
+      "human_help_framing": "qualified_help_recommended",
       "resource_prompt_allowed": true,
-      "must_not_make_paid_help_the_default": true,
+      "resource_selection_policy": "best_fit_for_risk_and_need",
       "human_help_notes": "For sanctions, admissions, or privilege issues, Pro-One may suggest court self-help, legal aid, or free and low-cost resources as additional support while continuing safe help."
     },
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample risk record only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "discovery_boundary",
         "request_for_admission_risk",
@@ -491,11 +513,18 @@
   },
   {
     "id": "example-subpoena-urgent-risk",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Subpoena Urgent Risk",
     "description": "Sample risk record for subpoenas involving testimony, document production, near dates, sensitive records, service questions, or requests to ignore the subpoena.",
     "status": "proposed",
     "risk_type": "subpoena_risk",
-    "risk_level": "high",
+    "severity": "high",
+    "urgency": "urgent",
+    "integrity_risks": [
+      "none"
+    ],
     "jurisdiction": {
       "jurisdiction_required": true,
       "country": "US",
@@ -703,18 +732,22 @@
       "privacy_notes": "Use summaries and redacted excerpts. Do not ask for full sensitive records."
     },
     "human_help": {
-      "human_help_framing": "recommended_for_high_risk_issues",
+      "human_help_framing": "qualified_help_recommended",
       "resource_prompt_allowed": true,
-      "must_not_make_paid_help_the_default": true,
+      "resource_selection_policy": "best_fit_for_risk_and_need",
       "human_help_notes": "For subpoenas, Pro-One may suggest court, agency, legal aid, self-help, or free and low-cost resources while continuing practical support."
     },
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample risk record only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "subpoena_boundary",
         "urgent_support",
@@ -742,11 +775,22 @@
   },
   {
     "id": "example-evidence-integrity-unsafe-request-risk",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Evidence Integrity Unsafe Request Risk",
     "description": "Sample risk record for requests involving fabrication, concealment, destruction, alteration, or deception related to evidence, documents, court filings, agency submissions, or communications.",
     "status": "proposed",
     "risk_type": "evidence_integrity_risk",
-    "risk_level": "extreme",
+    "severity": "extreme",
+    "urgency": "immediate",
+    "integrity_risks": [
+      "fabrication",
+      "deception",
+      "evidence_concealment",
+      "evidence_destruction",
+      "record_alteration"
+    ],
     "jurisdiction": {
       "jurisdiction_required": false,
       "country": "US",
@@ -929,18 +973,22 @@
       "privacy_notes": "Do not collect details that would assist the unsafe conduct."
     },
     "human_help": {
-      "human_help_framing": "urgent_for_extreme_risk",
+      "human_help_framing": "qualified_help_urgent",
       "resource_prompt_allowed": true,
-      "must_not_make_paid_help_the_default": true,
+      "resource_selection_policy": "best_fit_for_risk_and_need",
       "human_help_notes": "For extreme evidence-integrity risk, Pro-One may urge free, low-cost, court, agency, legal aid, or other qualified help as an additional option while still offering safe organization support."
     },
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample risk record only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "unsafe_request_refusal",
         "safe_continuation",

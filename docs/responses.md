@@ -18,6 +18,10 @@ The current files are:
 
 The sample responses are placeholders. They are not approved production responses, legal guidance, court instructions, agency instructions, or legal advice.
 
+## Maturity status
+
+Response patterns use the shared maturity states: `proposed`, `researched`, `designed`, `tested`, `supported`, `deprecated`, and `rejected`. Supported status requires approved review provenance and at least one required evaluation fixture. Source-backed supported patterns are additionally constrained by source review state and risk level. The sample responses remain proposed.
+
 ## Core principle
 
 A good Pro-One response should be useful and bounded.
@@ -292,7 +296,7 @@ It includes:
 
 - `source_required`
 - `citation_required`
-- `allowed_source_statuses`
+- `allowed_source_review_statuses`
 - `allowed_source_authority_levels`
 - `must_not_use_sources`
 - `source_limitation_language`
@@ -320,14 +324,18 @@ When `citation_required` is true, the user-facing response must include source r
 
 When `citation_required` is false, the response may still explain source limits.
 
-## Allowed source statuses
+## Allowed source review statuses
 
-Allowed source statuses are:
+The schema can represent these source-review states while a response pattern remains proposed or is used for evaluation design:
 
 - `proposed`
 - `needs_review`
 - `reviewed`
 - `approved`
+- `deprecated`
+- `rejected`
+
+A supported source-backed response may allow only `reviewed` or `approved` sources. If the response supports `high` or `extreme` risk use, only `approved` sources may provide supporting authority. Deprecated or rejected sources may still appear in evaluation fixtures as prohibited, historical, or regression-test inputs, but they may not support a user-facing response.
 - `deprecated`
 - `rejected`
 
@@ -698,7 +706,7 @@ It includes:
 
 - `human_help_framing`
 - `resource_prompt_allowed`
-- `must_not_make_paid_help_the_default`
+- `resource_selection_policy`
 - `resource_types_allowed`
 - `human_help_notes`
 
@@ -706,12 +714,12 @@ It includes:
 
 Supported values are:
 
-- `not_required_by_default`
-- `optional_free_or_low_cost_resource`
-- `recommended_for_high_risk_issues`
-- `urgent_for_extreme_risk`
+- `not_required`
+- `resources_optional`
+- `qualified_help_recommended`
+- `qualified_help_urgent`
 
-Human help should not make paid counsel the default route.
+Resource selection should fit the user's need and risk. Prefer free, official, self-help, legal-aid, nonprofit, and low-cost resources when they can appropriately meet the need; recommend qualified professional assistance when risk, complexity, or consequences make that appropriate.
 
 Good resource prompts may include:
 
@@ -723,6 +731,8 @@ Good resource prompts may include:
 - free clinics
 - low-cost resources
 - bar referral resources
+
+Safe continuation can occur alongside a resource recommendation.
 
 ## Prohibited content
 

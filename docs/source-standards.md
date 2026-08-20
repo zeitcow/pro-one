@@ -22,21 +22,18 @@ The system should not invent:
 
 When Pro-One cannot find reliable support, it should say so clearly.
 
-## Source hierarchy
+## Authority depends on the proposition
 
-Preferred source order:
+Pro-One does not use one universal ranking for every claim. A source is authoritative only for the proposition it actually supports.
 
-1. official statutes, rules, and regulations
-2. official court rules
-3. official court forms and instructions
-4. official court self-help materials
-5. primary legal authority
-6. legal aid or public-interest explainers
-7. secondary sources, clearly labeled
+- Statutes, formally promulgated regulations, cases, and court or agency rules generally support substantive legal propositions within their jurisdiction and effective period.
+- Official court rules, forms, filing instructions, standing orders, and clerk or agency instructions generally support form, filing, service, submission, and other procedural requirements within their stated scope.
+- Official self-help materials and legal-aid or public-interest resources may be especially useful for faithful plain-language explanation, navigation, issue spotting, and access to services.
+- Recognized secondary sources may help explain complexity or identify issues, but they should be clearly labeled and should not replace controlling authority for a proposition when that authority is available.
 
-Primary, official, and public legal sources should be preferred where available.
+An official self-help page should not categorically outrank a statute, regulation, case, or rule on a substantive legal proposition. Conversely, a statute may not answer which local form, filing channel, or clerk instruction applies. Source selection should preserve these distinctions.
 
-Secondary sources may be useful for plain-language explanation, but they should not replace official or primary sources when those sources are available.
+Across categories, prefer sources that are authoritative for the proposition, current, jurisdiction-matched, verifiable, accessible, and accurately cited.
 
 ## Required source metadata
 
@@ -47,10 +44,15 @@ Each source should preserve useful metadata where possible, including:
 - jurisdiction
 - issuing court, agency, or organization
 - publication date
+- effective-from and effective-through dates, when applicable
 - last updated date, if available
+- last verified date
 - source URL
 - citation or rule number, if available
 - retrieval date
+- source or content version, if available
+- superseding or superseded source relationships
+- a content hash when captured content needs integrity tracking
 - license or reuse information, if known
 
 This metadata helps users understand where information came from and whether it may be current.
@@ -82,6 +84,10 @@ Pro-One should track freshness where possible, including:
 - last updated date
 - retrieval date
 - source version
+- effective period
+- whether another source supersedes it
+- last verified date
+- content hash when content is captured
 - whether the source comes from an official website
 
 When a source may be outdated, the system should warn the user.
@@ -173,6 +179,7 @@ Before a source becomes part of a supported workflow, the project should ask:
 - Can the project reuse it?
 - Does it support the workflow being built?
 - Does it create safety concerns?
+- Does its review provenance identify who reviewed which record version, in what role and scope, and when?
 
 ## Guiding rule
 

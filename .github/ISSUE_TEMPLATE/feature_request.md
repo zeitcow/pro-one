@@ -28,7 +28,7 @@ Describe what the feature should do.
 
 ## Supported workflow
 
-Does this relate to a supported or planned legal workflow?
+Does this relate to a planned workflow or a workflow proposed for future supported status? No workflow is publicly supported today.
 
 - [ ] Responding to a civil complaint
 - [ ] Litigation tracking

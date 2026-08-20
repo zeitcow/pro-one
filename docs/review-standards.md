@@ -31,6 +31,8 @@ Before merging, reviewers should check:
 - Does the change avoid unsupported legal claims?
 - Does the change avoid exposing sensitive information?
 - Does the change introduce any safety concerns?
+- Do schemas, records, documentation, and validation remain synchronized?
+- Does `python scripts/validate_repository.py` pass?
 
 ## Documentation review
 
@@ -62,8 +64,13 @@ Reviewers should check whether the change:
 - distinguishes official, primary, and secondary sources
 - warns when information is incomplete or uncertain
 - stays within the supported workflow
+- preserves user control over factual positions, admissions, denials, defenses, objections, and strategy
+- avoids claiming that a generated draft is legally sufficient solely because it was generated
+- documents jurisdiction-specific review expectations before public support
 
 If a legal claim is not supported, it should be removed, limited, or rewritten.
+
+A `legal_information_only` label is a design constraint, not a legal conclusion. Before public support, reviewers should consider the workflow's jurisdiction-specific legal-information/legal-advice boundary and other applicable requirements. Do not claim attorney review unless it actually occurred.
 
 ## Source-grounding review
 
@@ -78,8 +85,23 @@ For source or corpus changes, reviewers should check:
 - Is citation metadata preserved?
 - Does the source support the workflow being built?
 - Are any limitations or safety concerns documented?
+- Does the source actually support the specific proposition for which it will be used?
+- Are effective dates, source/content version, supersession, and last verification recorded where available?
 
 Sources should not be added only because they are convenient.
+
+Official self-help and legal-aid materials may be strong explanatory and navigation sources, but they do not categorically outrank primary authority for substantive propositions. Court forms and instructions may be authoritative for local filing requirements even when they are not substantive law.
+
+## Schema, version, and review-provenance review
+
+For schema or record changes, reviewers should check:
+
+- whether the shared common definition is genuinely semantically identical across domains
+- whether enum changes were synchronized across schemas, samples, docs, issue templates, and validation
+- whether `schema_version`, `record_version`, and `last_modified` are accurate
+- whether reviewed or approved records identify reviewer handle, role, scope, date, and reviewed record version
+- whether professional credentials are stated only when explicitly verified and recorded
+- whether all cross-record IDs resolve and supported-state conditions remain enforceable
 
 ## Privacy review
 

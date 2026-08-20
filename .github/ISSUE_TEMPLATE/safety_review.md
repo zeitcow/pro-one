@@ -41,6 +41,17 @@ Choose one:
 - [ ] Low
 - [ ] Medium
 - [ ] High
+- [ ] Extreme
+- [ ] Not sure
+
+## Urgency
+
+Choose time sensitivity separately from potential harm:
+
+- [ ] Routine
+- [ ] Time-sensitive
+- [ ] Urgent
+- [ ] Immediate
 - [ ] Not sure
 
 ## Possible harm

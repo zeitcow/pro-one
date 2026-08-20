@@ -34,7 +34,7 @@ This makes document assistance reviewable instead of free-form.
 
 ## Files
 
-This PR introduces three legal-document files:
+This foundation consists of three legal-document files:
 
 - `schemas/legal-document.schema.json`
 - `data/sample-legal-documents.json`
@@ -185,7 +185,7 @@ Examples include:
 
 Document type helps Pro-One understand the risk level and the kind of assistance that may be allowed.
 
-Some document types may allow guided drafting.
+Some document types may allow user-confirmed drafting.
 
 Other document types may only allow explanation, checklist, issue spotting, or human-help prompts.
 
@@ -331,15 +331,15 @@ Allowed assistance values may include:
 - `checklist`
 - `outline`
 - `template_completion`
-- `guided_draft`
+- `user_confirmed_draft`
 - `draft_review_prompt`
 - `issue_spotting_prompt`
 
-Some documents may allow guided drafts when the user provides and confirms all facts.
+Some documents may allow user-confirmed drafts when the user provides and confirms all facts and decisions.
 
 Other documents should not allow drafting at all.
 
-For example, a simple demand letter may allow a guided draft.
+For example, a simple demand letter may allow a user-confirmed draft.
 
 A discovery response, subpoena objection, or motion to quash may require human review and may only allow explanation, checklist, or issue spotting.
 
@@ -392,10 +392,10 @@ The `deadlines` field tracks whether deadlines may matter for the document.
 
 Deadline handling values include:
 
-- `no_deadline`
-- `informational_only`
-- `source_required`
-- `human_review_required`
+- `not_applicable`
+- `awareness_only`
+- `source_backed_information`
+- `qualified_review_required`
 - `unsupported`
 
 Pro-One should not guess deadlines.
@@ -552,7 +552,7 @@ They may involve:
 
 Pro-One should not invent facts, make unsupported legal threats, use abusive language, or guarantee payment or settlement.
 
-A guided draft may be allowed only when the user provides and confirms the facts.
+A user-confirmed draft may be allowed only when the user provides and confirms the facts and requested content.
 
 ## Contracts and agreements
 
@@ -732,7 +732,7 @@ Legal-document definitions should connect to the process steps they support.
 
 ## Relationship to legal-rule schema
 
-The future `legal-rule.schema.json` should define rule statements tied to sources, jurisdictions, effective dates, citations, and review status.
+The `legal-rule.schema.json` schema defines rule statements tied to sources, jurisdictions, effective dates, citations, and review status.
 
 Legal-document definitions should use legal-rule IDs when a document depends on specific legal requirements.
 

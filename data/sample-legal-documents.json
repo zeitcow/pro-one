@@ -1,6 +1,9 @@
 [
   {
     "id": "example-name-change-petition",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Name-Change Petition",
     "description": "Sample legal-document definition for a name-change petition or court form packet.",
     "status": "proposed",
@@ -115,7 +118,7 @@
         "source_link",
         "checklist",
         "review_prompt",
-        "human_help_prompt"
+        "resource_prompt"
       ],
       "prohibited_guidance": [
         "File the document for the user.",
@@ -127,7 +130,7 @@
     },
     "deadlines": {
       "deadline_relevant": true,
-      "deadline_handling": "source_required",
+      "deadline_handling": "source_backed_information",
       "deadline_source_ids": [
         "example-state-court-name-change-guide"
       ],
@@ -170,10 +173,14 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample legal-document definition only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "source_grounding",
         "legal_rule_boundary",
@@ -204,6 +211,9 @@
   },
   {
     "id": "example-discovery-response",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Discovery Response",
     "description": "Sample legal-document definition for a civil discovery response, including responses to interrogatories, requests for production, or requests for admission.",
     "status": "proposed",
@@ -340,7 +350,7 @@
         "source_link",
         "checklist",
         "review_prompt",
-        "human_help_prompt"
+        "resource_prompt"
       ],
       "prohibited_guidance": [
         "Serve discovery responses for the user.",
@@ -352,7 +362,7 @@
     },
     "deadlines": {
       "deadline_relevant": true,
-      "deadline_handling": "human_review_required",
+      "deadline_handling": "qualified_review_required",
       "deadline_source_ids": [
         "example-state-civil-discovery-rules"
       ],
@@ -400,10 +410,14 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample legal-document definition only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "source_grounding",
         "legal_rule_boundary",
@@ -434,6 +448,9 @@
   },
   {
     "id": "example-subpoena-information",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Subpoena Information",
     "description": "Sample legal-document definition for explaining subpoena-related documents and boundaries.",
     "status": "proposed",
@@ -455,7 +472,7 @@
     },
     "sources": {
       "required_source_ids": [
-        "example-state-subpoena-rules"
+        "example-state-subpoena-rule"
       ],
       "optional_source_ids": [
         "example-state-court-subpoena-guide"
@@ -541,7 +558,7 @@
         "explanation",
         "checklist",
         "issue_spotting_prompt",
-        "human_help_prompt"
+        "resource_prompt"
       ],
       "prohibited_assistance": [
         "Draft a subpoena for issuance.",
@@ -564,7 +581,7 @@
         "general_explanation",
         "source_link",
         "checklist",
-        "human_help_prompt"
+        "resource_prompt"
       ],
       "prohibited_guidance": [
         "Serve a subpoena for the user.",
@@ -576,9 +593,9 @@
     },
     "deadlines": {
       "deadline_relevant": true,
-      "deadline_handling": "human_review_required",
+      "deadline_handling": "qualified_review_required",
       "deadline_source_ids": [
-        "example-state-subpoena-rules"
+        "example-state-subpoena-rule"
       ],
       "deadline_notes": "Subpoena deadlines may be short and high-risk. Human review should be encouraged."
     },
@@ -621,10 +638,14 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample legal-document definition only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "source_grounding",
         "deadline_handling",
@@ -653,6 +674,9 @@
   },
   {
     "id": "example-small-business-demand-letter",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Small-Business Demand Letter",
     "description": "Sample legal-document definition for a small-business demand letter or pre-suit settlement communication.",
     "status": "proposed",
@@ -761,7 +785,7 @@
         "explanation",
         "checklist",
         "outline",
-        "guided_draft",
+        "user_confirmed_draft",
         "draft_review_prompt"
       ],
       "prohibited_assistance": [
@@ -773,7 +797,7 @@
       ],
       "human_review_required": false,
       "requires_user_final_review": true,
-      "drafting_notes": "A guided draft may be appropriate when the user provides and confirms all facts, but the output should remain legal information and practical communication support."
+      "drafting_notes": "A user-confirmed draft may be appropriate when the user provides and confirms all facts and requested content, but the output should remain legal information and practical communication support."
     },
     "filing_or_service": {
       "filing_involved": false,
@@ -784,7 +808,7 @@
         "general_explanation",
         "checklist",
         "review_prompt",
-        "human_help_prompt"
+        "resource_prompt"
       ],
       "prohibited_guidance": [
         "Send the letter for the user.",
@@ -796,7 +820,7 @@
     },
     "deadlines": {
       "deadline_relevant": true,
-      "deadline_handling": "source_required",
+      "deadline_handling": "source_backed_information",
       "deadline_source_ids": [
         "example-state-small-claims-guide"
       ],
@@ -840,10 +864,14 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample legal-document definition only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "fact_confirmation",
         "tone_safety",

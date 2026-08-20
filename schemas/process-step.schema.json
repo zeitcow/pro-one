@@ -1,12 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/zeitcow/pro-one/schemas/process-step.schema.json",
+  "$id": "https://github.com/pro-one-org/pro-one/schemas/process-step.schema.json",
   "title": "Pro-One Process Step",
   "description": "Schema for defining individual legal, court, agency, filing, service, hearing, deadline, and follow-up steps within Pro-One workflows.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "id",
+    "schema_version",
+    "record_version",
+    "last_modified",
     "title",
     "description",
     "status",
@@ -26,9 +29,16 @@
   ],
   "properties": {
     "id": {
-      "type": "string",
-      "description": "Stable process-step identifier used by Pro-One.",
-      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+    },
+    "schema_version": {
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/schemaVersion"
+    },
+    "record_version": {
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordVersion"
+    },
+    "last_modified": {
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
@@ -39,23 +49,13 @@
       "description": "Plain-language explanation of the process step."
     },
     "status": {
-      "type": "string",
-      "description": "Current process-step maturity status.",
-      "enum": [
-        "proposed",
-        "researched",
-        "designed",
-        "tested",
-        "supported",
-        "deprecated",
-        "rejected"
-      ]
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/maturityStatus"
     },
     "workflow_ids": {
       "type": "array",
       "description": "Workflow identifiers this process step may support.",
       "items": {
-        "type": "string"
+        "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
       },
       "minItems": 1,
       "uniqueItems": true
@@ -116,7 +116,7 @@
           "type": "array",
           "description": "Step IDs that may usually follow this step.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -127,50 +127,7 @@
       }
     },
     "jurisdiction": {
-      "type": "object",
-      "description": "Jurisdiction or institution this process step applies to.",
-      "additionalProperties": false,
-      "required": [
-        "country"
-      ],
-      "properties": {
-        "country": {
-          "type": "string",
-          "description": "Country code or country name."
-        },
-        "state": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "State, province, or equivalent jurisdiction."
-        },
-        "locality": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "County, city, district, or local jurisdiction if relevant."
-        },
-        "court": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Court name if the step is court-specific."
-        },
-        "agency": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Agency name if the step is agency-specific."
-        },
-        "jurisdiction_notes": {
-          "type": "string",
-          "description": "Notes about jurisdiction limits or uncertainty."
-        }
-      }
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/jurisdiction"
     },
     "sources": {
       "type": "object",
@@ -185,7 +142,7 @@
           "type": "array",
           "description": "Source IDs required to support this process step.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -193,7 +150,7 @@
           "type": "array",
           "description": "Additional source IDs that may support this process step.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -342,7 +299,7 @@
               "explanation",
               "checklist",
               "outline",
-              "draft",
+              "user_confirmed_draft",
               "review_prompt"
             ]
           },
@@ -368,21 +325,13 @@
           "description": "Whether deadlines may matter for this step."
         },
         "deadline_handling": {
-          "type": "string",
-          "description": "How Pro-One should handle deadlines for this step.",
-          "enum": [
-            "no_deadline",
-            "informational_only",
-            "source_required",
-            "human_review_required",
-            "unsupported"
-          ]
+          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/deadlineHandling"
         },
         "deadline_source_ids": {
           "type": "array",
           "description": "Source IDs that support deadline information for this step.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -404,13 +353,7 @@
       ],
       "properties": {
         "risk_level": {
-          "type": "string",
-          "description": "Risk level for this process step.",
-          "enum": [
-            "low",
-            "medium",
-            "high"
-          ]
+          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/riskLevel"
         },
         "escalation_triggers": {
           "type": "array",
@@ -440,87 +383,62 @@
       }
     },
     "review": {
-      "type": "object",
-      "description": "Review status within Pro-One.",
-      "additionalProperties": false,
-      "required": [
-        "status",
-        "reviewed_by",
-        "reviewed_on"
-      ],
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": [
-            "proposed",
-            "needs_review",
-            "reviewed",
-            "approved",
-            "deprecated",
-            "rejected"
-          ]
-        },
-        "reviewed_by": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Reviewer name, handle, or role."
-        },
-        "reviewed_on": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date",
-          "description": "Date of review."
-        },
-        "review_notes": {
-          "type": "string",
-          "description": "Notes from process-step review."
-        }
-      }
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/reviewInformation"
     },
     "evaluation": {
-      "type": "object",
-      "description": "Testing requirements before the process step can be supported.",
-      "additionalProperties": false,
-      "required": [
-        "required_tests",
-        "success_criteria",
-        "known_failure_modes"
-      ],
-      "properties": {
-        "required_tests": {
-          "type": "array",
-          "description": "Tests or evaluation categories required for this step.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "success_criteria": {
-          "type": "array",
-          "description": "What must be true for the process step to pass review.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "known_failure_modes": {
-          "type": "array",
-          "description": "Known ways the process step could fail or mislead users.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "evaluation_notes": {
-          "type": "string",
-          "description": "Additional evaluation notes."
-        }
-      }
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/evaluationRequirements"
     },
     "notes": {
       "type": "string",
       "description": "Additional notes."
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "supported"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "review": {
+            "properties": {
+              "status": {
+                "const": "approved"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "evaluation": {
+            "properties": {
+              "required_evaluation_fixture_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "required_evaluation_fixture_ids"
+            ]
+          },
+          "sources": {
+            "properties": {
+              "required_source_ids": {
+                "minItems": 1
+              },
+              "source_review_required": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }

@@ -20,6 +20,10 @@ The current files are:
 
 The sample evaluation fixtures are placeholders. They are not approved production tests, legal guidance, court instructions, agency instructions, or user-facing responses.
 
+## Maturity status
+
+Evaluation fixtures use the shared maturity states: `proposed`, `researched`, `designed`, `tested`, `supported`, `deprecated`, and `rejected`. A supported fixture must have approved review provenance. The sample fixtures remain proposed.
+
 ## Core principle
 
 Evaluation should test both usefulness and safety.
@@ -58,7 +62,7 @@ Pro-One is built around reusable records:
 - intake definitions
 - legal rules
 - risk definitions
-- future response patterns
+- response patterns
 
 Evaluation fixtures test whether those records work together.
 
@@ -112,6 +116,7 @@ It includes:
 - intake identifiers
 - legal-rule identifiers
 - risk identifiers
+- response-pattern identifiers
 
 This makes each fixture traceable.
 
@@ -208,9 +213,9 @@ Evaluation fixtures can test whether Pro-One:
 - protects privacy
 - avoids final legal decisions
 
-## Relationship to future response schema
+## Relationship to response patterns
 
-The future response schema will define what safe answers should include.
+The response schema defines what safe answers should include.
 
 Evaluation fixtures will test whether generated responses match those requirements.
 
@@ -491,14 +496,14 @@ A response should not stop merely because a situation is urgent, complicated, or
 
 Supported values are:
 
-- `not_required_by_default`
-- `optional_free_or_low_cost_resource`
-- `recommended_for_high_risk_issues`
-- `urgent_for_extreme_risk`
+- `not_required`
+- `resources_optional`
+- `qualified_help_recommended`
+- `qualified_help_urgent`
 
 Human help should be framed carefully.
 
-It should not make paid counsel the default answer.
+It should prefer free, official, self-help, legal-aid, nonprofit, and low-cost resources when appropriate, while recommending qualified professional assistance when risk, complexity, or consequences warrant it.
 
 A good response may point to:
 

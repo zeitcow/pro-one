@@ -2,6 +2,8 @@
 
 Pro-One exists to make practical legal help more accessible to people and small businesses handling legal matters on their own.
 
+The repository is currently an architecture and specification foundation. It does not yet contain a production legal AI application or publicly supported legal workflow.
+
 The project is based on a simple idea: legal information should be easier to understand, easier to use, and easier to verify.
 
 Pro-One is intended to be free, open-source legal AI that helps users understand legal processes, organize facts and documents, and complete common legal tasks through structured workflows grounded in reliable legal sources.
@@ -14,7 +16,7 @@ Pro-One's mission is to expand access to legal information by building free and 
 - organize facts, documents, deadlines, and questions
 - follow structured legal workflows
 - find and understand relevant legal sources
-- prepare drafts or checklists that users can review before taking action
+- prepare user-confirmed draft structures or checklists that users can review before taking action
 - know when the system cannot safely or reliably answer
 
 ## Who Pro-One is for

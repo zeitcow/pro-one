@@ -1,100 +1,60 @@
-# Security
+# Security Policy
 
-Pro-One is an early-stage project, but security should be part of the foundation from the beginning.
+## Current scope
 
-Because Pro-One may eventually handle legal questions, court papers, contracts, deadlines, business disputes, and other sensitive information, the project should treat privacy, security, and user safety as core requirements.
+Pro-One is currently a non-production architecture and specification repository. It does not operate a hosted legal AI application, accept user legal documents, or maintain a production user database. Security reports may nevertheless concern repository code, validation tooling, CI configuration, dependency handling, or disclosures that could affect future implementations.
 
-## Current status
+## Report a vulnerability privately
 
-Pro-One does not currently operate a production application or accept user legal documents.
+Do not post vulnerability details, proof-of-concept material, secrets, or sensitive data in a public issue, discussion, or pull request.
 
-This security policy describes the standards the project should follow as it develops.
+The preferred channel is GitHub Private Vulnerability Reporting:
 
-## Reporting security issues
+1. Open the repository's [Security advisories page](https://github.com/pro-one-org/pro-one/security/advisories).
+2. If **Report a vulnerability** is available, use that form to submit the report privately.
 
-If you discover a security issue, please do not open a public GitHub issue with sensitive details.
+GitHub displays that button only when private vulnerability reporting is enabled. If it is unavailable, use a private contact method listed on the maintainer's GitHub profile. If no private method is available, open a public issue containing only a request for a private security contact—do not include vulnerability details—and wait for a private channel before sharing the report.
 
-Instead, report the issue privately to the project maintainer.
+Include, where practical:
 
-Until a dedicated security contact is added, security reports should be sent through the repository owner's available GitHub contact methods.
+- the affected file, component, branch, or commit
+- impact and plausible attack scenario
+- reproduction steps or a minimal proof of concept
+- suggested mitigation, if known
+- whether any secret or sensitive data may have been exposed
+- a safe way to contact you for follow-up
 
-## Security principles
+The project will acknowledge reports when maintainer availability permits, assess scope and severity, coordinate a fix, and credit reporters when requested and appropriate. No response-time or bounty commitment is currently offered.
 
-Pro-One should be designed around these principles:
+## What to report
 
-- collect the least amount of user data necessary
-- avoid storing sensitive legal facts unless required
-- protect court documents, contracts, names, addresses, deadlines, and other sensitive information
-- avoid exposing user data in logs, analytics, prompts, or error messages
-- avoid using user legal facts for model training without clear consent
-- make data retention and deletion practices clear
-- design for safe failure when AI, retrieval, or source grounding does not work
+Examples include:
 
-## Threat model
+- workflow or CI behavior that exposes credentials or sensitive data
+- dependency or script vulnerabilities affecting contributors
+- prompt-injection or untrusted-document paths in future implementation code
+- failures that could bypass source, review, jurisdiction, privacy, or integrity controls
+- vulnerabilities enabling fabricated citations, unauthorized data access, or unsafe document actions
 
-Future versions of Pro-One should consider risks such as:
+General safety improvements, inaccurate sample content, and feature requests may use public issues when they do not expose an active vulnerability or sensitive information.
 
-- accidental exposure of user legal documents
-- storage of sensitive legal facts without a clear purpose
-- prompt injection through uploaded documents
-- leaked API keys or credentials
-- model output that invents legal authority
-- fake or unsupported citations
-- wrong jurisdiction detection
-- stale legal sources
-- incorrect deadline guidance
-- overconfident legal explanations
-- malicious attempts to generate fraudulent or abusive documents
+## Security principles for future implementation
 
-## Sensitive data
+Future code should:
 
-Pro-One should treat the following as sensitive:
+- collect and retain the minimum data necessary
+- protect legal documents, business records, identifiers, deadlines, and correspondence
+- avoid exposing user data in logs, analytics, prompts, errors, or training without clear authorization
+- treat uploaded and retrieved content as untrusted input
+- isolate secrets from source code and validate dependency changes
+- preserve source, content, and fact provenance
+- fail safely when retrieval, citations, jurisdiction, or review gates are inadequate
+- refuse fabrication, deception, evidence concealment, evidence destruction, and record alteration
 
-- court documents
-- contracts
-- names and addresses
-- financial information
-- business records
-- employment facts
-- immigration facts
-- family or housing facts
-- medical information
-- case deadlines
-- correspondence with lawyers, courts, agencies, or opposing parties
+## Sensitive data and secrets
 
-The project should avoid collecting or storing this information unless it is necessary for a specific workflow and appropriate safeguards exist.
+Do not commit API keys, credentials, access tokens, real user legal documents, confidential business records, privileged communications, or private court papers. If a secret is committed, rotate or revoke it immediately; removing it from the latest commit alone is not sufficient.
 
-## AI-specific security risks
+## Coordinated disclosure
 
-Legal AI systems have risks beyond ordinary web applications.
-
-Pro-One should account for:
-
-- prompt injection in uploaded documents
-- retrieved text that tries to override system behavior
-- unsupported model output
-- invented citations
-- jurisdiction mismatch
-- hidden uncertainty
-- unsafe instructions framed as legal guidance
-
-The system should not treat model output as reliable unless it is supported by retrieved sources and appropriate safety checks.
-
-## Dependency and secret management
-
-Future code contributions should avoid:
-
-- committing API keys
-- committing credentials
-- committing private user data
-- logging sensitive user input
-- storing secrets in source files
-- adding unnecessary dependencies
-
-Secrets should be stored through environment variables or a dedicated secret-management process.
-
-## Responsible disclosure
-
-Security issues should be handled carefully and privately until they are fixed.
-
-Public issues may be appropriate for general security improvements, but not for active vulnerabilities or sensitive user data exposure.
+Keep vulnerability details private until a fix or mitigation is available and disclosure is coordinated. The maintainer may publish an advisory when that helps users understand affected versions and remediation.

@@ -1,12 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/zeitcow/pro-one/schemas/evaluation-fixture.schema.json",
+  "$id": "https://github.com/pro-one-org/pro-one/schemas/evaluation-fixture.schema.json",
   "title": "Pro-One Evaluation Fixture",
   "description": "Schema for defining test scenarios used to evaluate whether Pro-One responses are accurate, source-grounded, within scope, privacy-conscious, risk-aware, and safely useful.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "id",
+    "schema_version",
+    "record_version",
+    "last_modified",
     "title",
     "description",
     "status",
@@ -25,9 +28,16 @@
   ],
   "properties": {
     "id": {
-      "type": "string",
-      "description": "Stable evaluation fixture identifier.",
-      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+    },
+    "schema_version": {
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/schemaVersion"
+    },
+    "record_version": {
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordVersion"
+    },
+    "last_modified": {
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
@@ -38,16 +48,7 @@
       "description": "Plain-language description of what this fixture tests."
     },
     "status": {
-      "type": "string",
-      "description": "Current fixture maturity status.",
-      "enum": [
-        "proposed",
-        "drafted",
-        "tested",
-        "active",
-        "deprecated",
-        "rejected"
-      ]
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/maturityStatus"
     },
     "fixture_type": {
       "type": "string",
@@ -89,113 +90,66 @@
         "legal_document_ids",
         "intake_ids",
         "legal_rule_ids",
-        "risk_ids"
+        "risk_ids",
+        "response_ids"
       ],
       "properties": {
         "source_ids": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "workflow_ids": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "process_step_ids": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "legal_document_ids": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "intake_ids": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "legal_rule_ids": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "risk_ids": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
+        },
+        "response_ids": {
+          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordIdArray"
         }
       }
     },
     "jurisdiction": {
-      "type": "object",
-      "description": "Jurisdiction facts used in the test scenario.",
-      "additionalProperties": false,
-      "required": [
-        "country",
-        "state",
-        "locality",
-        "court",
-        "agency",
-        "jurisdiction_known",
-        "jurisdiction_notes"
-      ],
-      "properties": {
-        "country": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "state": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "locality": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "court": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "agency": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "jurisdiction_known": {
-          "type": "boolean",
-          "description": "Whether jurisdiction is known in the fixture."
-        },
-        "jurisdiction_notes": {
-          "type": "string",
-          "description": "Notes about jurisdiction assumptions, uncertainty, or limits."
-        }
-      }
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/scenarioJurisdiction"
     },
     "scenario": {
       "type": "object",
@@ -286,7 +240,7 @@
           "type": "array",
           "description": "Sources the response may rely on.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -294,7 +248,7 @@
           "type": "array",
           "description": "Sources the response must not rely on.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -326,23 +280,7 @@
           "type": "array",
           "description": "Support modes the response must use.",
           "items": {
-            "type": "string",
-            "enum": [
-              "general_information",
-              "source_backed_steps",
-              "checklist",
-              "document_explanation",
-              "issue_spotting",
-              "deadline_awareness",
-              "urgent_support",
-              "court_or_agency_resource_prompt",
-              "free_or_low_cost_resource_prompt",
-              "scope_boundary",
-              "privacy_prompt",
-              "redaction_prompt",
-              "refusal_of_unsafe_part",
-              "safe_continuation"
-            ]
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/supportMode"
           },
           "uniqueItems": true,
           "minItems": 1
@@ -381,13 +319,7 @@
           "description": "Whether the response must continue with safe support."
         },
         "human_help_framing": {
-          "type": "string",
-          "enum": [
-            "not_required_by_default",
-            "optional_free_or_low_cost_resource",
-            "recommended_for_high_risk_issues",
-            "urgent_for_extreme_risk"
-          ]
+          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/humanHelpFraming"
         },
         "expected_behavior_notes": {
           "type": "string",
@@ -500,31 +432,15 @@
           "type": "array",
           "description": "Risk identifiers expected to be triggered.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
         "expected_risk_level": {
-          "type": "string",
-          "enum": [
-            "none",
-            "low",
-            "medium",
-            "high",
-            "extreme"
-          ]
+          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/riskLevel"
         },
         "risk_routing_expected": {
-          "type": "string",
-          "enum": [
-            "none",
-            "continue_in_safer_mode",
-            "continue_with_urgent_support",
-            "continue_with_deadline_awareness",
-            "continue_with_issue_spotting",
-            "narrow_then_continue",
-            "refuse_unsafe_part_and_continue_safe_part"
-          ]
+          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/routingBehavior"
         },
         "risk_notes": {
           "type": "string",
@@ -579,47 +495,49 @@
       }
     },
     "review": {
-      "type": "object",
-      "description": "Review status for the fixture.",
-      "additionalProperties": false,
-      "required": [
-        "status",
-        "reviewed_by",
-        "reviewed_on"
-      ],
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": [
-            "proposed",
-            "needs_review",
-            "reviewed",
-            "approved",
-            "deprecated",
-            "rejected"
-          ]
-        },
-        "reviewed_by": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "reviewed_on": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date"
-        },
-        "review_notes": {
-          "type": "string"
-        }
-      }
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/reviewInformation"
     },
     "notes": {
       "type": "string",
       "description": "Additional notes."
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "supported"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "review": {
+            "properties": {
+              "status": {
+                "const": "approved"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "evaluation": {
+            "properties": {
+              "required_evaluation_fixture_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "required_evaluation_fixture_ids"
+            ]
+          }
+        }
+      }
+    }
+  ]
 }

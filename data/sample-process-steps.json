@@ -1,6 +1,9 @@
 [
   {
     "id": "example-name-change-review-instructions",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Review Current Court Instructions",
     "description": "Sample process step for reviewing current court instructions before starting a name-change workflow.",
     "status": "proposed",
@@ -85,7 +88,7 @@
     },
     "deadline": {
       "deadline_relevant": false,
-      "deadline_handling": "no_deadline",
+      "deadline_handling": "not_applicable",
       "deadline_source_ids": [],
       "deadline_notes": "This review step does not calculate or provide deadlines."
     },
@@ -111,10 +114,14 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample process step only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "source_grounding",
         "jurisdiction_clarity",
@@ -138,6 +145,9 @@
   },
   {
     "id": "example-name-change-complete-forms",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Complete Required Name-Change Forms",
     "description": "Sample process step for explaining the general role of required name-change forms.",
     "status": "proposed",
@@ -228,7 +238,7 @@
     },
     "deadline": {
       "deadline_relevant": true,
-      "deadline_handling": "source_required",
+      "deadline_handling": "source_backed_information",
       "deadline_source_ids": [
         "example-state-court-name-change-guide"
       ],
@@ -256,10 +266,14 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample process step only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "document_boundary",
         "source_grounding",
@@ -284,6 +298,9 @@
   },
   {
     "id": "example-name-change-file-with-court",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "File Documents With the Court",
     "description": "Sample process step for explaining a court filing step in a name-change workflow.",
     "status": "proposed",
@@ -374,7 +391,7 @@
     },
     "deadline": {
       "deadline_relevant": true,
-      "deadline_handling": "source_required",
+      "deadline_handling": "source_backed_information",
       "deadline_source_ids": [
         "example-state-court-name-change-guide"
       ],
@@ -403,10 +420,14 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample process step only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "source_grounding",
         "filing_boundary",
@@ -431,6 +452,9 @@
   },
   {
     "id": "example-business-license-submit-application",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Submit Business License Application",
     "description": "Sample process step for explaining an agency submission step in a small-business licensing workflow.",
     "status": "proposed",
@@ -521,7 +545,7 @@
     },
     "deadline": {
       "deadline_relevant": true,
-      "deadline_handling": "source_required",
+      "deadline_handling": "source_backed_information",
       "deadline_source_ids": [
         "example-city-small-business-license-guide"
       ],
@@ -550,10 +574,14 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample process step only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "source_grounding",
         "agency_process_boundary",
@@ -577,5 +605,1407 @@
       "evaluation_notes": "Evaluation fixtures should be added before this step is supported."
     },
     "notes": "This is placeholder sample data for schema design."
+  },
+  {
+    "id": "example-name-change-attend-hearing",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Attend Name-Change Hearing",
+    "description": "Placeholder process step for attend name-change hearing; it is not supported legal guidance.",
+    "status": "proposed",
+    "workflow_ids": [
+      "name_change_information"
+    ],
+    "step_type": "prepare_for_hearing",
+    "sequence": {
+      "position": 4,
+      "is_required": true,
+      "depends_on": [],
+      "next_step_ids": [],
+      "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
+    },
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Fictional jurisdiction for schema validation only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-state-court-name-change-guide"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "The source record is proposed placeholder metadata."
+    },
+    "actor": {
+      "primary_actor": "user",
+      "additional_actors": [],
+      "actor_notes": "The user remains responsible for factual and legal decisions."
+    },
+    "inputs": {
+      "required_inputs": [
+        "user-confirmed facts",
+        "document type or stated goal"
+      ],
+      "optional_inputs": [
+        "redacted excerpt",
+        "official source link"
+      ],
+      "excluded_inputs": [
+        "facts invented by the system",
+        "unnecessary sensitive identifiers"
+      ],
+      "collects_sensitive_data": false,
+      "data_minimization_notes": "Use summaries and redacted excerpts where possible."
+    },
+    "actions": {
+      "allowed_actions": [
+        "Explain general concepts when source-supported.",
+        "Organize explicit user-confirmed information.",
+        "Provide a checklist without choosing legal strategy."
+      ],
+      "prohibited_actions": [
+        "Invent facts or legal positions.",
+        "Choose admissions, denials, defenses, or objections.",
+        "Represent that a draft is legally sufficient."
+      ],
+      "action_notes": "Assistance remains informational and user-directed."
+    },
+    "documents": {
+      "related_document_types": [
+        "other"
+      ],
+      "document_help_allowed": [
+        "explanation",
+        "checklist",
+        "outline"
+      ],
+      "document_help_notes": "Any populated draft must use explicit user decisions in a reviewed workflow."
+    },
+    "deadline": {
+      "deadline_relevant": true,
+      "deadline_handling": "source_backed_information",
+      "deadline_source_ids": [
+        "example-state-court-name-change-guide"
+      ],
+      "deadline_notes": "Do not calculate or state a final deadline from placeholder material."
+    },
+    "safety": {
+      "risk_level": "high",
+      "escalation_triggers": [
+        "The user reports an urgent hearing or deadline.",
+        "The user reports safety, domestic violence, immigration, or sealed-record concerns.",
+        "The user is unsure which court has jurisdiction."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to guarantee eligibility.",
+        "The user asks Pro-One to avoid required court instructions.",
+        "The user asks for advice about evading legal requirements."
+      ],
+      "required_warnings": [
+        "This step provides legal information, not legal advice.",
+        "Court instructions can change, so the user should review current court materials.",
+        "The user should seek legal help for urgent, complex, or safety-related issues."
+      ],
+      "safety_notes": "This step should direct users back to reviewed source material."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder process-step record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "source_grounding",
+        "jurisdiction_clarity",
+        "legal_advice_boundary",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The step identifies jurisdiction limits.",
+        "The step points to required source IDs.",
+        "The step avoids legal advice and outcome guarantees.",
+        "The step flags higher-risk issues for human help."
+      ],
+      "known_failure_modes": [
+        "Treating placeholder sources as approved sources.",
+        "Overstating what the step can do.",
+        "Summarizing court instructions without source support."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-business-license-review-agency-page",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Review Business-License Agency Page",
+    "description": "Placeholder process step for review business-license agency page; it is not supported legal guidance.",
+    "status": "proposed",
+    "workflow_ids": [
+      "small_business_license_information"
+    ],
+    "step_type": "review_instructions",
+    "sequence": {
+      "position": 1,
+      "is_required": true,
+      "depends_on": [],
+      "next_step_ids": [
+        "example-business-license-identify-application"
+      ],
+      "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
+    },
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Fictional jurisdiction for schema validation only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-city-small-business-license-guide"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "The source record is proposed placeholder metadata."
+    },
+    "actor": {
+      "primary_actor": "user",
+      "additional_actors": [],
+      "actor_notes": "The user remains responsible for factual and legal decisions."
+    },
+    "inputs": {
+      "required_inputs": [
+        "user-confirmed facts",
+        "document type or stated goal"
+      ],
+      "optional_inputs": [
+        "redacted excerpt",
+        "official source link"
+      ],
+      "excluded_inputs": [
+        "facts invented by the system",
+        "unnecessary sensitive identifiers"
+      ],
+      "collects_sensitive_data": false,
+      "data_minimization_notes": "Use summaries and redacted excerpts where possible."
+    },
+    "actions": {
+      "allowed_actions": [
+        "Explain general concepts when source-supported.",
+        "Organize explicit user-confirmed information.",
+        "Provide a checklist without choosing legal strategy."
+      ],
+      "prohibited_actions": [
+        "Invent facts or legal positions.",
+        "Choose admissions, denials, defenses, or objections.",
+        "Represent that a draft is legally sufficient."
+      ],
+      "action_notes": "Assistance remains informational and user-directed."
+    },
+    "documents": {
+      "related_document_types": [
+        "other"
+      ],
+      "document_help_allowed": [
+        "explanation",
+        "checklist",
+        "outline"
+      ],
+      "document_help_notes": "Any populated draft must use explicit user decisions in a reviewed workflow."
+    },
+    "deadline": {
+      "deadline_relevant": true,
+      "deadline_handling": "source_backed_information",
+      "deadline_source_ids": [
+        "example-city-small-business-license-guide"
+      ],
+      "deadline_notes": "Do not calculate or state a final deadline from placeholder material."
+    },
+    "safety": {
+      "risk_level": "high",
+      "escalation_triggers": [
+        "The user reports an urgent hearing or deadline.",
+        "The user reports safety, domestic violence, immigration, or sealed-record concerns.",
+        "The user is unsure which court has jurisdiction."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to guarantee eligibility.",
+        "The user asks Pro-One to avoid required court instructions.",
+        "The user asks for advice about evading legal requirements."
+      ],
+      "required_warnings": [
+        "This step provides legal information, not legal advice.",
+        "Court instructions can change, so the user should review current court materials.",
+        "The user should seek legal help for urgent, complex, or safety-related issues."
+      ],
+      "safety_notes": "This step should direct users back to reviewed source material."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder process-step record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "source_grounding",
+        "jurisdiction_clarity",
+        "legal_advice_boundary",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The step identifies jurisdiction limits.",
+        "The step points to required source IDs.",
+        "The step avoids legal advice and outcome guarantees.",
+        "The step flags higher-risk issues for human help."
+      ],
+      "known_failure_modes": [
+        "Treating placeholder sources as approved sources.",
+        "Overstating what the step can do.",
+        "Summarizing court instructions without source support."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-business-license-identify-application",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Identify Business-License Application",
+    "description": "Placeholder process step for identify business-license application; it is not supported legal guidance.",
+    "status": "proposed",
+    "workflow_ids": [
+      "small_business_license_information"
+    ],
+    "step_type": "check_eligibility",
+    "sequence": {
+      "position": 2,
+      "is_required": true,
+      "depends_on": [],
+      "next_step_ids": [
+        "example-business-license-prepare-information"
+      ],
+      "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
+    },
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Fictional jurisdiction for schema validation only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-city-small-business-license-guide"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "The source record is proposed placeholder metadata."
+    },
+    "actor": {
+      "primary_actor": "user",
+      "additional_actors": [],
+      "actor_notes": "The user remains responsible for factual and legal decisions."
+    },
+    "inputs": {
+      "required_inputs": [
+        "user-confirmed facts",
+        "document type or stated goal"
+      ],
+      "optional_inputs": [
+        "redacted excerpt",
+        "official source link"
+      ],
+      "excluded_inputs": [
+        "facts invented by the system",
+        "unnecessary sensitive identifiers"
+      ],
+      "collects_sensitive_data": false,
+      "data_minimization_notes": "Use summaries and redacted excerpts where possible."
+    },
+    "actions": {
+      "allowed_actions": [
+        "Explain general concepts when source-supported.",
+        "Organize explicit user-confirmed information.",
+        "Provide a checklist without choosing legal strategy."
+      ],
+      "prohibited_actions": [
+        "Invent facts or legal positions.",
+        "Choose admissions, denials, defenses, or objections.",
+        "Represent that a draft is legally sufficient."
+      ],
+      "action_notes": "Assistance remains informational and user-directed."
+    },
+    "documents": {
+      "related_document_types": [
+        "other"
+      ],
+      "document_help_allowed": [
+        "explanation",
+        "checklist",
+        "outline"
+      ],
+      "document_help_notes": "Any populated draft must use explicit user decisions in a reviewed workflow."
+    },
+    "deadline": {
+      "deadline_relevant": true,
+      "deadline_handling": "source_backed_information",
+      "deadline_source_ids": [
+        "example-city-small-business-license-guide"
+      ],
+      "deadline_notes": "Do not calculate or state a final deadline from placeholder material."
+    },
+    "safety": {
+      "risk_level": "high",
+      "escalation_triggers": [
+        "The user reports an urgent hearing or deadline.",
+        "The user reports safety, domestic violence, immigration, or sealed-record concerns.",
+        "The user is unsure which court has jurisdiction."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to guarantee eligibility.",
+        "The user asks Pro-One to avoid required court instructions.",
+        "The user asks for advice about evading legal requirements."
+      ],
+      "required_warnings": [
+        "This step provides legal information, not legal advice.",
+        "Court instructions can change, so the user should review current court materials.",
+        "The user should seek legal help for urgent, complex, or safety-related issues."
+      ],
+      "safety_notes": "This step should direct users back to reviewed source material."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder process-step record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "source_grounding",
+        "jurisdiction_clarity",
+        "legal_advice_boundary",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The step identifies jurisdiction limits.",
+        "The step points to required source IDs.",
+        "The step avoids legal advice and outcome guarantees.",
+        "The step flags higher-risk issues for human help."
+      ],
+      "known_failure_modes": [
+        "Treating placeholder sources as approved sources.",
+        "Overstating what the step can do.",
+        "Summarizing court instructions without source support."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-business-license-prepare-information",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Prepare Business-License Information",
+    "description": "Placeholder process step for prepare business-license information; it is not supported legal guidance.",
+    "status": "proposed",
+    "workflow_ids": [
+      "small_business_license_information"
+    ],
+    "step_type": "gather_information",
+    "sequence": {
+      "position": 3,
+      "is_required": true,
+      "depends_on": [],
+      "next_step_ids": [
+        "example-business-license-submit-application"
+      ],
+      "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
+    },
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Fictional jurisdiction for schema validation only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-city-small-business-license-guide"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "The source record is proposed placeholder metadata."
+    },
+    "actor": {
+      "primary_actor": "user",
+      "additional_actors": [],
+      "actor_notes": "The user remains responsible for factual and legal decisions."
+    },
+    "inputs": {
+      "required_inputs": [
+        "user-confirmed facts",
+        "document type or stated goal"
+      ],
+      "optional_inputs": [
+        "redacted excerpt",
+        "official source link"
+      ],
+      "excluded_inputs": [
+        "facts invented by the system",
+        "unnecessary sensitive identifiers"
+      ],
+      "collects_sensitive_data": false,
+      "data_minimization_notes": "Use summaries and redacted excerpts where possible."
+    },
+    "actions": {
+      "allowed_actions": [
+        "Explain general concepts when source-supported.",
+        "Organize explicit user-confirmed information.",
+        "Provide a checklist without choosing legal strategy."
+      ],
+      "prohibited_actions": [
+        "Invent facts or legal positions.",
+        "Choose admissions, denials, defenses, or objections.",
+        "Represent that a draft is legally sufficient."
+      ],
+      "action_notes": "Assistance remains informational and user-directed."
+    },
+    "documents": {
+      "related_document_types": [
+        "other"
+      ],
+      "document_help_allowed": [
+        "explanation",
+        "checklist",
+        "outline"
+      ],
+      "document_help_notes": "Any populated draft must use explicit user decisions in a reviewed workflow."
+    },
+    "deadline": {
+      "deadline_relevant": true,
+      "deadline_handling": "source_backed_information",
+      "deadline_source_ids": [
+        "example-city-small-business-license-guide"
+      ],
+      "deadline_notes": "Do not calculate or state a final deadline from placeholder material."
+    },
+    "safety": {
+      "risk_level": "high",
+      "escalation_triggers": [
+        "The user reports an urgent hearing or deadline.",
+        "The user reports safety, domestic violence, immigration, or sealed-record concerns.",
+        "The user is unsure which court has jurisdiction."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to guarantee eligibility.",
+        "The user asks Pro-One to avoid required court instructions.",
+        "The user asks for advice about evading legal requirements."
+      ],
+      "required_warnings": [
+        "This step provides legal information, not legal advice.",
+        "Court instructions can change, so the user should review current court materials.",
+        "The user should seek legal help for urgent, complex, or safety-related issues."
+      ],
+      "safety_notes": "This step should direct users back to reviewed source material."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder process-step record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "source_grounding",
+        "jurisdiction_clarity",
+        "legal_advice_boundary",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The step identifies jurisdiction limits.",
+        "The step points to required source IDs.",
+        "The step avoids legal advice and outcome guarantees.",
+        "The step flags higher-risk issues for human help."
+      ],
+      "known_failure_modes": [
+        "Treating placeholder sources as approved sources.",
+        "Overstating what the step can do.",
+        "Summarizing court instructions without source support."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-civil-discovery-review-requests",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Review Civil Discovery Requests",
+    "description": "Placeholder process step for review civil discovery requests; it is not supported legal guidance.",
+    "status": "proposed",
+    "workflow_ids": [
+      "civil_discovery_information"
+    ],
+    "step_type": "review_instructions",
+    "sequence": {
+      "position": 1,
+      "is_required": true,
+      "depends_on": [],
+      "next_step_ids": [
+        "example-civil-discovery-prepare-responses"
+      ],
+      "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
+    },
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Fictional jurisdiction for schema validation only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-state-civil-discovery-rules"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "The source record is proposed placeholder metadata."
+    },
+    "actor": {
+      "primary_actor": "user",
+      "additional_actors": [],
+      "actor_notes": "The user remains responsible for factual and legal decisions."
+    },
+    "inputs": {
+      "required_inputs": [
+        "user-confirmed facts",
+        "document type or stated goal"
+      ],
+      "optional_inputs": [
+        "redacted excerpt",
+        "official source link"
+      ],
+      "excluded_inputs": [
+        "facts invented by the system",
+        "unnecessary sensitive identifiers"
+      ],
+      "collects_sensitive_data": false,
+      "data_minimization_notes": "Use summaries and redacted excerpts where possible."
+    },
+    "actions": {
+      "allowed_actions": [
+        "Explain general concepts when source-supported.",
+        "Organize explicit user-confirmed information.",
+        "Provide a checklist without choosing legal strategy."
+      ],
+      "prohibited_actions": [
+        "Invent facts or legal positions.",
+        "Choose admissions, denials, defenses, or objections.",
+        "Represent that a draft is legally sufficient."
+      ],
+      "action_notes": "Assistance remains informational and user-directed."
+    },
+    "documents": {
+      "related_document_types": [
+        "other"
+      ],
+      "document_help_allowed": [
+        "explanation",
+        "checklist",
+        "outline"
+      ],
+      "document_help_notes": "Any populated draft must use explicit user decisions in a reviewed workflow."
+    },
+    "deadline": {
+      "deadline_relevant": true,
+      "deadline_handling": "source_backed_information",
+      "deadline_source_ids": [
+        "example-state-civil-discovery-rules"
+      ],
+      "deadline_notes": "Do not calculate or state a final deadline from placeholder material."
+    },
+    "safety": {
+      "risk_level": "high",
+      "escalation_triggers": [
+        "The user reports an urgent hearing or deadline.",
+        "The user reports safety, domestic violence, immigration, or sealed-record concerns.",
+        "The user is unsure which court has jurisdiction."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to guarantee eligibility.",
+        "The user asks Pro-One to avoid required court instructions.",
+        "The user asks for advice about evading legal requirements."
+      ],
+      "required_warnings": [
+        "This step provides legal information, not legal advice.",
+        "Court instructions can change, so the user should review current court materials.",
+        "The user should seek legal help for urgent, complex, or safety-related issues."
+      ],
+      "safety_notes": "This step should direct users back to reviewed source material."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder process-step record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "source_grounding",
+        "jurisdiction_clarity",
+        "legal_advice_boundary",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The step identifies jurisdiction limits.",
+        "The step points to required source IDs.",
+        "The step avoids legal advice and outcome guarantees.",
+        "The step flags higher-risk issues for human help."
+      ],
+      "known_failure_modes": [
+        "Treating placeholder sources as approved sources.",
+        "Overstating what the step can do.",
+        "Summarizing court instructions without source support."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-civil-discovery-prepare-responses",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Organize Civil Discovery Responses",
+    "description": "Placeholder process step for organize civil discovery responses; it is not supported legal guidance.",
+    "status": "proposed",
+    "workflow_ids": [
+      "civil_discovery_information"
+    ],
+    "step_type": "draft_document",
+    "sequence": {
+      "position": 2,
+      "is_required": true,
+      "depends_on": [],
+      "next_step_ids": [],
+      "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
+    },
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Fictional jurisdiction for schema validation only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-state-civil-discovery-rules"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "The source record is proposed placeholder metadata."
+    },
+    "actor": {
+      "primary_actor": "user",
+      "additional_actors": [],
+      "actor_notes": "The user remains responsible for factual and legal decisions."
+    },
+    "inputs": {
+      "required_inputs": [
+        "user-confirmed facts",
+        "document type or stated goal"
+      ],
+      "optional_inputs": [
+        "redacted excerpt",
+        "official source link"
+      ],
+      "excluded_inputs": [
+        "facts invented by the system",
+        "unnecessary sensitive identifiers"
+      ],
+      "collects_sensitive_data": false,
+      "data_minimization_notes": "Use summaries and redacted excerpts where possible."
+    },
+    "actions": {
+      "allowed_actions": [
+        "Explain general concepts when source-supported.",
+        "Organize explicit user-confirmed information.",
+        "Provide a checklist without choosing legal strategy."
+      ],
+      "prohibited_actions": [
+        "Invent facts or legal positions.",
+        "Choose admissions, denials, defenses, or objections.",
+        "Represent that a draft is legally sufficient."
+      ],
+      "action_notes": "Assistance remains informational and user-directed."
+    },
+    "documents": {
+      "related_document_types": [
+        "other"
+      ],
+      "document_help_allowed": [
+        "explanation",
+        "checklist",
+        "outline"
+      ],
+      "document_help_notes": "Any populated draft must use explicit user decisions in a reviewed workflow."
+    },
+    "deadline": {
+      "deadline_relevant": true,
+      "deadline_handling": "source_backed_information",
+      "deadline_source_ids": [
+        "example-state-civil-discovery-rules"
+      ],
+      "deadline_notes": "Do not calculate or state a final deadline from placeholder material."
+    },
+    "safety": {
+      "risk_level": "high",
+      "escalation_triggers": [
+        "The user reports an urgent hearing or deadline.",
+        "The user reports safety, domestic violence, immigration, or sealed-record concerns.",
+        "The user is unsure which court has jurisdiction."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to guarantee eligibility.",
+        "The user asks Pro-One to avoid required court instructions.",
+        "The user asks for advice about evading legal requirements."
+      ],
+      "required_warnings": [
+        "This step provides legal information, not legal advice.",
+        "Court instructions can change, so the user should review current court materials.",
+        "The user should seek legal help for urgent, complex, or safety-related issues."
+      ],
+      "safety_notes": "This step should direct users back to reviewed source material."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder process-step record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "source_grounding",
+        "jurisdiction_clarity",
+        "legal_advice_boundary",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The step identifies jurisdiction limits.",
+        "The step points to required source IDs.",
+        "The step avoids legal advice and outcome guarantees.",
+        "The step flags higher-risk issues for human help."
+      ],
+      "known_failure_modes": [
+        "Treating placeholder sources as approved sources.",
+        "Overstating what the step can do.",
+        "Summarizing court instructions without source support."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-subpoena-review-document",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Review Subpoena Document",
+    "description": "Placeholder process step for review subpoena document; it is not supported legal guidance.",
+    "status": "proposed",
+    "workflow_ids": [
+      "subpoena_information"
+    ],
+    "step_type": "review_instructions",
+    "sequence": {
+      "position": 1,
+      "is_required": true,
+      "depends_on": [],
+      "next_step_ids": [
+        "example-subpoena-identify-response-options"
+      ],
+      "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
+    },
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Fictional jurisdiction for schema validation only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-state-subpoena-rule"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "The source record is proposed placeholder metadata."
+    },
+    "actor": {
+      "primary_actor": "user",
+      "additional_actors": [],
+      "actor_notes": "The user remains responsible for factual and legal decisions."
+    },
+    "inputs": {
+      "required_inputs": [
+        "user-confirmed facts",
+        "document type or stated goal"
+      ],
+      "optional_inputs": [
+        "redacted excerpt",
+        "official source link"
+      ],
+      "excluded_inputs": [
+        "facts invented by the system",
+        "unnecessary sensitive identifiers"
+      ],
+      "collects_sensitive_data": false,
+      "data_minimization_notes": "Use summaries and redacted excerpts where possible."
+    },
+    "actions": {
+      "allowed_actions": [
+        "Explain general concepts when source-supported.",
+        "Organize explicit user-confirmed information.",
+        "Provide a checklist without choosing legal strategy."
+      ],
+      "prohibited_actions": [
+        "Invent facts or legal positions.",
+        "Choose admissions, denials, defenses, or objections.",
+        "Represent that a draft is legally sufficient."
+      ],
+      "action_notes": "Assistance remains informational and user-directed."
+    },
+    "documents": {
+      "related_document_types": [
+        "other"
+      ],
+      "document_help_allowed": [
+        "explanation",
+        "checklist",
+        "outline"
+      ],
+      "document_help_notes": "Any populated draft must use explicit user decisions in a reviewed workflow."
+    },
+    "deadline": {
+      "deadline_relevant": true,
+      "deadline_handling": "source_backed_information",
+      "deadline_source_ids": [
+        "example-state-subpoena-rule"
+      ],
+      "deadline_notes": "Do not calculate or state a final deadline from placeholder material."
+    },
+    "safety": {
+      "risk_level": "high",
+      "escalation_triggers": [
+        "The user reports an urgent hearing or deadline.",
+        "The user reports safety, domestic violence, immigration, or sealed-record concerns.",
+        "The user is unsure which court has jurisdiction."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to guarantee eligibility.",
+        "The user asks Pro-One to avoid required court instructions.",
+        "The user asks for advice about evading legal requirements."
+      ],
+      "required_warnings": [
+        "This step provides legal information, not legal advice.",
+        "Court instructions can change, so the user should review current court materials.",
+        "The user should seek legal help for urgent, complex, or safety-related issues."
+      ],
+      "safety_notes": "This step should direct users back to reviewed source material."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder process-step record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "source_grounding",
+        "jurisdiction_clarity",
+        "legal_advice_boundary",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The step identifies jurisdiction limits.",
+        "The step points to required source IDs.",
+        "The step avoids legal advice and outcome guarantees.",
+        "The step flags higher-risk issues for human help."
+      ],
+      "known_failure_modes": [
+        "Treating placeholder sources as approved sources.",
+        "Overstating what the step can do.",
+        "Summarizing court instructions without source support."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-subpoena-identify-response-options",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Identify Source-Backed Subpoena Options",
+    "description": "Placeholder process step for identify source-backed subpoena options; it is not supported legal guidance.",
+    "status": "proposed",
+    "workflow_ids": [
+      "subpoena_information"
+    ],
+    "step_type": "gather_information",
+    "sequence": {
+      "position": 2,
+      "is_required": true,
+      "depends_on": [],
+      "next_step_ids": [],
+      "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
+    },
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Fictional jurisdiction for schema validation only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-state-subpoena-rule"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "The source record is proposed placeholder metadata."
+    },
+    "actor": {
+      "primary_actor": "user",
+      "additional_actors": [],
+      "actor_notes": "The user remains responsible for factual and legal decisions."
+    },
+    "inputs": {
+      "required_inputs": [
+        "user-confirmed facts",
+        "document type or stated goal"
+      ],
+      "optional_inputs": [
+        "redacted excerpt",
+        "official source link"
+      ],
+      "excluded_inputs": [
+        "facts invented by the system",
+        "unnecessary sensitive identifiers"
+      ],
+      "collects_sensitive_data": false,
+      "data_minimization_notes": "Use summaries and redacted excerpts where possible."
+    },
+    "actions": {
+      "allowed_actions": [
+        "Explain general concepts when source-supported.",
+        "Organize explicit user-confirmed information.",
+        "Provide a checklist without choosing legal strategy."
+      ],
+      "prohibited_actions": [
+        "Invent facts or legal positions.",
+        "Choose admissions, denials, defenses, or objections.",
+        "Represent that a draft is legally sufficient."
+      ],
+      "action_notes": "Assistance remains informational and user-directed."
+    },
+    "documents": {
+      "related_document_types": [
+        "other"
+      ],
+      "document_help_allowed": [
+        "explanation",
+        "checklist",
+        "outline"
+      ],
+      "document_help_notes": "Any populated draft must use explicit user decisions in a reviewed workflow."
+    },
+    "deadline": {
+      "deadline_relevant": true,
+      "deadline_handling": "source_backed_information",
+      "deadline_source_ids": [
+        "example-state-subpoena-rule"
+      ],
+      "deadline_notes": "Do not calculate or state a final deadline from placeholder material."
+    },
+    "safety": {
+      "risk_level": "high",
+      "escalation_triggers": [
+        "The user reports an urgent hearing or deadline.",
+        "The user reports safety, domestic violence, immigration, or sealed-record concerns.",
+        "The user is unsure which court has jurisdiction."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to guarantee eligibility.",
+        "The user asks Pro-One to avoid required court instructions.",
+        "The user asks for advice about evading legal requirements."
+      ],
+      "required_warnings": [
+        "This step provides legal information, not legal advice.",
+        "Court instructions can change, so the user should review current court materials.",
+        "The user should seek legal help for urgent, complex, or safety-related issues."
+      ],
+      "safety_notes": "This step should direct users back to reviewed source material."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder process-step record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "source_grounding",
+        "jurisdiction_clarity",
+        "legal_advice_boundary",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The step identifies jurisdiction limits.",
+        "The step points to required source IDs.",
+        "The step avoids legal advice and outcome guarantees.",
+        "The step flags higher-risk issues for human help."
+      ],
+      "known_failure_modes": [
+        "Treating placeholder sources as approved sources.",
+        "Overstating what the step can do.",
+        "Summarizing court instructions without source support."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-small-business-review-dispute",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Review Small-Business Dispute",
+    "description": "Placeholder process step for review small-business dispute; it is not supported legal guidance.",
+    "status": "proposed",
+    "workflow_ids": [
+      "small_business_dispute_information"
+    ],
+    "step_type": "gather_information",
+    "sequence": {
+      "position": 1,
+      "is_required": true,
+      "depends_on": [],
+      "next_step_ids": [
+        "example-small-business-prepare-demand-letter"
+      ],
+      "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
+    },
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Fictional jurisdiction for schema validation only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-state-small-claims-guide"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "The source record is proposed placeholder metadata."
+    },
+    "actor": {
+      "primary_actor": "user",
+      "additional_actors": [],
+      "actor_notes": "The user remains responsible for factual and legal decisions."
+    },
+    "inputs": {
+      "required_inputs": [
+        "user-confirmed facts",
+        "document type or stated goal"
+      ],
+      "optional_inputs": [
+        "redacted excerpt",
+        "official source link"
+      ],
+      "excluded_inputs": [
+        "facts invented by the system",
+        "unnecessary sensitive identifiers"
+      ],
+      "collects_sensitive_data": false,
+      "data_minimization_notes": "Use summaries and redacted excerpts where possible."
+    },
+    "actions": {
+      "allowed_actions": [
+        "Explain general concepts when source-supported.",
+        "Organize explicit user-confirmed information.",
+        "Provide a checklist without choosing legal strategy."
+      ],
+      "prohibited_actions": [
+        "Invent facts or legal positions.",
+        "Choose admissions, denials, defenses, or objections.",
+        "Represent that a draft is legally sufficient."
+      ],
+      "action_notes": "Assistance remains informational and user-directed."
+    },
+    "documents": {
+      "related_document_types": [
+        "other"
+      ],
+      "document_help_allowed": [
+        "explanation",
+        "checklist",
+        "outline"
+      ],
+      "document_help_notes": "Any populated draft must use explicit user decisions in a reviewed workflow."
+    },
+    "deadline": {
+      "deadline_relevant": true,
+      "deadline_handling": "source_backed_information",
+      "deadline_source_ids": [
+        "example-state-small-claims-guide"
+      ],
+      "deadline_notes": "Do not calculate or state a final deadline from placeholder material."
+    },
+    "safety": {
+      "risk_level": "high",
+      "escalation_triggers": [
+        "The user reports an urgent hearing or deadline.",
+        "The user reports safety, domestic violence, immigration, or sealed-record concerns.",
+        "The user is unsure which court has jurisdiction."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to guarantee eligibility.",
+        "The user asks Pro-One to avoid required court instructions.",
+        "The user asks for advice about evading legal requirements."
+      ],
+      "required_warnings": [
+        "This step provides legal information, not legal advice.",
+        "Court instructions can change, so the user should review current court materials.",
+        "The user should seek legal help for urgent, complex, or safety-related issues."
+      ],
+      "safety_notes": "This step should direct users back to reviewed source material."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder process-step record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "source_grounding",
+        "jurisdiction_clarity",
+        "legal_advice_boundary",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The step identifies jurisdiction limits.",
+        "The step points to required source IDs.",
+        "The step avoids legal advice and outcome guarantees.",
+        "The step flags higher-risk issues for human help."
+      ],
+      "known_failure_modes": [
+        "Treating placeholder sources as approved sources.",
+        "Overstating what the step can do.",
+        "Summarizing court instructions without source support."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-small-business-prepare-demand-letter",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Structure User-Directed Demand Letter",
+    "description": "Placeholder process step for structure user-directed demand letter; it is not supported legal guidance.",
+    "status": "proposed",
+    "workflow_ids": [
+      "small_business_dispute_information"
+    ],
+    "step_type": "draft_document",
+    "sequence": {
+      "position": 2,
+      "is_required": true,
+      "depends_on": [],
+      "next_step_ids": [],
+      "sequence_notes": "Illustrative ordering only; a reviewed workflow must establish actual dependencies."
+    },
+    "jurisdiction": {
+      "country": "United States",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example State Courts",
+      "agency": null,
+      "jurisdiction_notes": "Fictional jurisdiction for schema validation only."
+    },
+    "sources": {
+      "required_source_ids": [
+        "example-state-small-claims-guide"
+      ],
+      "optional_source_ids": [],
+      "source_review_required": true,
+      "source_notes": "The source record is proposed placeholder metadata."
+    },
+    "actor": {
+      "primary_actor": "user",
+      "additional_actors": [],
+      "actor_notes": "The user remains responsible for factual and legal decisions."
+    },
+    "inputs": {
+      "required_inputs": [
+        "user-confirmed facts",
+        "document type or stated goal"
+      ],
+      "optional_inputs": [
+        "redacted excerpt",
+        "official source link"
+      ],
+      "excluded_inputs": [
+        "facts invented by the system",
+        "unnecessary sensitive identifiers"
+      ],
+      "collects_sensitive_data": false,
+      "data_minimization_notes": "Use summaries and redacted excerpts where possible."
+    },
+    "actions": {
+      "allowed_actions": [
+        "Explain general concepts when source-supported.",
+        "Organize explicit user-confirmed information.",
+        "Provide a checklist without choosing legal strategy."
+      ],
+      "prohibited_actions": [
+        "Invent facts or legal positions.",
+        "Choose admissions, denials, defenses, or objections.",
+        "Represent that a draft is legally sufficient."
+      ],
+      "action_notes": "Assistance remains informational and user-directed."
+    },
+    "documents": {
+      "related_document_types": [
+        "other"
+      ],
+      "document_help_allowed": [
+        "explanation",
+        "checklist",
+        "outline"
+      ],
+      "document_help_notes": "Any populated draft must use explicit user decisions in a reviewed workflow."
+    },
+    "deadline": {
+      "deadline_relevant": true,
+      "deadline_handling": "source_backed_information",
+      "deadline_source_ids": [
+        "example-state-small-claims-guide"
+      ],
+      "deadline_notes": "Do not calculate or state a final deadline from placeholder material."
+    },
+    "safety": {
+      "risk_level": "high",
+      "escalation_triggers": [
+        "The user reports an urgent hearing or deadline.",
+        "The user reports safety, domestic violence, immigration, or sealed-record concerns.",
+        "The user is unsure which court has jurisdiction."
+      ],
+      "refusal_triggers": [
+        "The user asks Pro-One to guarantee eligibility.",
+        "The user asks Pro-One to avoid required court instructions.",
+        "The user asks for advice about evading legal requirements."
+      ],
+      "required_warnings": [
+        "This step provides legal information, not legal advice.",
+        "Court instructions can change, so the user should review current court materials.",
+        "The user should seek legal help for urgent, complex, or safety-related issues."
+      ],
+      "safety_notes": "This step should direct users back to reviewed source material."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder process-step record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "source_grounding",
+        "jurisdiction_clarity",
+        "legal_advice_boundary",
+        "escalation_trigger_detection"
+      ],
+      "success_criteria": [
+        "The step identifies jurisdiction limits.",
+        "The step points to required source IDs.",
+        "The step avoids legal advice and outcome guarantees.",
+        "The step flags higher-risk issues for human help."
+      ],
+      "known_failure_modes": [
+        "Treating placeholder sources as approved sources.",
+        "Overstating what the step can do.",
+        "Summarizing court instructions without source support."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
   }
 ]

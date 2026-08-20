@@ -18,6 +18,10 @@ The current files are:
 
 The sample risk records are placeholders. They are not approved production risk rules, user-facing legal guidance, legal advice, court instructions, or agency instructions.
 
+## Maturity status
+
+Risk definitions use the shared maturity states: `proposed`, `researched`, `designed`, `tested`, `supported`, `deprecated`, and `rejected`. Supported status requires approved review provenance and at least one required evaluation fixture. The sample risks remain proposed.
+
 ## Core principle
 
 Risk does not mean Pro-One stops helping.
@@ -113,9 +117,9 @@ Supported values include:
 
 Use the most specific risk type that fits.
 
-## Risk level
+## Severity
 
-Each risk record has a `risk_level`.
+Each risk record has a `severity` field for potential harm. This is separate from urgency and assistance routing.
 
 Supported values are:
 
@@ -124,7 +128,22 @@ Supported values are:
 - `high`
 - `extreme`
 
-A higher risk level should change the support mode, not automatically end assistance.
+A higher severity should change safeguards and review expectations, not automatically end assistance.
+
+## Urgency
+
+The `urgency` field records time sensitivity:
+
+- `routine`
+- `time_sensitive`
+- `urgent`
+- `immediate`
+
+An urgent issue is not necessarily the most harmful issue, and an extreme-harm issue may not have an immediate deadline. Keeping these dimensions separate prevents severity from becoming a proxy for every routing decision.
+
+## Integrity and abuse risk
+
+The `integrity_risks` array identifies whether the record concerns fabrication, deception, evidence concealment, evidence destruction, record alteration, abuse of process, another integrity risk, or none. These controls are separate from severity and urgency because an unsafe request may require refusal of one action while still permitting truthful, preservation-oriented safe continuation.
 
 ## Low risk
 
@@ -304,7 +323,7 @@ They should test:
 - under-warning
 - safe continuation
 
-## Relationship to future response schema
+## Relationship to response patterns
 
 The response schema will define what a safe user-facing response must include.
 
@@ -337,14 +356,14 @@ User statements are things users say that may reveal risk.
 
 Examples:
 
-- ìThis is due today.î
-- ìI missed the deadline.î
-- ìI received a subpoena.î
-- ìThe other side filed a motion to compel.î
-- ìCan I ignore this?î
-- ìWhat objection should I use?î
-- ìCan you make this sound like it happened?î
-- ìCan I delete these records?î
+- ‚ÄúThis is due today.‚Äù
+- ‚ÄúI missed the deadline.‚Äù
+- ‚ÄúI received a subpoena.‚Äù
+- ‚ÄúThe other side filed a motion to compel.‚Äù
+- ‚ÄúCan I ignore this?‚Äù
+- ‚ÄúWhat objection should I use?‚Äù
+- ‚ÄúCan you make this sound like it happened?‚Äù
+- ‚ÄúCan I delete these records?‚Äù
 
 ## Document signals
 
@@ -626,7 +645,7 @@ It includes:
 
 Supported deadline strategies are:
 
-- `no_deadline`
+- `not_applicable`
 - `deadline_awareness_only`
 - `source_backed_deadline_information`
 - `urgent_support_without_final_calculation`
@@ -711,19 +730,19 @@ It includes:
 
 - `human_help_framing`
 - `resource_prompt_allowed`
-- `must_not_make_paid_help_the_default`
+- `resource_selection_policy`
 - `human_help_notes`
 
 ## Human help framing values
 
 Supported values are:
 
-- `not_required_by_default`
-- `optional_free_or_low_cost_resource`
-- `recommended_for_high_risk_issues`
-- `urgent_for_extreme_risk`
+- `not_required`
+- `resources_optional`
+- `qualified_help_recommended`
+- `qualified_help_urgent`
 
-Human help should not be framed as paid counsel by default.
+Prefer free, official, self-help, legal-aid, nonprofit, and low-cost resources when they appropriately meet the need. Recommend qualified professional assistance when risk, complexity, or consequences make that appropriate; neither paid counsel nor avoidance of paid counsel should be a categorical default.
 
 When appropriate, Pro-One may suggest:
 
@@ -736,6 +755,8 @@ When appropriate, Pro-One may suggest:
 - low-cost legal resources
 
 This should be offered as an added path, not abandonment.
+
+The `resource_selection_policy` records this choice explicitly. Safe continuation can occur alongside escalation.
 
 ## Review
 
@@ -964,7 +985,7 @@ A bad risk record may:
 - support fabricated facts
 - support evidence destruction
 - ignore source limits
-- frame paid counsel as the default answer
+- treat paid counsel as the only route or categorically avoid qualified paid assistance when it is appropriate
 - fail to offer safe alternatives
 
 ## Guiding rule

@@ -1,125 +1,90 @@
 # Roadmap
 
-This roadmap keeps Pro-One focused on small, reviewable milestones.
+This roadmap distinguishes completed repository/specification work from current workflow-definition work and future application implementation. A checked foundation item does not mean a production legal AI capability exists.
 
-Pro-One should grow from a narrow, grounded legal workflow before expanding into broader legal tasks.
+## Phase 0: Repository foundation — completed
 
-## Phase 0: Project foundation
+Goal: establish the project direction and contribution standards.
 
-Goal: define the project direction and contribution standards.
+- [x] Define project architecture
+- [x] Define proposed MVP scope
+- [x] Define the initial roadmap
+- [x] Add contribution guidelines
+- [x] Add issue templates
+- [x] Add development setup documentation
+- [x] Document mission, governance, review, safety, privacy, ethics, source, workflow-selection, and evaluation principles
 
-- [ ] Define project architecture
-- [ ] Define MVP scope
-- [ ] Define initial roadmap
-- [ ] Add contribution guidelines
-- [ ] Add issue templates
-- [ ] Add basic development setup documentation
+## Phase 0.5: Schema and specification foundation — completed
 
-## Phase 1: First workflow definition
+Goal: create a coherent, enforceable record model before application work begins.
 
-Goal: define the first supported legal workflow.
+- [x] Define nine interoperable JSON Schema domains
+- [x] Add shared common definitions and canonical vocabulary
+- [x] Add fictional sample records for every domain
+- [x] Add record versioning, review provenance, source freshness, and source provenance fields
+- [x] Add supported-state conditional constraints
+- [x] Add cross-record reference and state-invariant validation
+- [x] Run validation in GitHub Actions on pull requests and pushes to `main`
 
-The first proposed workflow is helping self-represented civil litigants understand and prepare a basic answer to a civil complaint in one jurisdiction.
+These milestones describe repository infrastructure only. No sample record is currently approved or supported, and no production application exists.
 
-- [ ] Select the first jurisdiction
-- [ ] Identify the procedural task in detail
-- [ ] Define the user journey from complaint to draft answer
-- [ ] Identify required user inputs
-- [ ] Identify decision points where the system must ask follow-up questions
-- [ ] Define where the system must stop and advise the user to verify information or seek legal help
+## Phase 1: First workflow specification — current
 
-## Phase 2: Corpus selection and ingestion
+Goal: fully specify the proposed first workflow before implementation.
 
-Goal: choose one narrow legal corpus and create a repeatable ingestion process.
+The proposed workflow is helping a self-represented civil litigant understand and prepare a basic answer to a civil complaint in one jurisdiction.
 
-- [ ] Identify approved legal sources
-- [ ] Select official court rules, forms, instructions, or self-help materials
-- [ ] Define source metadata fields
-- [ ] Create an ingestion script
-- [ ] Store source text in a structured format
-- [ ] Preserve citation and source information
-- [ ] Document the corpus selection process
+- [ ] Select the first real jurisdiction
+- [ ] Identify the procedural task and source propositions in detail
+- [ ] Define the user journey from complaint intake to user-reviewed draft structure
+- [ ] Define how explicit user choices for admissions, denials, lack-of-knowledge responses, and defenses are recorded without the system choosing them
+- [ ] Identify required and prohibited user inputs
+- [ ] Identify decision points and minimum clarifying questions
+- [ ] Complete jurisdiction-specific review of the legal-information/legal-advice boundary and other applicable requirements
+- [ ] Define stop, warning, safe-continuation, and human-help behavior
+- [ ] Create reviewed evaluation fixtures and acceptance criteria
 
-## Phase 3: Retrieval
+## Phase 2: Corpus selection and ingestion — future application foundation
 
-Goal: retrieve relevant legal passages from the selected corpus.
+- [ ] Identify and review authoritative sources for the selected jurisdiction
+- [ ] Select court rules, forms, instructions, statutes, regulations, cases, and explanatory sources by proposition
+- [ ] Record source versions, effective periods, verification dates, and reuse constraints
+- [ ] Create a repeatable ingestion and update process
+- [ ] Preserve citations and content provenance
 
-- [ ] Implement basic keyword retrieval
-- [ ] Add metadata filtering
-- [ ] Add vector retrieval
-- [ ] Compare retrieval approaches
-- [ ] Record retrieval results against a small test set
+## Phase 3: Retrieval — future implementation
 
-## Phase 4: Grounded answer and workflow generation
+- [ ] Implement a minimal retrieval baseline
+- [ ] Add jurisdiction, authority, effective-date, and review-state filtering
+- [ ] Compare retrieval approaches against reviewed fixtures
+- [ ] Reject stale, superseded, deprecated, rejected, or mismatched authority for supported use
 
-Goal: generate answers and workflow guidance using retrieved legal context.
+## Phase 4: Grounded workflow and response generation — future implementation
 
-- [ ] Build a context builder
-- [ ] Add answer-generation prompt
-- [ ] Add workflow-step generation prompt
-- [ ] Require answers to use retrieved sources
-- [ ] Add refusal behavior when support is insufficient
-- [ ] Preserve source metadata through the answer pipeline
+- [ ] Build context assembly from approved records and retrieved passages
+- [ ] Generate source-backed explanations and workflow steps
+- [ ] Populate draft structure only from explicit user decisions and confirmed facts
+- [ ] Add citations, limitations, refusal of unsafe parts, and safe continuation
+- [ ] Preserve fact and source provenance through the response pipeline
 
-## Phase 5: Citations and source display
+## Phase 5: Evaluation and release gates — future implementation
 
-Goal: make answers verifiable.
+- [ ] Execute the reviewed evaluation-fixture suite
+- [ ] Measure retrieval, citation, jurisdiction, privacy, boundary, deadline, and refusal behavior
+- [ ] Require human review for defined high-consequence cases
+- [ ] Document release criteria for the first publicly supported workflow
 
-- [ ] Add source labels
-- [ ] Display citations with each answer
-- [ ] Link citations to retrieved passages
-- [ ] Identify source type, such as statute, rule, form, or guide
-- [ ] Distinguish primary law from secondary material
+## Phase 6: Minimal interface — future implementation
 
-## Phase 6: Evaluation
+- [ ] Build a narrow interface for the selected workflow
+- [ ] Display jurisdiction, sources, citations, limitations, and record maturity
+- [ ] Add privacy notices and user-confirmation controls
+- [ ] Make clear that draft generation does not establish legal sufficiency
 
-Goal: measure whether the system works.
+## Later phases
 
-- [ ] Create a small golden question set
-- [ ] Measure retrieval recall
-- [ ] Measure citation accuracy
-- [ ] Check for unsupported claims
-- [ ] Test refusal behavior
-- [ ] Track latency and cost
-
-## Phase 7: Simple interface
-
-Goal: provide a usable but minimal interface.
-
-- [ ] Build a simple question-and-answer interface
-- [ ] Show jurisdiction and legal workflow
-- [ ] Show retrieved sources
-- [ ] Show answer limitations
-- [ ] Add clear legal disclaimer
-
-## Phase 8: Litigation tracking
-
-Goal: expand from a single response workflow into matter tracking.
-
-Future features may include:
-
-- tracking basic litigation stages
-- organizing deadlines
-- saving pleadings and correspondence
-- summarizing docket activity
-- helping users understand next procedural steps
-
-This phase should not begin until the first grounded workflow is working.
-
-## Phase 9: Small-business legal workflows
-
-Goal: expand into common small-business legal tasks.
-
-Possible future workflows include:
-
-- contract dispute intake
-- demand letter preparation
-- contract review checklists
-- invoice dispute tracking
-- basic settlement organization
-
-Small-business workflows should follow the same standards: narrow scope, reliable sources, citations, and clear limitations.
+Only after the first workflow meets its release gates should the project consider litigation tracking, additional jurisdictions, small-business dispute workflows, or broader document support.
 
 ## Guiding rule
 
-Pro-One should not expand coverage faster than it can preserve grounding, citations, user safety, and practical usefulness.
+Pro-One should not expand coverage faster than it can preserve grounding, citations, jurisdiction accuracy, privacy, user control, fact integrity, safe continuation, and explicit evaluation.

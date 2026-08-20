@@ -1,12 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/zeitcow/pro-one/schemas/response.schema.json",
+  "$id": "https://github.com/pro-one-org/pro-one/schemas/response.schema.json",
   "title": "Pro-One Response",
   "description": "Schema for defining safe user-facing response patterns, including source use, scope limits, privacy prompts, risk handling, safe continuation, next steps, human-help framing, prohibited content, review status, and evaluation requirements.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "id",
+    "schema_version",
+    "record_version",
+    "last_modified",
     "title",
     "description",
     "status",
@@ -27,9 +30,16 @@
   ],
   "properties": {
     "id": {
-      "type": "string",
-      "description": "Stable response pattern identifier.",
-      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+    },
+    "schema_version": {
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/schemaVersion"
+    },
+    "record_version": {
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordVersion"
+    },
+    "last_modified": {
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
@@ -40,16 +50,7 @@
       "description": "Plain-language description of what this response pattern controls."
     },
     "status": {
-      "type": "string",
-      "description": "Current response-pattern maturity status.",
-      "enum": [
-        "proposed",
-        "drafted",
-        "tested",
-        "supported",
-        "deprecated",
-        "rejected"
-      ]
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/maturityStatus"
     },
     "response_type": {
       "type": "string",
@@ -91,7 +92,7 @@
           "type": "array",
           "description": "Source identifiers this response pattern may rely on.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -99,7 +100,7 @@
           "type": "array",
           "description": "Workflow identifiers this response pattern supports.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -107,7 +108,7 @@
           "type": "array",
           "description": "Process-step identifiers this response pattern supports.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -115,7 +116,7 @@
           "type": "array",
           "description": "Legal-document identifiers this response pattern supports.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -123,7 +124,7 @@
           "type": "array",
           "description": "Intake identifiers this response pattern supports.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -131,7 +132,7 @@
           "type": "array",
           "description": "Legal-rule identifiers this response pattern may use.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -139,7 +140,7 @@
           "type": "array",
           "description": "Risk identifiers this response pattern may respond to.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -147,7 +148,7 @@
           "type": "array",
           "description": "Evaluation fixtures that should test this response pattern.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         }
@@ -196,7 +197,7 @@
       "required": [
         "source_required",
         "citation_required",
-        "allowed_source_statuses",
+        "allowed_source_review_statuses",
         "allowed_source_authority_levels",
         "must_not_use_sources",
         "source_limitation_language"
@@ -210,19 +211,11 @@
           "type": "boolean",
           "description": "Whether the user-facing response must include source references or citations."
         },
-        "allowed_source_statuses": {
+        "allowed_source_review_statuses": {
           "type": "array",
           "description": "Source review statuses allowed for this response pattern.",
           "items": {
-            "type": "string",
-            "enum": [
-              "proposed",
-              "needs_review",
-              "reviewed",
-              "approved",
-              "deprecated",
-              "rejected"
-            ]
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/reviewStatus"
           },
           "uniqueItems": true,
           "minItems": 1
@@ -284,23 +277,7 @@
           "type": "array",
           "description": "Support modes allowed for this response pattern.",
           "items": {
-            "type": "string",
-            "enum": [
-              "general_information",
-              "source_backed_steps",
-              "checklist",
-              "document_explanation",
-              "issue_spotting",
-              "deadline_awareness",
-              "urgent_support",
-              "court_or_agency_resource_prompt",
-              "free_or_low_cost_resource_prompt",
-              "scope_boundary",
-              "privacy_prompt",
-              "redaction_prompt",
-              "refusal_of_unsafe_part",
-              "safe_continuation"
-            ]
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/supportMode"
           },
           "uniqueItems": true,
           "minItems": 1
@@ -411,30 +388,13 @@
           "type": "array",
           "description": "Risk levels this response pattern may support.",
           "items": {
-            "type": "string",
-            "enum": [
-              "none",
-              "low",
-              "medium",
-              "high",
-              "extreme"
-            ]
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/riskLevel"
           },
           "uniqueItems": true,
           "minItems": 1
         },
         "risk_routing": {
-          "type": "string",
-          "description": "Default risk-routing strategy for this response pattern.",
-          "enum": [
-            "none",
-            "continue_in_safer_mode",
-            "continue_with_urgent_support",
-            "continue_with_deadline_awareness",
-            "continue_with_issue_spotting",
-            "narrow_then_continue",
-            "refuse_unsafe_part_and_continue_safe_part"
-          ]
+          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/routingBehavior"
         },
         "safe_continuation_required": {
           "type": "boolean",
@@ -661,27 +621,20 @@
       "required": [
         "human_help_framing",
         "resource_prompt_allowed",
-        "must_not_make_paid_help_the_default",
+        "resource_selection_policy",
         "resource_types_allowed",
         "human_help_notes"
       ],
       "properties": {
         "human_help_framing": {
-          "type": "string",
-          "enum": [
-            "not_required_by_default",
-            "optional_free_or_low_cost_resource",
-            "recommended_for_high_risk_issues",
-            "urgent_for_extreme_risk"
-          ]
+          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/humanHelpFraming"
         },
         "resource_prompt_allowed": {
           "type": "boolean",
           "description": "Whether the response may include a resource prompt."
         },
-        "must_not_make_paid_help_the_default": {
-          "type": "boolean",
-          "description": "Whether the response must avoid making paid counsel the default route."
+        "resource_selection_policy": {
+          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/humanHelpResourcePolicy"
         },
         "resource_types_allowed": {
           "type": "array",
@@ -757,96 +710,186 @@
       }
     },
     "review": {
-      "type": "object",
-      "description": "Review status for the response pattern.",
-      "additionalProperties": false,
-      "required": [
-        "status",
-        "reviewed_by",
-        "reviewed_on"
-      ],
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": [
-            "proposed",
-            "needs_review",
-            "reviewed",
-            "approved",
-            "deprecated",
-            "rejected"
-          ]
-        },
-        "reviewed_by": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "reviewed_on": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date"
-        },
-        "review_notes": {
-          "type": "string"
-        }
-      }
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/reviewInformation"
     },
     "evaluation": {
-      "type": "object",
-      "description": "Evaluation requirements for this response pattern.",
-      "additionalProperties": false,
-      "required": [
-        "required_evaluation_fixture_ids",
-        "required_tests",
-        "success_criteria",
-        "known_failure_modes"
-      ],
-      "properties": {
-        "required_evaluation_fixture_ids": {
-          "type": "array",
-          "description": "Evaluation fixture identifiers required to test this response pattern.",
-          "items": {
-            "type": "string"
-          },
-          "uniqueItems": true
-        },
-        "required_tests": {
-          "type": "array",
-          "description": "Test categories required before this response pattern is supported.",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1
-        },
-        "success_criteria": {
-          "type": "array",
-          "description": "Conditions required for the response pattern to pass evaluation.",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1
-        },
-        "known_failure_modes": {
-          "type": "array",
-          "description": "Known ways the response pattern may fail.",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1
-        },
-        "evaluation_notes": {
-          "type": "string",
-          "description": "Additional evaluation notes."
-        }
-      }
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/evaluationRequirements"
     },
     "notes": {
       "type": "string",
       "description": "Additional notes."
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "supported"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "review": {
+            "properties": {
+              "status": {
+                "const": "approved"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "evaluation": {
+            "properties": {
+              "required_evaluation_fixture_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "required_evaluation_fixture_ids"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "source_use": {
+            "properties": {
+              "source_required": {
+                "const": true
+              }
+            },
+            "required": [
+              "source_required"
+            ]
+          }
+        },
+        "required": [
+          "source_use"
+        ]
+      },
+      "then": {
+        "properties": {
+          "related_records": {
+            "properties": {
+              "source_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "source_ids"
+            ]
+          },
+          "source_use": {
+            "properties": {
+              "citation_required": {
+                "const": true
+              }
+            },
+            "required": [
+              "citation_required"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "supported"
+          },
+          "source_use": {
+            "properties": {
+              "source_required": {
+                "const": true
+              }
+            },
+            "required": [
+              "source_required"
+            ]
+          }
+        },
+        "required": [
+          "status",
+          "source_use"
+        ]
+      },
+      "then": {
+        "properties": {
+          "source_use": {
+            "properties": {
+              "allowed_source_review_statuses": {
+                "items": {
+                  "enum": [
+                    "reviewed",
+                    "approved"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "supported"
+          },
+          "source_use": {
+            "properties": {
+              "source_required": {
+                "const": true
+              }
+            },
+            "required": [
+              "source_required"
+            ]
+          },
+          "risk": {
+            "properties": {
+              "risk_levels_supported": {
+                "contains": {
+                  "enum": [
+                    "high",
+                    "extreme"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "risk_levels_supported"
+            ]
+          }
+        },
+        "required": [
+          "status",
+          "source_use",
+          "risk"
+        ]
+      },
+      "then": {
+        "properties": {
+          "source_use": {
+            "properties": {
+              "allowed_source_review_statuses": {
+                "items": {
+                  "const": "approved"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }

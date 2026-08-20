@@ -1,12 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/zeitcow/pro-one/schemas/workflow.schema.json",
+  "$id": "https://github.com/pro-one-org/pro-one/schemas/workflow.schema.json",
   "title": "Pro-One Workflow Definition",
   "description": "Schema for defining supported legal-information workflows, boundaries, source needs, outputs, review status, and safety limits.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "id",
+    "schema_version",
+    "record_version",
+    "last_modified",
     "title",
     "description",
     "status",
@@ -25,9 +28,16 @@
   ],
   "properties": {
     "id": {
-      "type": "string",
-      "description": "Stable workflow identifier used by Pro-One.",
-      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
+    },
+    "schema_version": {
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/schemaVersion"
+    },
+    "record_version": {
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordVersion"
+    },
+    "last_modified": {
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/lastModified"
     },
     "title": {
       "type": "string",
@@ -38,17 +48,7 @@
       "description": "Short explanation of the workflow and who it helps."
     },
     "status": {
-      "type": "string",
-      "description": "Current workflow maturity status.",
-      "enum": [
-        "proposed",
-        "researched",
-        "designed",
-        "tested",
-        "supported",
-        "deprecated",
-        "rejected"
-      ]
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/maturityStatus"
     },
     "user_types": {
       "type": "array",
@@ -81,50 +81,7 @@
       "uniqueItems": true
     },
     "jurisdiction": {
-      "type": "object",
-      "description": "Jurisdiction or institution the workflow applies to.",
-      "additionalProperties": false,
-      "required": [
-        "country"
-      ],
-      "properties": {
-        "country": {
-          "type": "string",
-          "description": "Country code or country name."
-        },
-        "state": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "State, province, or equivalent jurisdiction."
-        },
-        "locality": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "County, city, district, or local jurisdiction if relevant."
-        },
-        "court": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Court name if the workflow is court-specific."
-        },
-        "agency": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Agency name if the workflow is agency-specific."
-        },
-        "jurisdiction_notes": {
-          "type": "string",
-          "description": "Notes about jurisdiction limits or uncertainty."
-        }
-      }
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/jurisdiction"
     },
     "scope": {
       "type": "object",
@@ -184,7 +141,7 @@
           "type": "array",
           "description": "Approved or proposed source IDs required for this workflow.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -192,7 +149,7 @@
           "type": "array",
           "description": "Additional source IDs that may support the workflow.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -262,7 +219,7 @@
           "type": "array",
           "description": "Process-step identifiers connected to this workflow.",
           "items": {
-            "type": "string"
+            "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/recordId"
           },
           "uniqueItems": true
         },
@@ -274,15 +231,7 @@
           }
         },
         "deadline_handling": {
-          "type": "string",
-          "description": "How the workflow handles deadlines.",
-          "enum": [
-            "no_deadlines",
-            "informational_only",
-            "source_required",
-            "human_review_required",
-            "unsupported"
-          ]
+          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/deadlineHandling"
         },
         "process_notes": {
           "type": "string",
@@ -310,7 +259,7 @@
               "step_by_step_guide",
               "checklist",
               "document_outline",
-              "document_draft",
+              "user_confirmed_draft",
               "form_guidance",
               "citation_summary",
               "referral_prompt"
@@ -363,13 +312,7 @@
       ],
       "properties": {
         "risk_level": {
-          "type": "string",
-          "description": "Workflow risk level.",
-          "enum": [
-            "low",
-            "medium",
-            "high"
-          ]
+          "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/riskLevel"
         },
         "escalation_triggers": {
           "type": "array",
@@ -399,87 +342,62 @@
       }
     },
     "review": {
-      "type": "object",
-      "description": "Review status within Pro-One.",
-      "additionalProperties": false,
-      "required": [
-        "status",
-        "reviewed_by",
-        "reviewed_on"
-      ],
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": [
-            "proposed",
-            "needs_review",
-            "reviewed",
-            "approved",
-            "deprecated",
-            "rejected"
-          ]
-        },
-        "reviewed_by": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Reviewer name, handle, or role."
-        },
-        "reviewed_on": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date",
-          "description": "Date of review."
-        },
-        "review_notes": {
-          "type": "string",
-          "description": "Notes from workflow review."
-        }
-      }
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/reviewInformation"
     },
     "evaluation": {
-      "type": "object",
-      "description": "Testing requirements before the workflow can be supported.",
-      "additionalProperties": false,
-      "required": [
-        "required_tests",
-        "success_criteria",
-        "known_failure_modes"
-      ],
-      "properties": {
-        "required_tests": {
-          "type": "array",
-          "description": "Tests or evaluation categories required for this workflow.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "success_criteria": {
-          "type": "array",
-          "description": "What must be true for the workflow to pass review.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "known_failure_modes": {
-          "type": "array",
-          "description": "Known ways the workflow could fail or mislead users.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "evaluation_notes": {
-          "type": "string",
-          "description": "Additional evaluation notes."
-        }
-      }
+      "$ref": "https://github.com/pro-one-org/pro-one/schemas/common.schema.json#/$defs/evaluationRequirements"
     },
     "notes": {
       "type": "string",
       "description": "Additional notes."
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "supported"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "review": {
+            "properties": {
+              "status": {
+                "const": "approved"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "evaluation": {
+            "properties": {
+              "required_evaluation_fixture_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "required_evaluation_fixture_ids"
+            ]
+          },
+          "sources": {
+            "properties": {
+              "required_source_ids": {
+                "minItems": 1
+              },
+              "source_review_required": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }

@@ -1,6 +1,9 @@
 [
   {
     "id": "example-name-change-filing-instructions-rule",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Name-Change Filing Instructions Rule",
     "description": "Placeholder legal-rule record for explaining that name-change filing steps should be tied to the applicable court instructions and forms.",
     "status": "proposed",
@@ -144,12 +147,16 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample legal-rule record only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
-        "source_required",
+        "source_backed_information",
         "jurisdiction_required",
         "eligibility_boundary",
         "document_readiness_boundary",
@@ -173,6 +180,9 @@
   },
   {
     "id": "example-discovery-response-deadline-awareness-rule",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Discovery Response Deadline Awareness Rule",
     "description": "Placeholder legal-rule record for routing urgent discovery questions into deadline-aware support without calculating or guaranteeing a deadline.",
     "status": "proposed",
@@ -331,14 +341,18 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample legal-rule record only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "deadline_awareness",
         "urgent_support",
-        "source_required",
+        "source_backed_information",
         "objection_boundary",
         "privilege_boundary",
         "safe_continuation"
@@ -361,6 +375,9 @@
   },
   {
     "id": "example-subpoena-response-options-rule",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Subpoena Response Options Rule",
     "description": "Placeholder legal-rule record for explaining that subpoena response options depend on the issuing authority, jurisdiction, document text, dates, and type of subpoena.",
     "status": "proposed",
@@ -513,14 +530,18 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample legal-rule record only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "subpoena_boundary",
         "urgent_support",
-        "source_required",
+        "source_backed_information",
         "service_validity_boundary",
         "safe_continuation",
         "sensitive_data_minimization"
@@ -543,6 +564,9 @@
   },
   {
     "id": "example-small-business-demand-letter-factual-basis-rule",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
     "title": "Small-Business Demand Letter Factual Basis Rule",
     "description": "Placeholder legal-rule record for requiring user-confirmed facts and professional tone in small-business demand letter support.",
     "status": "proposed",
@@ -627,7 +651,7 @@
         "business_document"
       ],
       "excluded_document_ids": [],
-      "document_notes": "May support guided drafting only when facts are user-confirmed and risks are controlled."
+      "document_notes": "May support a user-confirmed draft only when facts and requested content are explicit and risks are controlled."
     },
     "dates": {
       "effective_on": null,
@@ -693,16 +717,20 @@
     "review": {
       "status": "proposed",
       "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
       "reviewed_on": null,
+      "reviewed_record_version": null,
       "review_notes": "Sample legal-rule record only. Not approved for production use."
     },
     "evaluation": {
+      "required_evaluation_fixture_ids": [],
       "required_tests": [
         "fact_confirmation",
         "tone_safety",
         "unsupported_threat_boundary",
         "safe_continuation",
-        "source_required",
+        "source_backed_information",
         "business_sensitive_data_minimization"
       ],
       "success_criteria": [
@@ -720,5 +748,1547 @@
       "evaluation_notes": "Evaluation should test unpaid invoices, refund disputes, unsupported threats, and formal-paper scenarios."
     },
     "notes": "Placeholder sample data."
+  },
+  {
+    "id": "example-state-interrogatory-response-rule",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Example Interrogatory Response Rule",
+    "description": "Placeholder legal-rule definition for example interrogatory response rule; it is not reviewed authority or legal guidance.",
+    "status": "proposed",
+    "rule_type": "discovery_rule",
+    "jurisdiction": {
+      "country": "US",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example Civil Court",
+      "agency": null,
+      "jurisdiction_required": true,
+      "jurisdiction_notes": "Discovery timing depends on the forum, applicable rules, service method, court orders, and the discovery document itself."
+    },
+    "source_support": {
+      "required_source_ids": [
+        "example-state-civil-discovery-rules"
+      ],
+      "optional_source_ids": [],
+      "source_quotes_allowed": false,
+      "source_review_required": true,
+      "source_notes": "The linked source is placeholder metadata and has not been approved."
+    },
+    "rule_statement": {
+      "canonical_statement": "A response to interrogatories must follow the applicable reviewed court rules and use the user's truthful, confirmed facts.",
+      "plain_language_statement": "A response to interrogatories must follow the applicable reviewed court rules and use the user's truthful, confirmed facts.",
+      "must_not_overstate": [
+        "Do not claim this placeholder is current law.",
+        "Do not make factual or strategic choices for the user."
+      ],
+      "user_facing_allowed": false,
+      "rule_statement_notes": "A reviewed replacement is required before user-facing use."
+    },
+    "rule_scope": {
+      "applies_to": [
+        "Schema and reference validation only."
+      ],
+      "does_not_apply_to": [
+        "Supported user-facing guidance."
+      ],
+      "requires_user_facts": [
+        "Explicit user-confirmed facts relevant to the proposition."
+      ],
+      "requires_source_check": true,
+      "scope_notes": "No jurisdiction-specific legal conclusion may be drawn from this placeholder."
+    },
+    "workflow_fit": {
+      "supported_workflow_ids": [
+        "civil_discovery_information"
+      ],
+      "excluded_workflow_ids": [],
+      "workflow_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "process_step_fit": {
+      "supported_process_step_ids": [
+        "example-civil-discovery-prepare-responses"
+      ],
+      "excluded_process_step_ids": [],
+      "process_step_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "document_fit": {
+      "supported_document_ids": [
+        "example-discovery-response"
+      ],
+      "supported_document_types": [
+        "other"
+      ],
+      "excluded_document_ids": [],
+      "document_notes": "Does not establish that a draft is complete or legally sufficient."
+    },
+    "dates": {
+      "effective_on": null,
+      "last_updated": null,
+      "last_checked": null,
+      "expires_on": null,
+      "date_notes": "Dates are null because this is placeholder sample data."
+    },
+    "user_support": {
+      "allowed_support_modes": [
+        "source_backed_steps",
+        "checklist",
+        "issue_spotting",
+        "deadline_awareness",
+        "urgent_support",
+        "free_or_low_cost_resource_prompt",
+        "scope_boundary"
+      ],
+      "prohibited_support_modes": [
+        "Final deadline calculation.",
+        "Final discovery responses.",
+        "Chosen objections.",
+        "Privilege determination.",
+        "Admissions or denials chosen for the user."
+      ],
+      "requires_plain_language": true,
+      "requires_citation": true,
+      "user_support_notes": "Urgent discovery support should help the user organize facts and identify next steps quickly."
+    },
+    "exceptions_and_variations": {
+      "known_exceptions": [
+        "Court orders may change discovery timing.",
+        "Service method may affect timing.",
+        "Requests for admission may carry special risks.",
+        "Local rules may modify procedure."
+      ],
+      "local_variations": [
+        "Different courts may have local discovery rules or standing orders."
+      ],
+      "unresolved_questions": [
+        "Real source records are needed before approved use."
+      ],
+      "variation_notes": "This rule should remain proposed until real source review is complete."
+    },
+    "risk": {
+      "risk_level": "high",
+      "risk_triggers": [
+        "Response due today.",
+        "Response due tomorrow.",
+        "Deadline already passed.",
+        "Request for admission.",
+        "Motion to compel.",
+        "Sanctions threat.",
+        "Privilege concern.",
+        "Confidential or sensitive records."
+      ],
+      "unsafe_uses": [
+        "Telling the user a missed deadline is harmless.",
+        "Inventing responses.",
+        "Choosing objections.",
+        "Deciding privilege.",
+        "Telling the user to hide or destroy evidence."
+      ],
+      "safe_continuation_notes": "Continue with urgent support, deadline awareness, checklist support, issue spotting, and free or low-cost resource prompts when useful."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder legal-rule record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "deadline_awareness",
+        "urgent_support",
+        "source_backed_information",
+        "objection_boundary",
+        "privilege_boundary",
+        "safe_continuation"
+      ],
+      "success_criteria": [
+        "The rule routes urgent discovery issues into urgent support.",
+        "The rule does not produce unsupported deadline calculations.",
+        "The rule does not choose objections or admissions.",
+        "The rule continues safe support when risk signals appear."
+      ],
+      "known_failure_modes": [
+        "Abandoning the user because the deadline is near.",
+        "Calculating a deadline without enough facts.",
+        "Drafting final responses too early.",
+        "Missing request-for-admission risk."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-state-rfp-response-rule",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Example Request-for-Production Response Rule",
+    "description": "Placeholder legal-rule definition for example request-for-production response rule; it is not reviewed authority or legal guidance.",
+    "status": "proposed",
+    "rule_type": "discovery_rule",
+    "jurisdiction": {
+      "country": "US",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example Civil Court",
+      "agency": null,
+      "jurisdiction_required": true,
+      "jurisdiction_notes": "Discovery timing depends on the forum, applicable rules, service method, court orders, and the discovery document itself."
+    },
+    "source_support": {
+      "required_source_ids": [
+        "example-state-civil-discovery-rules"
+      ],
+      "optional_source_ids": [],
+      "source_quotes_allowed": false,
+      "source_review_required": true,
+      "source_notes": "The linked source is placeholder metadata and has not been approved."
+    },
+    "rule_statement": {
+      "canonical_statement": "A response to a request for production must follow applicable reviewed rules and must not conceal, alter, or destroy responsive material.",
+      "plain_language_statement": "A response to a request for production must follow applicable reviewed rules and must not conceal, alter, or destroy responsive material.",
+      "must_not_overstate": [
+        "Do not claim this placeholder is current law.",
+        "Do not make factual or strategic choices for the user."
+      ],
+      "user_facing_allowed": false,
+      "rule_statement_notes": "A reviewed replacement is required before user-facing use."
+    },
+    "rule_scope": {
+      "applies_to": [
+        "Schema and reference validation only."
+      ],
+      "does_not_apply_to": [
+        "Supported user-facing guidance."
+      ],
+      "requires_user_facts": [
+        "Explicit user-confirmed facts relevant to the proposition."
+      ],
+      "requires_source_check": true,
+      "scope_notes": "No jurisdiction-specific legal conclusion may be drawn from this placeholder."
+    },
+    "workflow_fit": {
+      "supported_workflow_ids": [
+        "civil_discovery_information"
+      ],
+      "excluded_workflow_ids": [],
+      "workflow_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "process_step_fit": {
+      "supported_process_step_ids": [
+        "example-civil-discovery-prepare-responses"
+      ],
+      "excluded_process_step_ids": [],
+      "process_step_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "document_fit": {
+      "supported_document_ids": [
+        "example-discovery-response"
+      ],
+      "supported_document_types": [
+        "other"
+      ],
+      "excluded_document_ids": [],
+      "document_notes": "Does not establish that a draft is complete or legally sufficient."
+    },
+    "dates": {
+      "effective_on": null,
+      "last_updated": null,
+      "last_checked": null,
+      "expires_on": null,
+      "date_notes": "Dates are null because this is placeholder sample data."
+    },
+    "user_support": {
+      "allowed_support_modes": [
+        "source_backed_steps",
+        "checklist",
+        "issue_spotting",
+        "deadline_awareness",
+        "urgent_support",
+        "free_or_low_cost_resource_prompt",
+        "scope_boundary"
+      ],
+      "prohibited_support_modes": [
+        "Final deadline calculation.",
+        "Final discovery responses.",
+        "Chosen objections.",
+        "Privilege determination.",
+        "Admissions or denials chosen for the user."
+      ],
+      "requires_plain_language": true,
+      "requires_citation": true,
+      "user_support_notes": "Urgent discovery support should help the user organize facts and identify next steps quickly."
+    },
+    "exceptions_and_variations": {
+      "known_exceptions": [
+        "Court orders may change discovery timing.",
+        "Service method may affect timing.",
+        "Requests for admission may carry special risks.",
+        "Local rules may modify procedure."
+      ],
+      "local_variations": [
+        "Different courts may have local discovery rules or standing orders."
+      ],
+      "unresolved_questions": [
+        "Real source records are needed before approved use."
+      ],
+      "variation_notes": "This rule should remain proposed until real source review is complete."
+    },
+    "risk": {
+      "risk_level": "high",
+      "risk_triggers": [
+        "Response due today.",
+        "Response due tomorrow.",
+        "Deadline already passed.",
+        "Request for admission.",
+        "Motion to compel.",
+        "Sanctions threat.",
+        "Privilege concern.",
+        "Confidential or sensitive records."
+      ],
+      "unsafe_uses": [
+        "Telling the user a missed deadline is harmless.",
+        "Inventing responses.",
+        "Choosing objections.",
+        "Deciding privilege.",
+        "Telling the user to hide or destroy evidence."
+      ],
+      "safe_continuation_notes": "Continue with urgent support, deadline awareness, checklist support, issue spotting, and free or low-cost resource prompts when useful."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder legal-rule record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "deadline_awareness",
+        "urgent_support",
+        "source_backed_information",
+        "objection_boundary",
+        "privilege_boundary",
+        "safe_continuation"
+      ],
+      "success_criteria": [
+        "The rule routes urgent discovery issues into urgent support.",
+        "The rule does not produce unsupported deadline calculations.",
+        "The rule does not choose objections or admissions.",
+        "The rule continues safe support when risk signals appear."
+      ],
+      "known_failure_modes": [
+        "Abandoning the user because the deadline is near.",
+        "Calculating a deadline without enough facts.",
+        "Drafting final responses too early.",
+        "Missing request-for-admission risk."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-state-rfa-response-rule",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Example Request-for-Admission Response Rule",
+    "description": "Placeholder legal-rule definition for example request-for-admission response rule; it is not reviewed authority or legal guidance.",
+    "status": "proposed",
+    "rule_type": "discovery_rule",
+    "jurisdiction": {
+      "country": "US",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example Civil Court",
+      "agency": null,
+      "jurisdiction_required": true,
+      "jurisdiction_notes": "Discovery timing depends on the forum, applicable rules, service method, court orders, and the discovery document itself."
+    },
+    "source_support": {
+      "required_source_ids": [
+        "example-state-civil-discovery-rules"
+      ],
+      "optional_source_ids": [],
+      "source_quotes_allowed": false,
+      "source_review_required": true,
+      "source_notes": "The linked source is placeholder metadata and has not been approved."
+    },
+    "rule_statement": {
+      "canonical_statement": "Requests for admission may have significant consequences; the system may explain response categories but must not choose admissions or denials.",
+      "plain_language_statement": "Requests for admission may have significant consequences; the system may explain response categories but must not choose admissions or denials.",
+      "must_not_overstate": [
+        "Do not claim this placeholder is current law.",
+        "Do not make factual or strategic choices for the user."
+      ],
+      "user_facing_allowed": false,
+      "rule_statement_notes": "A reviewed replacement is required before user-facing use."
+    },
+    "rule_scope": {
+      "applies_to": [
+        "Schema and reference validation only."
+      ],
+      "does_not_apply_to": [
+        "Supported user-facing guidance."
+      ],
+      "requires_user_facts": [
+        "Explicit user-confirmed facts relevant to the proposition."
+      ],
+      "requires_source_check": true,
+      "scope_notes": "No jurisdiction-specific legal conclusion may be drawn from this placeholder."
+    },
+    "workflow_fit": {
+      "supported_workflow_ids": [
+        "civil_discovery_information"
+      ],
+      "excluded_workflow_ids": [],
+      "workflow_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "process_step_fit": {
+      "supported_process_step_ids": [
+        "example-civil-discovery-prepare-responses"
+      ],
+      "excluded_process_step_ids": [],
+      "process_step_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "document_fit": {
+      "supported_document_ids": [
+        "example-discovery-response"
+      ],
+      "supported_document_types": [
+        "other"
+      ],
+      "excluded_document_ids": [],
+      "document_notes": "Does not establish that a draft is complete or legally sufficient."
+    },
+    "dates": {
+      "effective_on": null,
+      "last_updated": null,
+      "last_checked": null,
+      "expires_on": null,
+      "date_notes": "Dates are null because this is placeholder sample data."
+    },
+    "user_support": {
+      "allowed_support_modes": [
+        "source_backed_steps",
+        "checklist",
+        "issue_spotting",
+        "deadline_awareness",
+        "urgent_support",
+        "free_or_low_cost_resource_prompt",
+        "scope_boundary"
+      ],
+      "prohibited_support_modes": [
+        "Final deadline calculation.",
+        "Final discovery responses.",
+        "Chosen objections.",
+        "Privilege determination.",
+        "Admissions or denials chosen for the user."
+      ],
+      "requires_plain_language": true,
+      "requires_citation": true,
+      "user_support_notes": "Urgent discovery support should help the user organize facts and identify next steps quickly."
+    },
+    "exceptions_and_variations": {
+      "known_exceptions": [
+        "Court orders may change discovery timing.",
+        "Service method may affect timing.",
+        "Requests for admission may carry special risks.",
+        "Local rules may modify procedure."
+      ],
+      "local_variations": [
+        "Different courts may have local discovery rules or standing orders."
+      ],
+      "unresolved_questions": [
+        "Real source records are needed before approved use."
+      ],
+      "variation_notes": "This rule should remain proposed until real source review is complete."
+    },
+    "risk": {
+      "risk_level": "high",
+      "risk_triggers": [
+        "Response due today.",
+        "Response due tomorrow.",
+        "Deadline already passed.",
+        "Request for admission.",
+        "Motion to compel.",
+        "Sanctions threat.",
+        "Privilege concern.",
+        "Confidential or sensitive records."
+      ],
+      "unsafe_uses": [
+        "Telling the user a missed deadline is harmless.",
+        "Inventing responses.",
+        "Choosing objections.",
+        "Deciding privilege.",
+        "Telling the user to hide or destroy evidence."
+      ],
+      "safe_continuation_notes": "Continue with urgent support, deadline awareness, checklist support, issue spotting, and free or low-cost resource prompts when useful."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder legal-rule record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "deadline_awareness",
+        "urgent_support",
+        "source_backed_information",
+        "objection_boundary",
+        "privilege_boundary",
+        "safe_continuation"
+      ],
+      "success_criteria": [
+        "The rule routes urgent discovery issues into urgent support.",
+        "The rule does not produce unsupported deadline calculations.",
+        "The rule does not choose objections or admissions.",
+        "The rule continues safe support when risk signals appear."
+      ],
+      "known_failure_modes": [
+        "Abandoning the user because the deadline is near.",
+        "Calculating a deadline without enough facts.",
+        "Drafting final responses too early.",
+        "Missing request-for-admission risk."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-state-discovery-objection-rule",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Example Discovery Objection Rule",
+    "description": "Placeholder legal-rule definition for example discovery objection rule; it is not reviewed authority or legal guidance.",
+    "status": "proposed",
+    "rule_type": "discovery_rule",
+    "jurisdiction": {
+      "country": "US",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example Civil Court",
+      "agency": null,
+      "jurisdiction_required": true,
+      "jurisdiction_notes": "Discovery timing depends on the forum, applicable rules, service method, court orders, and the discovery document itself."
+    },
+    "source_support": {
+      "required_source_ids": [
+        "example-state-civil-discovery-rules"
+      ],
+      "optional_source_ids": [],
+      "source_quotes_allowed": false,
+      "source_review_required": true,
+      "source_notes": "The linked source is placeholder metadata and has not been approved."
+    },
+    "rule_statement": {
+      "canonical_statement": "Any objection must be grounded in applicable reviewed authority and user-confirmed circumstances; the system must not invent or select objections.",
+      "plain_language_statement": "Any objection must be grounded in applicable reviewed authority and user-confirmed circumstances; the system must not invent or select objections.",
+      "must_not_overstate": [
+        "Do not claim this placeholder is current law.",
+        "Do not make factual or strategic choices for the user."
+      ],
+      "user_facing_allowed": false,
+      "rule_statement_notes": "A reviewed replacement is required before user-facing use."
+    },
+    "rule_scope": {
+      "applies_to": [
+        "Schema and reference validation only."
+      ],
+      "does_not_apply_to": [
+        "Supported user-facing guidance."
+      ],
+      "requires_user_facts": [
+        "Explicit user-confirmed facts relevant to the proposition."
+      ],
+      "requires_source_check": true,
+      "scope_notes": "No jurisdiction-specific legal conclusion may be drawn from this placeholder."
+    },
+    "workflow_fit": {
+      "supported_workflow_ids": [
+        "civil_discovery_information"
+      ],
+      "excluded_workflow_ids": [],
+      "workflow_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "process_step_fit": {
+      "supported_process_step_ids": [
+        "example-civil-discovery-prepare-responses"
+      ],
+      "excluded_process_step_ids": [],
+      "process_step_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "document_fit": {
+      "supported_document_ids": [
+        "example-discovery-response"
+      ],
+      "supported_document_types": [
+        "other"
+      ],
+      "excluded_document_ids": [],
+      "document_notes": "Does not establish that a draft is complete or legally sufficient."
+    },
+    "dates": {
+      "effective_on": null,
+      "last_updated": null,
+      "last_checked": null,
+      "expires_on": null,
+      "date_notes": "Dates are null because this is placeholder sample data."
+    },
+    "user_support": {
+      "allowed_support_modes": [
+        "source_backed_steps",
+        "checklist",
+        "issue_spotting",
+        "deadline_awareness",
+        "urgent_support",
+        "free_or_low_cost_resource_prompt",
+        "scope_boundary"
+      ],
+      "prohibited_support_modes": [
+        "Final deadline calculation.",
+        "Final discovery responses.",
+        "Chosen objections.",
+        "Privilege determination.",
+        "Admissions or denials chosen for the user."
+      ],
+      "requires_plain_language": true,
+      "requires_citation": true,
+      "user_support_notes": "Urgent discovery support should help the user organize facts and identify next steps quickly."
+    },
+    "exceptions_and_variations": {
+      "known_exceptions": [
+        "Court orders may change discovery timing.",
+        "Service method may affect timing.",
+        "Requests for admission may carry special risks.",
+        "Local rules may modify procedure."
+      ],
+      "local_variations": [
+        "Different courts may have local discovery rules or standing orders."
+      ],
+      "unresolved_questions": [
+        "Real source records are needed before approved use."
+      ],
+      "variation_notes": "This rule should remain proposed until real source review is complete."
+    },
+    "risk": {
+      "risk_level": "high",
+      "risk_triggers": [
+        "Response due today.",
+        "Response due tomorrow.",
+        "Deadline already passed.",
+        "Request for admission.",
+        "Motion to compel.",
+        "Sanctions threat.",
+        "Privilege concern.",
+        "Confidential or sensitive records."
+      ],
+      "unsafe_uses": [
+        "Telling the user a missed deadline is harmless.",
+        "Inventing responses.",
+        "Choosing objections.",
+        "Deciding privilege.",
+        "Telling the user to hide or destroy evidence."
+      ],
+      "safe_continuation_notes": "Continue with urgent support, deadline awareness, checklist support, issue spotting, and free or low-cost resource prompts when useful."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder legal-rule record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "deadline_awareness",
+        "urgent_support",
+        "source_backed_information",
+        "objection_boundary",
+        "privilege_boundary",
+        "safe_continuation"
+      ],
+      "success_criteria": [
+        "The rule routes urgent discovery issues into urgent support.",
+        "The rule does not produce unsupported deadline calculations.",
+        "The rule does not choose objections or admissions.",
+        "The rule continues safe support when risk signals appear."
+      ],
+      "known_failure_modes": [
+        "Abandoning the user because the deadline is near.",
+        "Calculating a deadline without enough facts.",
+        "Drafting final responses too early.",
+        "Missing request-for-admission risk."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-state-subpoena-service-rule",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Example Subpoena Service Rule",
+    "description": "Placeholder legal-rule definition for example subpoena service rule; it is not reviewed authority or legal guidance.",
+    "status": "proposed",
+    "rule_type": "service_rule",
+    "jurisdiction": {
+      "country": "US",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example Court",
+      "agency": null,
+      "jurisdiction_required": true,
+      "jurisdiction_notes": "Subpoena duties and response options vary by issuing authority, jurisdiction, forum, and subpoena type."
+    },
+    "source_support": {
+      "required_source_ids": [
+        "example-state-subpoena-rule"
+      ],
+      "optional_source_ids": [],
+      "source_quotes_allowed": false,
+      "source_review_required": true,
+      "source_notes": "The linked source is placeholder metadata and has not been approved."
+    },
+    "rule_statement": {
+      "canonical_statement": "Subpoena service requirements are jurisdiction-specific and must be explained from current reviewed authority without deciding validity for the user.",
+      "plain_language_statement": "Subpoena service requirements are jurisdiction-specific and must be explained from current reviewed authority without deciding validity for the user.",
+      "must_not_overstate": [
+        "Do not claim this placeholder is current law.",
+        "Do not make factual or strategic choices for the user."
+      ],
+      "user_facing_allowed": false,
+      "rule_statement_notes": "A reviewed replacement is required before user-facing use."
+    },
+    "rule_scope": {
+      "applies_to": [
+        "Schema and reference validation only."
+      ],
+      "does_not_apply_to": [
+        "Supported user-facing guidance."
+      ],
+      "requires_user_facts": [
+        "Explicit user-confirmed facts relevant to the proposition."
+      ],
+      "requires_source_check": true,
+      "scope_notes": "No jurisdiction-specific legal conclusion may be drawn from this placeholder."
+    },
+    "workflow_fit": {
+      "supported_workflow_ids": [
+        "subpoena_information"
+      ],
+      "excluded_workflow_ids": [],
+      "workflow_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "process_step_fit": {
+      "supported_process_step_ids": [
+        "example-subpoena-review-document"
+      ],
+      "excluded_process_step_ids": [],
+      "process_step_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "document_fit": {
+      "supported_document_ids": [
+        "example-subpoena-information"
+      ],
+      "supported_document_types": [
+        "other"
+      ],
+      "excluded_document_ids": [],
+      "document_notes": "Does not establish that a draft is complete or legally sufficient."
+    },
+    "dates": {
+      "effective_on": null,
+      "last_updated": null,
+      "last_checked": null,
+      "expires_on": null,
+      "date_notes": "Dates are null because this is placeholder sample data."
+    },
+    "user_support": {
+      "allowed_support_modes": [
+        "source_backed_steps",
+        "checklist",
+        "issue_spotting",
+        "deadline_awareness",
+        "urgent_support",
+        "court_or_agency_resource_prompt",
+        "free_or_low_cost_resource_prompt",
+        "scope_boundary"
+      ],
+      "prohibited_support_modes": [
+        "Advice to ignore a subpoena.",
+        "Final compliance decision.",
+        "Final service-validity decision.",
+        "Final objections or motion papers."
+      ],
+      "requires_plain_language": true,
+      "requires_citation": true,
+      "user_support_notes": "Subpoena support should remain practical, urgent, and source-backed."
+    },
+    "exceptions_and_variations": {
+      "known_exceptions": [
+        "Rules may differ for parties and nonparties.",
+        "Business records may have special procedures.",
+        "Medical, financial, employment, and confidential business records may require additional caution.",
+        "Agency subpoenas may follow different procedures."
+      ],
+      "local_variations": [
+        "Local court rules or agency rules may modify response procedures."
+      ],
+      "unresolved_questions": [
+        "Real source records are needed before this rule can be approved."
+      ],
+      "variation_notes": "This placeholder rule should remain proposed."
+    },
+    "risk": {
+      "risk_level": "high",
+      "risk_triggers": [
+        "Near appearance date.",
+        "Near production date.",
+        "Testimony requested.",
+        "Sensitive records requested.",
+        "Privileged or confidential information requested.",
+        "User considering ignoring the subpoena."
+      ],
+      "unsafe_uses": [
+        "Telling the user to ignore the subpoena.",
+        "Deciding service validity.",
+        "Deciding final compliance obligations.",
+        "Helping hide, destroy, or withhold evidence unlawfully."
+      ],
+      "safe_continuation_notes": "Continue with issue spotting, checklist support, date awareness, source-backed explanation, and resource prompts."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder legal-rule record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "subpoena_boundary",
+        "urgent_support",
+        "source_backed_information",
+        "service_validity_boundary",
+        "safe_continuation",
+        "sensitive_data_minimization"
+      ],
+      "success_criteria": [
+        "The rule does not tell users to ignore subpoenas.",
+        "The rule does not decide final compliance or service validity.",
+        "The rule identifies urgency and sensitive-data risk.",
+        "The rule continues useful support in a safe mode."
+      ],
+      "known_failure_modes": [
+        "Understating subpoena urgency.",
+        "Deciding validity or compliance.",
+        "Collecting unnecessary sensitive records.",
+        "Drafting final objections without support."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-state-subpoena-objection-rule",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Example Subpoena Objection Rule",
+    "description": "Placeholder legal-rule definition for example subpoena objection rule; it is not reviewed authority or legal guidance.",
+    "status": "proposed",
+    "rule_type": "subpoena_rule",
+    "jurisdiction": {
+      "country": "US",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example Court",
+      "agency": null,
+      "jurisdiction_required": true,
+      "jurisdiction_notes": "Subpoena duties and response options vary by issuing authority, jurisdiction, forum, and subpoena type."
+    },
+    "source_support": {
+      "required_source_ids": [
+        "example-state-subpoena-rule"
+      ],
+      "optional_source_ids": [],
+      "source_quotes_allowed": false,
+      "source_review_required": true,
+      "source_notes": "The linked source is placeholder metadata and has not been approved."
+    },
+    "rule_statement": {
+      "canonical_statement": "Potential subpoena objections are jurisdiction- and fact-specific; the system may explain sourced categories but must not choose an objection.",
+      "plain_language_statement": "Potential subpoena objections are jurisdiction- and fact-specific; the system may explain sourced categories but must not choose an objection.",
+      "must_not_overstate": [
+        "Do not claim this placeholder is current law.",
+        "Do not make factual or strategic choices for the user."
+      ],
+      "user_facing_allowed": false,
+      "rule_statement_notes": "A reviewed replacement is required before user-facing use."
+    },
+    "rule_scope": {
+      "applies_to": [
+        "Schema and reference validation only."
+      ],
+      "does_not_apply_to": [
+        "Supported user-facing guidance."
+      ],
+      "requires_user_facts": [
+        "Explicit user-confirmed facts relevant to the proposition."
+      ],
+      "requires_source_check": true,
+      "scope_notes": "No jurisdiction-specific legal conclusion may be drawn from this placeholder."
+    },
+    "workflow_fit": {
+      "supported_workflow_ids": [
+        "subpoena_information"
+      ],
+      "excluded_workflow_ids": [],
+      "workflow_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "process_step_fit": {
+      "supported_process_step_ids": [
+        "example-subpoena-identify-response-options"
+      ],
+      "excluded_process_step_ids": [],
+      "process_step_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "document_fit": {
+      "supported_document_ids": [
+        "example-subpoena-information"
+      ],
+      "supported_document_types": [
+        "other"
+      ],
+      "excluded_document_ids": [],
+      "document_notes": "Does not establish that a draft is complete or legally sufficient."
+    },
+    "dates": {
+      "effective_on": null,
+      "last_updated": null,
+      "last_checked": null,
+      "expires_on": null,
+      "date_notes": "Dates are null because this is placeholder sample data."
+    },
+    "user_support": {
+      "allowed_support_modes": [
+        "source_backed_steps",
+        "checklist",
+        "issue_spotting",
+        "deadline_awareness",
+        "urgent_support",
+        "court_or_agency_resource_prompt",
+        "free_or_low_cost_resource_prompt",
+        "scope_boundary"
+      ],
+      "prohibited_support_modes": [
+        "Advice to ignore a subpoena.",
+        "Final compliance decision.",
+        "Final service-validity decision.",
+        "Final objections or motion papers."
+      ],
+      "requires_plain_language": true,
+      "requires_citation": true,
+      "user_support_notes": "Subpoena support should remain practical, urgent, and source-backed."
+    },
+    "exceptions_and_variations": {
+      "known_exceptions": [
+        "Rules may differ for parties and nonparties.",
+        "Business records may have special procedures.",
+        "Medical, financial, employment, and confidential business records may require additional caution.",
+        "Agency subpoenas may follow different procedures."
+      ],
+      "local_variations": [
+        "Local court rules or agency rules may modify response procedures."
+      ],
+      "unresolved_questions": [
+        "Real source records are needed before this rule can be approved."
+      ],
+      "variation_notes": "This placeholder rule should remain proposed."
+    },
+    "risk": {
+      "risk_level": "high",
+      "risk_triggers": [
+        "Near appearance date.",
+        "Near production date.",
+        "Testimony requested.",
+        "Sensitive records requested.",
+        "Privileged or confidential information requested.",
+        "User considering ignoring the subpoena."
+      ],
+      "unsafe_uses": [
+        "Telling the user to ignore the subpoena.",
+        "Deciding service validity.",
+        "Deciding final compliance obligations.",
+        "Helping hide, destroy, or withhold evidence unlawfully."
+      ],
+      "safe_continuation_notes": "Continue with issue spotting, checklist support, date awareness, source-backed explanation, and resource prompts."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder legal-rule record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "subpoena_boundary",
+        "urgent_support",
+        "source_backed_information",
+        "service_validity_boundary",
+        "safe_continuation",
+        "sensitive_data_minimization"
+      ],
+      "success_criteria": [
+        "The rule does not tell users to ignore subpoenas.",
+        "The rule does not decide final compliance or service validity.",
+        "The rule identifies urgency and sensitive-data risk.",
+        "The rule continues useful support in a safe mode."
+      ],
+      "known_failure_modes": [
+        "Understating subpoena urgency.",
+        "Deciding validity or compliance.",
+        "Collecting unnecessary sensitive records.",
+        "Drafting final objections without support."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-state-subpoena-motion-to-quash-rule",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Example Motion-to-Quash Rule",
+    "description": "Placeholder legal-rule definition for example motion-to-quash rule; it is not reviewed authority or legal guidance.",
+    "status": "proposed",
+    "rule_type": "subpoena_rule",
+    "jurisdiction": {
+      "country": "US",
+      "state": "Example State",
+      "locality": null,
+      "court": "Example Court",
+      "agency": null,
+      "jurisdiction_required": true,
+      "jurisdiction_notes": "Subpoena duties and response options vary by issuing authority, jurisdiction, forum, and subpoena type."
+    },
+    "source_support": {
+      "required_source_ids": [
+        "example-state-subpoena-rule"
+      ],
+      "optional_source_ids": [],
+      "source_quotes_allowed": false,
+      "source_review_required": true,
+      "source_notes": "The linked source is placeholder metadata and has not been approved."
+    },
+    "rule_statement": {
+      "canonical_statement": "A motion-to-quash option may be described only from reviewed authority and must not be selected as strategy for the user.",
+      "plain_language_statement": "A motion-to-quash option may be described only from reviewed authority and must not be selected as strategy for the user.",
+      "must_not_overstate": [
+        "Do not claim this placeholder is current law.",
+        "Do not make factual or strategic choices for the user."
+      ],
+      "user_facing_allowed": false,
+      "rule_statement_notes": "A reviewed replacement is required before user-facing use."
+    },
+    "rule_scope": {
+      "applies_to": [
+        "Schema and reference validation only."
+      ],
+      "does_not_apply_to": [
+        "Supported user-facing guidance."
+      ],
+      "requires_user_facts": [
+        "Explicit user-confirmed facts relevant to the proposition."
+      ],
+      "requires_source_check": true,
+      "scope_notes": "No jurisdiction-specific legal conclusion may be drawn from this placeholder."
+    },
+    "workflow_fit": {
+      "supported_workflow_ids": [
+        "subpoena_information"
+      ],
+      "excluded_workflow_ids": [],
+      "workflow_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "process_step_fit": {
+      "supported_process_step_ids": [
+        "example-subpoena-identify-response-options"
+      ],
+      "excluded_process_step_ids": [],
+      "process_step_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "document_fit": {
+      "supported_document_ids": [
+        "example-subpoena-information"
+      ],
+      "supported_document_types": [
+        "other"
+      ],
+      "excluded_document_ids": [],
+      "document_notes": "Does not establish that a draft is complete or legally sufficient."
+    },
+    "dates": {
+      "effective_on": null,
+      "last_updated": null,
+      "last_checked": null,
+      "expires_on": null,
+      "date_notes": "Dates are null because this is placeholder sample data."
+    },
+    "user_support": {
+      "allowed_support_modes": [
+        "source_backed_steps",
+        "checklist",
+        "issue_spotting",
+        "deadline_awareness",
+        "urgent_support",
+        "court_or_agency_resource_prompt",
+        "free_or_low_cost_resource_prompt",
+        "scope_boundary"
+      ],
+      "prohibited_support_modes": [
+        "Advice to ignore a subpoena.",
+        "Final compliance decision.",
+        "Final service-validity decision.",
+        "Final objections or motion papers."
+      ],
+      "requires_plain_language": true,
+      "requires_citation": true,
+      "user_support_notes": "Subpoena support should remain practical, urgent, and source-backed."
+    },
+    "exceptions_and_variations": {
+      "known_exceptions": [
+        "Rules may differ for parties and nonparties.",
+        "Business records may have special procedures.",
+        "Medical, financial, employment, and confidential business records may require additional caution.",
+        "Agency subpoenas may follow different procedures."
+      ],
+      "local_variations": [
+        "Local court rules or agency rules may modify response procedures."
+      ],
+      "unresolved_questions": [
+        "Real source records are needed before this rule can be approved."
+      ],
+      "variation_notes": "This placeholder rule should remain proposed."
+    },
+    "risk": {
+      "risk_level": "high",
+      "risk_triggers": [
+        "Near appearance date.",
+        "Near production date.",
+        "Testimony requested.",
+        "Sensitive records requested.",
+        "Privileged or confidential information requested.",
+        "User considering ignoring the subpoena."
+      ],
+      "unsafe_uses": [
+        "Telling the user to ignore the subpoena.",
+        "Deciding service validity.",
+        "Deciding final compliance obligations.",
+        "Helping hide, destroy, or withhold evidence unlawfully."
+      ],
+      "safe_continuation_notes": "Continue with issue spotting, checklist support, date awareness, source-backed explanation, and resource prompts."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder legal-rule record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "subpoena_boundary",
+        "urgent_support",
+        "source_backed_information",
+        "service_validity_boundary",
+        "safe_continuation",
+        "sensitive_data_minimization"
+      ],
+      "success_criteria": [
+        "The rule does not tell users to ignore subpoenas.",
+        "The rule does not decide final compliance or service validity.",
+        "The rule identifies urgency and sensitive-data risk.",
+        "The rule continues useful support in a safe mode."
+      ],
+      "known_failure_modes": [
+        "Understating subpoena urgency.",
+        "Deciding validity or compliance.",
+        "Collecting unnecessary sensitive records.",
+        "Drafting final objections without support."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-state-demand-letter-prerequisite-rule",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Example Demand-Letter Prerequisite Rule",
+    "description": "Placeholder legal-rule definition for example demand-letter prerequisite rule; it is not reviewed authority or legal guidance.",
+    "status": "proposed",
+    "rule_type": "business_rule",
+    "jurisdiction": {
+      "country": "US",
+      "state": "Example State",
+      "locality": null,
+      "court": null,
+      "agency": null,
+      "jurisdiction_required": true,
+      "jurisdiction_notes": "Jurisdiction may affect legal prerequisites, deadlines, regulated activity, and available remedies."
+    },
+    "source_support": {
+      "required_source_ids": [
+        "example-state-small-claims-guide"
+      ],
+      "optional_source_ids": [],
+      "source_quotes_allowed": false,
+      "source_review_required": true,
+      "source_notes": "The linked source is placeholder metadata and has not been approved."
+    },
+    "rule_statement": {
+      "canonical_statement": "Any demand-letter prerequisite must be confirmed from current applicable authority before it is presented as required.",
+      "plain_language_statement": "Any demand-letter prerequisite must be confirmed from current applicable authority before it is presented as required.",
+      "must_not_overstate": [
+        "Do not claim this placeholder is current law.",
+        "Do not make factual or strategic choices for the user."
+      ],
+      "user_facing_allowed": false,
+      "rule_statement_notes": "A reviewed replacement is required before user-facing use."
+    },
+    "rule_scope": {
+      "applies_to": [
+        "Schema and reference validation only."
+      ],
+      "does_not_apply_to": [
+        "Supported user-facing guidance."
+      ],
+      "requires_user_facts": [
+        "Explicit user-confirmed facts relevant to the proposition."
+      ],
+      "requires_source_check": true,
+      "scope_notes": "No jurisdiction-specific legal conclusion may be drawn from this placeholder."
+    },
+    "workflow_fit": {
+      "supported_workflow_ids": [
+        "small_business_dispute_information"
+      ],
+      "excluded_workflow_ids": [],
+      "workflow_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "process_step_fit": {
+      "supported_process_step_ids": [
+        "example-small-business-prepare-demand-letter"
+      ],
+      "excluded_process_step_ids": [],
+      "process_step_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "document_fit": {
+      "supported_document_ids": [
+        "example-small-business-demand-letter"
+      ],
+      "supported_document_types": [
+        "other"
+      ],
+      "excluded_document_ids": [],
+      "document_notes": "Does not establish that a draft is complete or legally sufficient."
+    },
+    "dates": {
+      "effective_on": null,
+      "last_updated": null,
+      "last_checked": null,
+      "expires_on": null,
+      "date_notes": "Dates are null because this is placeholder sample data."
+    },
+    "user_support": {
+      "allowed_support_modes": [
+        "general_information",
+        "source_backed_steps",
+        "checklist",
+        "issue_spotting",
+        "free_or_low_cost_resource_prompt",
+        "scope_boundary"
+      ],
+      "prohibited_support_modes": [
+        "False factual allegations.",
+        "Unsupported legal threats.",
+        "Guaranteed settlement or payment.",
+        "Harassing communication."
+      ],
+      "requires_plain_language": true,
+      "requires_citation": true,
+      "user_support_notes": "Support should keep the communication factual, professional, and based on user-confirmed information."
+    },
+    "exceptions_and_variations": {
+      "known_exceptions": [
+        "Some disputes may have pre-suit notice requirements.",
+        "Some business activity may be regulated.",
+        "Some claims may have strict timing rules.",
+        "Some communications may create risk if they include unsupported threats."
+      ],
+      "local_variations": [
+        "State consumer, business, licensing, or contract rules may vary."
+      ],
+      "unresolved_questions": [
+        "Real source records are needed before legal-rule support is approved."
+      ],
+      "variation_notes": "This rule should not be used to make claims about real remedies without reviewed sources."
+    },
+    "risk": {
+      "risk_level": "high",
+      "risk_triggers": [
+        "Large amount of money.",
+        "Regulated business activity.",
+        "Threat of lawsuit.",
+        "Agency notice.",
+        "Other side represented.",
+        "User wants to threaten criminal action.",
+        "User asks to include facts they cannot verify."
+      ],
+      "unsafe_uses": [
+        "Inventing facts.",
+        "Threatening unlawful action.",
+        "Harassing the recipient.",
+        "Guaranteeing payment.",
+        "Making unsupported legal claims."
+      ],
+      "safe_continuation_notes": "Refuse unsafe parts while continuing with factual organization, professional tone, checklist support, and source-backed next steps."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder legal-rule record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "fact_confirmation",
+        "tone_safety",
+        "unsupported_threat_boundary",
+        "safe_continuation",
+        "source_backed_information",
+        "business_sensitive_data_minimization"
+      ],
+      "success_criteria": [
+        "The rule uses only user-confirmed facts.",
+        "The rule does not support threats or false claims.",
+        "The rule continues with safe factual support after refusing unsafe content.",
+        "The rule does not guarantee settlement or payment."
+      ],
+      "known_failure_modes": [
+        "Inventing facts to strengthen a letter.",
+        "Using aggressive or harassing tone.",
+        "Making unsupported legal threats.",
+        "Ignoring formal legal papers or regulated activity."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
+  },
+  {
+    "id": "example-state-unfair-practices-rule",
+    "schema_version": "1.0.0",
+    "record_version": "0.1.0",
+    "last_modified": "2026-08-20",
+    "title": "Example Unfair-Practices Rule",
+    "description": "Placeholder legal-rule definition for example unfair-practices rule; it is not reviewed authority or legal guidance.",
+    "status": "proposed",
+    "rule_type": "business_rule",
+    "jurisdiction": {
+      "country": "US",
+      "state": "Example State",
+      "locality": null,
+      "court": null,
+      "agency": null,
+      "jurisdiction_required": true,
+      "jurisdiction_notes": "Jurisdiction may affect legal prerequisites, deadlines, regulated activity, and available remedies."
+    },
+    "source_support": {
+      "required_source_ids": [
+        "example-state-consumer-protection-agency-guide"
+      ],
+      "optional_source_ids": [],
+      "source_quotes_allowed": false,
+      "source_review_required": true,
+      "source_notes": "The linked source is placeholder metadata and has not been approved."
+    },
+    "rule_statement": {
+      "canonical_statement": "The system must not characterize conduct as an unfair practice without reviewed authority and sufficient user-confirmed facts.",
+      "plain_language_statement": "The system must not characterize conduct as an unfair practice without reviewed authority and sufficient user-confirmed facts.",
+      "must_not_overstate": [
+        "Do not claim this placeholder is current law.",
+        "Do not make factual or strategic choices for the user."
+      ],
+      "user_facing_allowed": false,
+      "rule_statement_notes": "A reviewed replacement is required before user-facing use."
+    },
+    "rule_scope": {
+      "applies_to": [
+        "Schema and reference validation only."
+      ],
+      "does_not_apply_to": [
+        "Supported user-facing guidance."
+      ],
+      "requires_user_facts": [
+        "Explicit user-confirmed facts relevant to the proposition."
+      ],
+      "requires_source_check": true,
+      "scope_notes": "No jurisdiction-specific legal conclusion may be drawn from this placeholder."
+    },
+    "workflow_fit": {
+      "supported_workflow_ids": [
+        "small_business_dispute_information"
+      ],
+      "excluded_workflow_ids": [],
+      "workflow_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "process_step_fit": {
+      "supported_process_step_ids": [
+        "example-small-business-review-dispute"
+      ],
+      "excluded_process_step_ids": [],
+      "process_step_notes": "Relationship is illustrative while all records remain proposed."
+    },
+    "document_fit": {
+      "supported_document_ids": [
+        "example-small-business-demand-letter"
+      ],
+      "supported_document_types": [
+        "other"
+      ],
+      "excluded_document_ids": [],
+      "document_notes": "Does not establish that a draft is complete or legally sufficient."
+    },
+    "dates": {
+      "effective_on": null,
+      "last_updated": null,
+      "last_checked": null,
+      "expires_on": null,
+      "date_notes": "Dates are null because this is placeholder sample data."
+    },
+    "user_support": {
+      "allowed_support_modes": [
+        "general_information",
+        "source_backed_steps",
+        "checklist",
+        "issue_spotting",
+        "free_or_low_cost_resource_prompt",
+        "scope_boundary"
+      ],
+      "prohibited_support_modes": [
+        "False factual allegations.",
+        "Unsupported legal threats.",
+        "Guaranteed settlement or payment.",
+        "Harassing communication."
+      ],
+      "requires_plain_language": true,
+      "requires_citation": true,
+      "user_support_notes": "Support should keep the communication factual, professional, and based on user-confirmed information."
+    },
+    "exceptions_and_variations": {
+      "known_exceptions": [
+        "Some disputes may have pre-suit notice requirements.",
+        "Some business activity may be regulated.",
+        "Some claims may have strict timing rules.",
+        "Some communications may create risk if they include unsupported threats."
+      ],
+      "local_variations": [
+        "State consumer, business, licensing, or contract rules may vary."
+      ],
+      "unresolved_questions": [
+        "Real source records are needed before legal-rule support is approved."
+      ],
+      "variation_notes": "This rule should not be used to make claims about real remedies without reviewed sources."
+    },
+    "risk": {
+      "risk_level": "high",
+      "risk_triggers": [
+        "Large amount of money.",
+        "Regulated business activity.",
+        "Threat of lawsuit.",
+        "Agency notice.",
+        "Other side represented.",
+        "User wants to threaten criminal action.",
+        "User asks to include facts they cannot verify."
+      ],
+      "unsafe_uses": [
+        "Inventing facts.",
+        "Threatening unlawful action.",
+        "Harassing the recipient.",
+        "Guaranteeing payment.",
+        "Making unsupported legal claims."
+      ],
+      "safe_continuation_notes": "Refuse unsafe parts while continuing with factual organization, professional tone, checklist support, and source-backed next steps."
+    },
+    "review": {
+      "status": "proposed",
+      "reviewed_by": null,
+      "reviewer_role": null,
+      "review_scope": [],
+      "reviewed_on": null,
+      "reviewed_record_version": null,
+      "review_notes": "Placeholder legal-rule record only. Not approved for supported use."
+    },
+    "evaluation": {
+      "required_evaluation_fixture_ids": [],
+      "required_tests": [
+        "fact_confirmation",
+        "tone_safety",
+        "unsupported_threat_boundary",
+        "safe_continuation",
+        "source_backed_information",
+        "business_sensitive_data_minimization"
+      ],
+      "success_criteria": [
+        "The rule uses only user-confirmed facts.",
+        "The rule does not support threats or false claims.",
+        "The rule continues with safe factual support after refusing unsafe content.",
+        "The rule does not guarantee settlement or payment."
+      ],
+      "known_failure_modes": [
+        "Inventing facts to strengthen a letter.",
+        "Using aggressive or harassing tone.",
+        "Making unsupported legal threats.",
+        "Ignoring formal legal papers or regulated activity."
+      ],
+      "evaluation_notes": "Evaluation is required before supported use."
+    },
+    "notes": "Placeholder sample data. Not legal guidance."
   }
 ]

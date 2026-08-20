@@ -29,7 +29,7 @@ This keeps court, agency, and document guidance structured and reviewable.
 
 ## Files
 
-This PR introduces three process-step files:
+This foundation consists of three process-step files:
 
 - `schemas/process-step.schema.json`
 - `data/sample-process-steps.json`
@@ -270,7 +270,7 @@ Document help may include:
 - explanation
 - checklist
 - outline
-- draft
+- `user_confirmed_draft`
 - review prompt
 
 A step may involve a document without allowing Pro-One to generate a filing-ready draft.
@@ -292,10 +292,10 @@ It tracks:
 
 Deadline handling values include:
 
-- `no_deadline`
-- `informational_only`
-- `source_required`
-- `human_review_required`
+- `not_applicable`
+- `awareness_only`
+- `source_backed_information`
+- `qualified_review_required`
 - `unsupported`
 
 Pro-One should not guess deadlines.
@@ -404,7 +404,7 @@ Examples include:
 
 Process steps can identify document involvement and document-help limits.
 
-The future `legal-document.schema.json` should define document structure, required user facts, legal-rule support, drafting boundaries, review prompts, and filing or sending cautions.
+The `legal-document.schema.json` schema defines document structure, required user facts, legal-rule support, drafting boundaries, review prompts, and filing or sending cautions.
 
 ## Placeholder sample data
 
