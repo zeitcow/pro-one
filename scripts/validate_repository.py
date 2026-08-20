@@ -67,6 +67,13 @@ class ReferenceSpec:
     role: ReferenceRole = "supporting"
 
 
+@dataclass(frozen=True)
+class DependencyEligibility:
+    maturity_statuses: frozenset[str]
+    review_statuses: frozenset[str]
+    description: str
+
+
 REFERENCE_FIELDS = {
     "allowed_source_ids": ReferenceSpec("source"),
     "deadline_source_ids": ReferenceSpec("source"),
@@ -117,7 +124,89 @@ REFERENCE_PATH_OVERRIDES: dict[
     )
 }
 
-DISALLOWED_DEPENDENCY_STATES = {"deprecated", "rejected"}
+SUPPORTED_DEPENDENCY_ELIGIBILITY = {
+    "source": DependencyEligibility(
+        frozenset({"supported"}),
+        frozenset({"approved"}),
+        "supported and approved source satisfying source-schema eligibility",
+    ),
+    "workflow": DependencyEligibility(
+        frozenset({"supported"}), frozenset({"approved"}), "publicly supported workflow"
+    ),
+    "process_step": DependencyEligibility(
+        frozenset({"supported"}), frozenset({"approved"}), "publicly supported process step"
+    ),
+    "legal_document": DependencyEligibility(
+        frozenset({"supported"}), frozenset({"approved"}), "publicly supported legal document"
+    ),
+    "intake": DependencyEligibility(
+        frozenset({"supported"}), frozenset({"approved"}), "publicly supported intake"
+    ),
+    "legal_rule": DependencyEligibility(
+        frozenset({"supported"}), frozenset({"approved"}), "publicly supported legal rule"
+    ),
+    "risk": DependencyEligibility(
+        frozenset({"supported"}), frozenset({"approved"}), "publicly supported risk control"
+    ),
+    "response": DependencyEligibility(
+        frozenset({"supported"}), frozenset({"approved"}), "publicly supported response pattern"
+    ),
+    "evaluation_fixture": DependencyEligibility(
+        frozenset({"supported"}), frozenset({"approved"}), "supported evaluation fixture"
+    ),
+}
+
+SUPPORTED_REVIEW_SCOPES = {
+    "source": frozenset({"schema", "source_authority", "source_freshness", "jurisdiction"}),
+    "workflow": frozenset(
+        {"schema", "jurisdiction", "legal_information_boundary", "safety", "evaluation"}
+    ),
+    "process_step": frozenset(
+        {"schema", "jurisdiction", "legal_information_boundary", "safety", "evaluation"}
+    ),
+    "legal_document": frozenset(
+        {
+            "schema",
+            "jurisdiction",
+            "legal_information_boundary",
+            "safety",
+            "privacy",
+            "evaluation",
+        }
+    ),
+    "intake": frozenset(
+        {
+            "schema",
+            "jurisdiction",
+            "legal_information_boundary",
+            "safety",
+            "privacy",
+            "evaluation",
+        }
+    ),
+    "legal_rule": frozenset(
+        {
+            "schema",
+            "source_authority",
+            "jurisdiction",
+            "legal_information_boundary",
+            "safety",
+            "evaluation",
+        }
+    ),
+    "risk": frozenset({"schema", "safety", "evaluation"}),
+    "response": frozenset(
+        {
+            "schema",
+            "jurisdiction",
+            "legal_information_boundary",
+            "safety",
+            "privacy",
+            "evaluation",
+        }
+    ),
+    "evaluation_fixture": frozenset({"schema", "evaluation"}),
+}
 MOJIBAKE_MARKERS = ("\ufffd", "\u00e2\u20ac", "\u00c3", "\u00c2")
 
 
@@ -274,6 +363,34 @@ def is_supported(record: dict[str, Any]) -> bool:
     return maturity_status(record) == "supported"
 
 
+def required_supported_review_scopes(
+    kind: str, record: dict[str, Any]
+) -> frozenset[str]:
+    """Return the domain-specific review gate for public supported use."""
+    required = set(SUPPORTED_REVIEW_SCOPES[kind])
+    if kind == "workflow" and record.get("intake", {}).get("collects_sensitive_data"):
+        required.add("privacy")
+    return frozenset(required)
+
+
+def validate_supported_review_scopes(
+    kind: str,
+    record: dict[str, Any],
+    location: str,
+    report: ValidationReport,
+) -> None:
+    if not is_supported(record):
+        return
+    review = record.get("review", {})
+    actual = set(review.get("review_scope", [])) if isinstance(review, dict) else set()
+    missing = required_supported_review_scopes(kind, record) - actual
+    if missing:
+        report.error(
+            f"{location}: supported {kind} is missing required review scopes: "
+            + ", ".join(sorted(missing))
+        )
+
+
 def validate_review_provenance(
     filename: str, record: dict[str, Any], report: ValidationReport
 ) -> None:
@@ -319,26 +436,22 @@ def validate_cross_record_references(
                 report.checked("Cross-record references")
 
                 if is_supported(record) and spec.role == "supporting":
+                    eligibility = SUPPORTED_DEPENDENCY_ELIGIBILITY[target_kind]
                     target_maturity = maturity_status(target)
                     target_review = review_status(target)
                     if (
-                        target_maturity in DISALLOWED_DEPENDENCY_STATES
-                        or target_review in DISALLOWED_DEPENDENCY_STATES
+                        target_maturity not in eligibility.maturity_statuses
+                        or target_review not in eligibility.review_statuses
                     ):
                         report.error(
-                            f"{location}: supported record depends on {target_kind} {target_id!r} "
-                            f"with maturity={target_maturity!r}, review={target_review!r}"
-                        )
-                    if target_kind == "source" and (
-                        target_maturity != "supported" or target_review != "approved"
-                    ):
-                        report.error(
-                            f"{location}: supported source-backed record depends on source {target_id!r} "
-                            "that is not supported and approved"
+                            f"{location}: supported record has ineligible supporting "
+                            f"{target_kind} {target_id!r}; expected {eligibility.description}, "
+                            f"got maturity={target_maturity!r}, review={target_review!r}"
                         )
 
             if is_supported(record) and review_status(record) != "approved":
                 report.error(f"{location}: supported record must have approved review status")
+            validate_supported_review_scopes(kind, record, location, report)
 
             if kind == "legal_rule" and is_supported(record):
                 statement = record.get("rule_statement", {})
@@ -406,6 +519,12 @@ def main() -> int:
             + ", ".join(sorted(unused_reference_specs))
         )
     report.checked("Typed reference fields", len(discovered_reference_fields))
+
+    record_kinds = {kind for kind, _ in DATA_SCHEMAS.values()}
+    if set(SUPPORTED_DEPENDENCY_ELIGIBILITY) != record_kinds:
+        report.error("Supported dependency eligibility is not defined for every record kind")
+    if set(SUPPORTED_REVIEW_SCOPES) != record_kinds:
+        report.error("Supported review scopes are not defined for every record kind")
 
     records_by_kind: dict[str, dict[str, dict[str, Any]]] = defaultdict(dict)
     record_locations: dict[tuple[str, str], str] = {}

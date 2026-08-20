@@ -103,6 +103,26 @@ For schema or record changes, reviewers should check:
 - whether professional credentials are stated only when explicitly verified and recorded
 - whether all cross-record IDs resolve and supported-state conditions remain enforceable
 
+### Public-support review gates
+
+An `approved` review is necessary but not sufficient for a record to become `supported`. Repository validation requires the following minimum `review_scope` values by record domain:
+
+| Record domain | Required review scopes |
+| --- | --- |
+| Source | `schema`, `source_authority`, `source_freshness`, `jurisdiction` |
+| Workflow | `schema`, `jurisdiction`, `legal_information_boundary`, `safety`, `evaluation` |
+| Process step | `schema`, `jurisdiction`, `legal_information_boundary`, `safety`, `evaluation` |
+| Legal document | `schema`, `jurisdiction`, `legal_information_boundary`, `safety`, `privacy`, `evaluation` |
+| Intake | `schema`, `jurisdiction`, `legal_information_boundary`, `safety`, `privacy`, `evaluation` |
+| Legal rule | `schema`, `source_authority`, `jurisdiction`, `legal_information_boundary`, `safety`, `evaluation` |
+| Risk | `schema`, `safety`, `evaluation` |
+| Response | `schema`, `jurisdiction`, `legal_information_boundary`, `safety`, `privacy`, `evaluation` |
+| Evaluation fixture | `schema`, `evaluation` |
+
+A supported workflow that sets `intake.collects_sensitive_data` to `true` must also include `privacy`. The workflow schema enforces its base scopes and this conditional privacy scope; repository validation enforces the complete domain table consistently across record types.
+
+Supporting dependencies of a supported record must themselves have `status: supported` and `review.status: approved`. Sources retain their source-specific schema and review gates. Negative and test relationships—including prohibited, excluded, superseded, and evaluation-target references—must resolve but are not supporting dependencies and therefore may intentionally point to records that are not eligible for public support.
+
 ## Privacy review
 
 Reviewers should check whether a change collects, stores, exposes, logs, or transmits user information.

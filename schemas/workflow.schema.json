@@ -370,10 +370,40 @@
             "properties": {
               "status": {
                 "const": "approved"
+              },
+              "review_scope": {
+                "allOf": [
+                  {
+                    "contains": {
+                      "const": "schema"
+                    }
+                  },
+                  {
+                    "contains": {
+                      "const": "jurisdiction"
+                    }
+                  },
+                  {
+                    "contains": {
+                      "const": "legal_information_boundary"
+                    }
+                  },
+                  {
+                    "contains": {
+                      "const": "safety"
+                    }
+                  },
+                  {
+                    "contains": {
+                      "const": "evaluation"
+                    }
+                  }
+                ]
               }
             },
             "required": [
-              "status"
+              "status",
+              "review_scope"
             ]
           },
           "evaluation": {
@@ -395,6 +425,45 @@
                 "const": true
               }
             }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "supported"
+          },
+          "intake": {
+            "properties": {
+              "collects_sensitive_data": {
+                "const": true
+              }
+            },
+            "required": [
+              "collects_sensitive_data"
+            ]
+          }
+        },
+        "required": [
+          "status",
+          "intake"
+        ]
+      },
+      "then": {
+        "properties": {
+          "review": {
+            "properties": {
+              "review_scope": {
+                "contains": {
+                  "const": "privacy"
+                }
+              }
+            },
+            "required": [
+              "review_scope"
+            ]
           }
         }
       }

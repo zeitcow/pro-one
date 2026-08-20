@@ -56,7 +56,7 @@ That workflow is not implemented. Its intended role is to explain sourced concep
 
 Pro-One is not a law firm or lawyer, does not form an attorney-client relationship, and does not currently provide legal services. Future workflows are intended to provide source-grounded legal information and structured assistance within reviewed boundaries.
 
-Sample sources, rules, documents, responses, and other records are placeholders—not legal guidance. Before any workflow is described as publicly supported, it must have current jurisdiction-specific sources, appropriate review of the legal-information/legal-advice boundary and other applicable requirements, documented safety and privacy controls, and passing evaluation fixtures. The repository does not claim that attorney review has occurred.
+Sample sources, rules, documents, responses, and other records are placeholders—not legal guidance. Before any workflow is described as publicly supported, it must have current jurisdiction-specific sources, an approved review covering the domain-specific scopes in the [review standards](docs/review-standards.md#public-support-review-gates), documented safety and privacy controls, and passing evaluation fixtures. The repository does not claim that attorney review has occurred.
 
 ## Repository navigation
 

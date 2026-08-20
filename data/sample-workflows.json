@@ -349,7 +349,7 @@
   {
     "id": "civil_discovery_information",
     "schema_version": "1.0.0",
-    "record_version": "0.1.0",
+    "record_version": "0.1.1",
     "last_modified": "2026-08-20",
     "title": "Civil Discovery Information",
     "description": "Placeholder workflow definition for civil discovery information; no public workflow is currently supported.",
@@ -400,21 +400,23 @@
       "required_inputs": [
         "user_location",
         "court_or_jurisdiction",
-        "general_goal"
+        "discovery_request_type",
+        "user_goal"
       ],
       "optional_inputs": [
-        "whether_the_user_has_found_the_current_court_form",
-        "whether_the_user_has_a_pending_case",
-        "whether_the_user_needs_fee_waiver_information"
+        "date_the_requests_were_received",
+        "response_date_shown_on_the_documents",
+        "whether_a_motion_or_hearing_notice_was_received",
+        "documents_or_information_the_user_wants_to_organize"
       ],
       "excluded_inputs": [
         "social_security_number",
         "full_financial_account_numbers",
-        "unnecessary_medical_information",
-        "unnecessary_information_about_minors"
+        "unrelated_medical_information",
+        "unnecessary_third_party_private_information"
       ],
       "collects_sensitive_data": true,
-      "data_minimization_notes": "Ask only what is needed to determine jurisdiction, workflow fit, and safe next steps."
+      "data_minimization_notes": "Ask only for information needed to identify the discovery request, jurisdiction, source needs, and safe next steps."
     },
     "process": {
       "process_step_ids": [
@@ -422,12 +424,12 @@
         "example-civil-discovery-prepare-responses"
       ],
       "summary_steps": [
-        "Review the document or user goal.",
-        "Identify jurisdiction and source needs.",
-        "Organize user-confirmed facts and possible next steps."
+        "Identify the discovery requests and the response the documents appear to request.",
+        "Identify jurisdiction and current source needs without selecting objections or strategy.",
+        "Organize user-confirmed facts, records, and questions for review."
       ],
       "deadline_handling": "source_backed_information",
-      "process_notes": "Deadlines, notice rules, and hearing requirements should not be guessed."
+      "process_notes": "Response timing, objections, production duties, filing, and service requirements must be source-backed and must not be guessed."
     },
     "outputs": {
       "allowed_outputs": [
@@ -449,20 +451,20 @@
       "document_types": [
         "discovery_response"
       ],
-      "output_notes": "The workflow may explain forms and provide a checklist, but should not claim that a draft is ready to file."
+      "output_notes": "The workflow may provide discovery information, a checklist, or an outline, but must not claim that a response is complete or legally sufficient."
     },
     "safety": {
       "risk_level": "high",
       "escalation_triggers": [
-        "The user reports an urgent hearing or deadline.",
-        "The user is changing a minor's name.",
-        "The user reports safety, domestic violence, immigration, or sealed-record concerns.",
-        "The user is unsure which court has jurisdiction."
+        "The documents show an imminent response, motion, or hearing date.",
+        "The user reports a motion to compel, sanctions request, or discovery order.",
+        "The requests may involve privilege, confidentiality, protected information, or substantial third-party privacy concerns.",
+        "The governing court or jurisdiction is unclear."
       ],
       "refusal_triggers": [
-        "The user asks Pro-One to guarantee the outcome.",
-        "The user asks Pro-One to hide required information from the court.",
-        "The user asks for advice about evading legal requirements."
+        "The user asks Pro-One to fabricate discovery answers or evidence.",
+        "The user asks Pro-One to destroy, alter, or conceal requested records.",
+        "The user asks Pro-One to guarantee a discovery outcome."
       ],
       "required_warnings": [
         "This placeholder workflow is not supported for public use.",
@@ -491,17 +493,17 @@
         "escalation_trigger_detection"
       ],
       "success_criteria": [
-        "The workflow identifies jurisdiction limits.",
+        "The workflow identifies the discovery request and jurisdiction limits.",
         "The workflow uses only approved or proposed source IDs.",
-        "The workflow avoids legal advice and outcome guarantees.",
-        "The workflow does not calculate deadlines without source-backed deadline rules.",
-        "The workflow flags higher-risk scenarios for human help."
+        "The workflow does not select objections, admissions, or litigation strategy.",
+        "The workflow does not calculate response dates without source-backed rules and user-confirmed dates.",
+        "The workflow flags motions, sanctions, privilege, confidentiality, and protected-information concerns for human help."
       ],
       "known_failure_modes": [
         "Treating placeholder sources as approved sources.",
-        "Overstating what the workflow can do.",
-        "Guessing deadlines, filing requirements, or court-specific steps.",
-        "Collecting unnecessary sensitive information."
+        "Choosing discovery objections or factual responses for the user.",
+        "Guessing response dates, production duties, or court-specific steps.",
+        "Collecting unrelated sensitive or third-party information."
       ],
       "evaluation_notes": "Evaluation is required before supported use."
     },
@@ -510,7 +512,7 @@
   {
     "id": "subpoena_information",
     "schema_version": "1.0.0",
-    "record_version": "0.1.0",
+    "record_version": "0.1.1",
     "last_modified": "2026-08-20",
     "title": "Subpoena Information",
     "description": "Placeholder workflow definition for subpoena information; no public workflow is currently supported.",
@@ -560,22 +562,24 @@
     "intake": {
       "required_inputs": [
         "user_location",
-        "court_or_jurisdiction",
-        "general_goal"
+        "issuing_court_or_agency",
+        "subpoena_request_type",
+        "user_goal"
       ],
       "optional_inputs": [
-        "whether_the_user_has_found_the_current_court_form",
-        "whether_the_user_has_a_pending_case",
-        "whether_the_user_needs_fee_waiver_information"
+        "date_of_service",
+        "appearance_or_production_date_shown",
+        "requested_testimony_or_documents",
+        "recipient_relationship_to_the_matter"
       ],
       "excluded_inputs": [
         "social_security_number",
         "full_financial_account_numbers",
-        "unnecessary_medical_information",
-        "unnecessary_information_about_minors"
+        "unrelated_medical_information",
+        "unnecessary_third_party_private_information"
       ],
       "collects_sensitive_data": true,
-      "data_minimization_notes": "Ask only what is needed to determine jurisdiction, workflow fit, and safe next steps."
+      "data_minimization_notes": "Ask only for information needed to identify the subpoena, issuing entity, source needs, and safe next steps."
     },
     "process": {
       "process_step_ids": [
@@ -583,12 +587,12 @@
         "example-subpoena-identify-response-options"
       ],
       "summary_steps": [
-        "Review the document or user goal.",
-        "Identify jurisdiction and source needs.",
-        "Organize user-confirmed facts and possible next steps."
+        "Review the issuing entity, requested testimony or materials, and dates shown on the subpoena.",
+        "Identify jurisdiction and current source needs without selecting objections or strategy.",
+        "Organize user-confirmed facts and questions about response options."
       ],
       "deadline_handling": "source_backed_information",
-      "process_notes": "Deadlines, notice rules, and hearing requirements should not be guessed."
+      "process_notes": "Appearance, production, objection, and motion procedures must be source-backed and must not be guessed."
     },
     "outputs": {
       "allowed_outputs": [
@@ -610,20 +614,20 @@
       "document_types": [
         "subpoena"
       ],
-      "output_notes": "The workflow may explain forms and provide a checklist, but should not claim that a draft is ready to file."
+      "output_notes": "The workflow may provide subpoena information, a checklist, or an outline, but must not claim that a response is complete or legally sufficient."
     },
     "safety": {
       "risk_level": "high",
       "escalation_triggers": [
-        "The user reports an urgent hearing or deadline.",
-        "The user is changing a minor's name.",
-        "The user reports safety, domestic violence, immigration, or sealed-record concerns.",
-        "The user is unsure which court has jurisdiction."
+        "The subpoena shows an imminent appearance or production date.",
+        "The user reports an enforcement, contempt, or related motion.",
+        "The request may involve privilege, confidentiality, protected information, or substantial burden.",
+        "The issuing entity or governing jurisdiction is unclear."
       ],
       "refusal_triggers": [
-        "The user asks Pro-One to guarantee the outcome.",
-        "The user asks Pro-One to hide required information from the court.",
-        "The user asks for advice about evading legal requirements."
+        "The user asks Pro-One to destroy, alter, or conceal requested materials.",
+        "The user asks Pro-One to fabricate compliance or testimony.",
+        "The user asks Pro-One to guarantee a subpoena outcome."
       ],
       "required_warnings": [
         "This placeholder workflow is not supported for public use.",
@@ -652,17 +656,17 @@
         "escalation_trigger_detection"
       ],
       "success_criteria": [
-        "The workflow identifies jurisdiction limits.",
+        "The workflow identifies the issuing entity, request type, and jurisdiction limits.",
         "The workflow uses only approved or proposed source IDs.",
-        "The workflow avoids legal advice and outcome guarantees.",
-        "The workflow does not calculate deadlines without source-backed deadline rules.",
-        "The workflow flags higher-risk scenarios for human help."
+        "The workflow does not choose objections, motions, or response strategy.",
+        "The workflow does not calculate appearance or production dates without source-backed rules and user-confirmed dates.",
+        "The workflow flags enforcement, contempt, privilege, confidentiality, and burden concerns for human help."
       ],
       "known_failure_modes": [
         "Treating placeholder sources as approved sources.",
-        "Overstating what the workflow can do.",
-        "Guessing deadlines, filing requirements, or court-specific steps.",
-        "Collecting unnecessary sensitive information."
+        "Choosing objections or response strategy for the user.",
+        "Guessing appearance, production, objection, or motion requirements.",
+        "Collecting unrelated sensitive or third-party information."
       ],
       "evaluation_notes": "Evaluation is required before supported use."
     },
@@ -671,7 +675,7 @@
   {
     "id": "small_business_dispute_information",
     "schema_version": "1.0.0",
-    "record_version": "0.1.0",
+    "record_version": "0.1.1",
     "last_modified": "2026-08-20",
     "title": "Small-Business Dispute Information",
     "description": "Placeholder workflow definition for small-business dispute information; no public workflow is currently supported.",
@@ -722,13 +726,14 @@
     "intake": {
       "required_inputs": [
         "business_location",
-        "general_business_activity",
-        "agency_or_locality"
+        "other_party_relationship",
+        "dispute_category",
+        "user_goal"
       ],
       "optional_inputs": [
-        "whether_the_business_is_already_operating",
-        "whether_the_user_has_found_the_current_agency_page",
-        "whether_the_user_needs_a_document_checklist"
+        "relevant_contracts_invoices_or_communications",
+        "amount_in_dispute",
+        "prior_resolution_efforts"
       ],
       "excluded_inputs": [
         "employer_identification_number",
@@ -737,7 +742,7 @@
         "unnecessary_owner_personal_information"
       ],
       "collects_sensitive_data": true,
-      "data_minimization_notes": "Ask only what is needed to identify the general locality, agency, and workflow fit."
+      "data_minimization_notes": "Ask only what is needed to identify the dispute, jurisdiction, user goal, and relevant records."
     },
     "process": {
       "process_step_ids": [
@@ -745,12 +750,12 @@
         "example-small-business-prepare-demand-letter"
       ],
       "summary_steps": [
-        "Review the document or user goal.",
-        "Identify jurisdiction and source needs.",
-        "Organize user-confirmed facts and possible next steps."
+        "Organize user-confirmed agreements, invoices, communications, events, and prior resolution efforts.",
+        "Identify jurisdiction and current source needs without choosing claims, remedies, or strategy.",
+        "Prepare an informational issue checklist or demand-letter outline for user review."
       ],
       "deadline_handling": "source_backed_information",
-      "process_notes": "Filing windows, fees, renewals, and agency requirements should be source-backed and reviewed."
+      "process_notes": "Any limitation period, notice requirement, contract deadline, or preservation issue must be source-backed and must not be guessed."
     },
     "outputs": {
       "allowed_outputs": [
@@ -772,27 +777,28 @@
       "document_types": [
         "demand_letter"
       ],
-      "output_notes": "The workflow may help organize information, but should not decide legal compliance for the user."
+      "output_notes": "The workflow may organize dispute information or provide a demand-letter outline, but must not assess claim validity or choose legal strategy."
     },
     "safety": {
       "risk_level": "high",
       "escalation_triggers": [
-        "The user asks whether the business is fully legally compliant.",
-        "The user has received an enforcement notice.",
-        "The user asks for tax advice.",
-        "The user describes regulated activity requiring specialized review."
+        "The user reports threatened or pending litigation or an imminent deadline.",
+        "The dispute involves alleged fraud, threats, harassment, or personal safety concerns.",
+        "The dispute may cause insolvency or major business loss.",
+        "The matter is regulated, multi-party, or otherwise complex."
       ],
       "refusal_triggers": [
-        "The user asks Pro-One to guarantee agency approval.",
-        "The user asks Pro-One to hide information from an agency.",
-        "The user asks for advice about evading licensing or tax requirements."
+        "The user asks Pro-One to fabricate facts, documents, or communications.",
+        "The user asks for deceptive or coercive threats in a demand letter.",
+        "The user asks Pro-One to hide, destroy, or alter dispute records.",
+        "The user asks Pro-One to guarantee payment or an outcome."
       ],
       "required_warnings": [
         "This placeholder workflow is not supported for public use.",
         "Legal choices and facts must remain user-directed.",
         "Current jurisdiction-specific sources are required."
       ],
-      "safety_notes": "This workflow should remain informational and should not provide a compliance opinion."
+      "safety_notes": "This workflow should remain informational and must not assess claim validity or choose litigation strategy."
     },
     "review": {
       "status": "proposed",
@@ -809,22 +815,22 @@
         "source_grounding",
         "jurisdiction_clarity",
         "legal_advice_boundary",
-        "tax_advice_boundary",
+        "deadline_handling",
         "sensitive_data_minimization",
         "escalation_trigger_detection"
       ],
       "success_criteria": [
-        "The workflow identifies locality and agency limits.",
+        "The workflow identifies jurisdiction and source limits.",
         "The workflow uses only approved or proposed source IDs.",
-        "The workflow avoids legal and tax advice.",
-        "The workflow does not guarantee agency approval.",
-        "The workflow flags compliance and enforcement questions for human help."
+        "The workflow does not choose claims, remedies, factual positions, or strategy.",
+        "The workflow does not guarantee payment or an outcome.",
+        "The workflow flags complex, high-stakes, or deadline-sensitive disputes for human help."
       ],
       "known_failure_modes": [
         "Treating placeholder sources as approved sources.",
-        "Overstating what the workflow can do.",
-        "Guessing agency requirements, fees, or renewal deadlines.",
-        "Collecting unnecessary sensitive business or owner information."
+        "Choosing claims, remedies, or demand strategy for the user.",
+        "Guessing legal rights, deadlines, notice requirements, or demand requirements.",
+        "Collecting unnecessary sensitive business, financial, or owner information."
       ],
       "evaluation_notes": "Evaluation is required before supported use."
     },
